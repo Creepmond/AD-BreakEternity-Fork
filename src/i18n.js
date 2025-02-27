@@ -15,6 +15,7 @@ window.i18n = function(type, id, mods = []) {
   for (let i = 1; i <= mods.length; i ++) {
     text = text.replace(`$${i}aX`, typeof mods[i - 1] === "function" ? mods[i - 1]() : mods[i - 1]);
   }
+  console.log(text)
   return text;
 };
 
@@ -41,6 +42,7 @@ class LanguageState {
 
   setAsCurrent(silent) {
     player.options.language = this.shortName;
+    // TODO: This should be i18n, how the fuck did we miss this
     if (!silent) GameUI.notify.success(`Set language to ${this.name}`);
   }
 }

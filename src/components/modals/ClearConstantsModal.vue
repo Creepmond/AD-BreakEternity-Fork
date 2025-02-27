@@ -29,17 +29,17 @@ export default {
     @confirm="deleteConstants"
   >
     <template #header>
-      Deleting Automator Constants
+      {{ i18n("modal", "delConst") }}
     </template>
     <div class="c-modal-message__text">
-      Are you sure you wish to delete all of your currently-defined automator constants?
+      {{ i18n("modal", "delConstTextA") }}
       <br>
       <span class="l-lost-text">
-        This will irreversibly delete {{ quantify("constant", constantCount) }}!
+        {{ i18n("modal", "delConstTextB", [quantify(i18n("modal", "constant"), constantCount)]) }}
       </span>
     </div>
     <template #confirm-text>
-      Delete All
+      {{ i18n("modal", "delAll") }}
     </template>
   </ModalWrapperChoice>
 </template>

@@ -37,18 +37,18 @@ export default {
     @confirm="handleYesClick"
   >
     <template #header>
-      Delete this Glyph Set
+      {{ i18n("modal", "delGlyphSet") }}
     </template>
     <div class="c-modal-message__text">
-      Please confirm your desire to delete this Glyph Set:
+      {{ i18n("modal", "confirmDelGlyphSet") }}
       <GlyphSetPreview
         :is-in-modal="true"
         :glyphs="glyphSet"
       />
-      This will not affect your actual Glyphs, only the saved preset.
+      {{ i18n("modal", "willNotDelGlyphs") }}
     </div>
     <template #confirm-text>
-      Delete
+      {{ i18n("modal", "del") }}
     </template>
   </ModalWrapperChoice>
 </template>

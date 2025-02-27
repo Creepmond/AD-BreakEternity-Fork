@@ -8,13 +8,7 @@ export default {
   },
   computed: {
     listEntries() {
-      return [
-        `Many more game events now have animations. If these impact your performance or gameplay, they can be
-        disabled in the Visual Options tab.`,
-        `New confirmation windows have replaced the default Javascript alert windows. These can be disabled in the
-        Gameplay Options tab.`,
-        "The game now also has a new sleek layout which was designed with more Modern design practices in mind."
-      ];
+      return i18n("modal", "UImodalEntries").split("$");
     }
   },
   methods: {
@@ -28,10 +22,10 @@ export default {
 <template>
   <ModalWrapperChoice @confirm="handleYesClick">
     <template #header>
-      Visual Changes
+      {{ i18n("modal", "visualChanges") }}
     </template>
     <div class="c-modal-message__text">
-      We noticed that you've loaded an old save; a few visual changes have been made since older versions of the game:
+      {{ i18n("modal", "oldSaveLoad") }}
       <br>
       <br>
       <div class="c-visual-change-list">
@@ -46,14 +40,13 @@ export default {
       </div>
       <br>
       <br>
-      You can change between the Classic UI which older versions of the game used and the newer Modern UI in the Visual
-      Options tab at any time. Would you like to swap to the Modern UI now?
+      {{ i18n("modal", "changeAnytime") }}
     </div>
     <template #cancel-text>
-      Remain
+      {{ i18n("modal", "remain") }}
     </template>
     <template #confirm-text>
-      Swap
+      {{ i18n("modal", "swap") }}
     </template>
   </ModalWrapperChoice>
 </template>

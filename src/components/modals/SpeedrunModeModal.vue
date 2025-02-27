@@ -41,24 +41,20 @@ export default {
     @confirm="startRun"
   >
     <template #header>
-      Entering Speedrun Mode
+      {{ i18n("modal", "enterSpeedrun") }}
     </template>
     <div
       v-if="onInfoPage"
       class="c-modal-message__text"
     >
-      This will start a save with additional statistics tracking for when you reach certain points of
-      the game. These will be visible in the bottom-right of the screen and on a dedicated subtab of Statistics.
+      {{ i18n("modal", "speedrunTextA") }}
       <br>
       <br>
-      Almost all animations and confirmations are disabled by default, but you can change any of these settings before
-      you reach their required progression. When you begin the run, the game remains paused until
-      your antimatter changes, allowing you to configure all your settings before starting. In order to avoid having
-      to wait for a long time before actually starting an optimized run, a few achievements are given for free.
+      {{ i18n("modal", "speedrunTextB") }}
       <br>
       <br>
       <i>
-        There is no additional content in Speedrun Mode.
+        {{ i18n("modal", "speedrunTextC") }}
       </i>
       <br>
       <br>
@@ -66,16 +62,14 @@ export default {
         class="o-primary-btn--width-medium c-modal-hard-reset-btn c-modal__confirm-btn"
         @click="nextPage"
       >
-        Continue
+        {{ i18n("modal", "continue") }}
       </PrimaryButton>
     </div>
     <div
       v-else
       class="c-modal-message__text"
     >
-      You can type in text below to name your speedrun save. This will have no effects on gameplay and only identifies
-      this particular save as yours. If no name is given, a random name will be generated instead. This name can be
-      changed by clicking your name in the speedrun info box, as long as the timer has not started yet.
+      {{ i18n("modal", "speedrunTextD") }}
       <input
         ref="name"
         v-model="name"
@@ -85,19 +79,14 @@ export default {
       >
       <br>
       <br>
-      Speedrun saves can be imported and exported like regular saves. Importing a speedrun save will mark it as a
-      Segmented run, as importing and exporting allows for optimization of individual segments of the game.
-      Without importing, saves will remain as Single-segment runs.
+      {{ i18n("modal", "speedrunTextE") }}
       <br>
       <br>
-      You can modify the Glyph RNG seed in the Options tab before starting your run, if desired.
+      {{ i18n("modal", "speedrunTextF") }}
       <br>
       <br>
       <div class="c-modal-hard-reset-danger">
-        Starting a speedrun will reset your save to the beginning of the game. Some things will remain, such as
-        full-game completion stats, visual settings, automator scripts, and Glyph cosmetics, but otherwise it
-        will be as if you had just finished the entire game and chose to restart at the credits screen. Type
-        in "Gotta Go Fast!" below to confirm and (re)start the run.
+        {{ i18n("modal", "speedrunTextG") }}
       </div>
       <input
         ref="confirmPhrase"
@@ -108,10 +97,10 @@ export default {
       >
     </div>
     <template #confirm>
-      Start Run!
+      {{ i18n("modal", "startRun") }}
     </template>
     <template #cancel>
-      Cancel
+      {{ i18n("modal", "cancel") }}
     </template>
   </ModalWrapperChoice>
 </template>

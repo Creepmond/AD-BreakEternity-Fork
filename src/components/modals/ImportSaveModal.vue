@@ -59,9 +59,10 @@ export default {
     },
     lastOpened() {
       const ms = Date.now() - this.player.lastUpdate;
+      const formatms = Timespan.fromMilliseconds(new Decimal(ms).abs()).toString();
       return this.isFromFuture
-        ? `This save is from ${TimeSpan.fromMilliseconds(new Decimal(-ms)).toString()} in the future.`
-        : `This save was last opened ${TimeSpan.fromMilliseconds(new Decimal(ms)).toString()} ago.`;
+        ? i18n("modal", "saveFromFuture", [formatms])
+        : i18n("modal", "saveFromPast", [formatms]);
     },
     offlineType() {
       // We update here in the computed method instead of elsewhere because otherwise it initializes the text
@@ -70,26 +71,26 @@ export default {
 
       switch (this.offlineImport) {
         case OFFLINE_PROGRESS_TYPE.IMPORTED:
-          return "Using imported save settings";
+          return i18n("modal", "opImported");
         case OFFLINE_PROGRESS_TYPE.LOCAL:
-          return "Using existing save settings";
+          return i18n("modal", "opLocal");
         case OFFLINE_PROGRESS_TYPE.IGNORED:
-          return "Will not simulate offline time";
+          return i18n("modal", "opIgnored");
         default:
-          throw new Error("Unrecognized offline progress setting for importing");
+          throw new Error(i18n("modal", "opErr"));
       }
     },
     offlineDetails() {
       if (this.offlineImport === OFFLINE_PROGRESS_TYPE.IGNORED) {
-        return `Save will be imported without offline progress.`;
+        return i18n("modal", "willImpWOoffline");
       }
-      if (!GameStorage.offlineEnabled) return "This setting will not apply any offline progress after importing.";
-      if (this.isFromFuture) return "Offline progress cannot be simulated due to an inconsistent system clock time.";
+      if (!GameStorage.offlineEnabled) return i18n("modal", "wontApplyOffline");
+      if (this.isFromFuture) return i18n("modal", "noOfflineFuture");
 
       const durationInMs = Date.now() - this.player.lastUpdate;
       const ticks = GameStorage.maxOfflineTicks(durationInMs);
-      return `After importing, will simulate ${formatInt(ticks)} ticks of duration
-        ${TimeSpan.fromMilliseconds(new Decimal(durationInMs / ticks)).toStringShort()} each.`;
+      const tickLengthFormat = Timespan.fromMilliseconds(new Decimal(durationInMs / ticks)).toStringShort();
+      return i18n("modal", "tickCalc", [ticks, tickLengthFormat]);
     },
     willLoseCosmetics() {
       const currSets = player.reality.glyphs.cosmetics.unlockedFromNG;
@@ -144,7 +145,7 @@ export default {
     :show-confirm="false"
   >
     <template #header>
-      Input your save
+      {{ i18n("modal", "inputSave") }}
     </template>
     <input
       ref="input"
@@ -160,23 +161,25 @@ export default {
       </div>
       <template v-else-if="inputIsValidSave">
         <div v-if="fileName">
-          File name: {{ fileName }}
+          {{ i18n("modal", "fileName", [fileName]) }}
         </div>
-        <div>Antimatter: {{ formatPostBreak(antimatter, 2, 1) }}</div>
+        <div>
+          {{ i18n("modal", "saveAM", [formatPostBreak(antimatter, 2, 1)]) }}
+        </div>
         <div v-if="progress.isInfinityUnlocked">
-          Infinities: {{ formatPostBreak(infinities, 2) }}
+          {{ i18n("modal", "saveInf", [formatPostBreak(infinities, 2)]) }}
         </div>
         <div v-if="progress.isEternityUnlocked">
-          Eternities: {{ formatPostBreak(player.eternities, 2) }}
+          {{ i18n("modal", "saveEter", [formatPostBreak(player.eternities, 2)]) }}
         </div>
         <div v-if="progress.isRealityUnlocked">
-          Realities: {{ formatPostBreak(player.realities, 2) }}
+          {{ i18n("modal", "saveReal", [formatPostBreak(player.realities, 2)]) }}
         </div>
         <div v-if="progress.hasFullCompletion">
-          Full game completions: {{ formatInt(player.records.fullGameCompletions) }}
+          {{ i18n("modal", "saveComps", [formatInt(player.records.fullGameCompletions)]) }}
         </div>
         <div class="c-modal-import__warning">
-          (Your current save file will be overwritten!)
+          {{ i18n("modal", "willOverride") }}
         </div>
         <br>
         <div>
@@ -185,13 +188,13 @@ export default {
             class="o-primary-btn"
             @click="changeOfflineSetting"
           >
-            Offline Progress: {{ offlineType }}
+            {{ i18n("modal", "saveOP", [offlineType]) }}
           </div>
           <span v-html="offlineDetails" />
         </div>
       </template>
       <div v-else-if="hasInput">
-        Not a valid save:
+        {{ i18n("modal", "invalidSave") }}
         <br>
         {{ saveCheckString }}
       </div>
@@ -201,13 +204,13 @@ export default {
       >
         <div v-if="willLoseCosmetics">
           <br>
-          Glyph cosmetic sets from completing the game are tied to your save.
+          {{ i18n("modal", "willLoseCosmeticsA") }}
           <br>
-          Importing this save will cause you to lose some sets.
+          {{ i18n("modal", "willLoseCosmeticsB") }}
         </div>
         <div v-if="willLoseSpeedrun">
           <br>
-          You will lose the ability to do a Speedrun, as this save does not have it unlocked.
+          {{ i18n("modal", "willLoseSpeedrun") }}
         </div>
       </div>
     </div>
@@ -217,7 +220,7 @@ export default {
       class="o-primary-btn--width-medium c-modal-message__okay-btn c-modal__confirm-btn"
       @click="importSave"
     >
-      Import
+      {{ i18n("modal", "importAlt") }}
     </PrimaryButton>
   </ModalWrapperChoice>
 </template>

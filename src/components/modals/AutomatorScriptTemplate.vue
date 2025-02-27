@@ -118,7 +118,7 @@ export default {
     },
     copyAndClose() {
       copyToClipboard(this.templateScript.script);
-      GameUI.notify.info("Template copied to clipboard");
+      GameUI.notify.info(i18n("modal", "tempCopied"));
       this.emitClose();
     }
   }
@@ -128,15 +128,15 @@ export default {
 <template>
   <ModalWrapper class="c-automator-template-container">
     <template #header>
-      {{ name }} Template
+      {{ i18n("modal", "automatorNTemlate", [name]) }}
     </template>
     <div class="c-automator-template-description">
       {{ description }}
     </div>
     <div class="c-automator-template-inputs">
-      <b>Required Information:</b>
+      <b>{{ i18n("modal", "reqInfo") }}</b>
       <br>
-      Use a preset Study Tree:
+      {{ i18n("modal", "usePresetST") }}
       <button
         v-for="(preset, presetNumber) in presets"
         :key="preset.name"
@@ -149,7 +149,7 @@ export default {
         class="o-primary-btn o-load-preset-button-margin"
         @click="loadCurrent"
       >
-        <i>Current Tree</i>
+        <i>{{ i18n("modal", "currentTree") }}</i>
       </button>
       <div
         v-for="input in inputs"
@@ -178,7 +178,7 @@ export default {
       </div>
     </div>
     <div class="c-automator-template-warnings">
-      <b>Possible things to consider:</b>
+      <b>{{ i18n("modal", "possibleConsider") }}</b>
       <div v-if="validWarnings.length !== 0">
         <div
           v-for="warning in validWarnings"
@@ -189,7 +189,7 @@ export default {
         </div>
       </div>
       <div v-else>
-        (If something seems wrong with the template inputs, it will show up here)
+        {{ i18n("modal", "ifSomethingWrong") }}
       </div>
       <br>
       <br>

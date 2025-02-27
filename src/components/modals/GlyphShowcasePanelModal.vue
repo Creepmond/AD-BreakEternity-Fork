@@ -83,7 +83,7 @@ export default {
       {{ name }}
     </template>
     <div v-if="isGlyphSelection">
-      Projected Glyph Level: {{ formatInt(gainedLevel) }}
+      {{ i18n("modal", "projGlyphLevel", [formatInt(gainedLevel)]) }}
     </div>
     <GlyphSetName
       v-if="showSetName"

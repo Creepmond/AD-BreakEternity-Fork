@@ -41,7 +41,7 @@ export default {
     <ModalCloseButton @click="emitClose" />
     <div class="l-changelog-header">
       <div class="c-changelog-title">
-        Changelog
+        {{ i18n("modal", "changelog") }}
       </div>
     </div>
     <div class="l-changelog-container">
@@ -62,7 +62,8 @@ export default {
       </div>
       <div class="l-changelog-info">
         <div class="c-changelog-body--title">
-          {{ formatDate(shownEntry.date) }}<span v-if="shownEntry.name">: "{{ shownEntry.name }}" update</span>
+          {{ formatDate(shownEntry.date) }}<span v-if="shownEntry.name">:
+            {{ i18n("modal", "xUpd", [shownEntry.name]) }}</span>
         </div>
         <div
           ref="changelogBody"

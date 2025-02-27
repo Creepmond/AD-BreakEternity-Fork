@@ -79,6 +79,9 @@ export default {
     },
     getEffectDesc(effectEntry) {
       return GlyphEffects.all.find(e => e.bitmaskIndex === effectEntry.bitmaskIndex && e.isGenerated).genericDesc;
+    },
+    getTooltip(effectEntry) {
+      return i18n("modal", `${effectEntry}FilterTT`);
     }
   },
 };
@@ -92,23 +95,23 @@ export default {
         <span
           class="c-rarity"
           :class="topLevelClassObject('rarity')"
-          ach-tooltip="Setting for Rarity Threshold and Specified Effect"
+          :ach-tooltip="getTooltip('rarity')"
         >
           {{ rarityStr }}
         </span>
         <span
           class="c-effects-count"
           :class="topLevelClassObject('effectCount')"
-          ach-tooltip="Number of effects in Specified Effect"
+          :ach-tooltip="getTooltip('effectCount')"
         >
-          Minimum Effects: {{ effectStr }}
+          {{ i18n("modal", "minEff", [effectStr]) }}
         </span>
         <span
           class="c-target-score"
           :class="topLevelClassObject('score')"
-          ach-tooltip="Threshold for Effect Score"
+          :ach-tooltip="getTooltip('score')"
         >
-          Score: {{ scoreStr }}
+          {{ i18n("modal", "score", [scoreStr]) }}
         </span>
       </span>
       <br>
@@ -140,7 +143,7 @@ export default {
       </span>
     </span>
     <span v-else>
-      (No changes)
+      {{ i18n("modal", "noChanges") }}
     </span>
   </div>
 </template>

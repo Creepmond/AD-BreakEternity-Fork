@@ -9,6 +9,32 @@ export const changelog = [
    * }
    */
   {
+    date: [2024, 7, 14],
+    name: "Break Eternity Port Release",
+    info: `
+    After months of effort, we have finally completed the break eternity port to a satisfactory level for releaase.
+    Please report any bugs to us, and thank you so much for playing Antimatter Dimensions.
+    <br>
+    <br>
+    <b>Major changes:</b><br>
+    <ul>
+    <li>Almost all values are now decimal</li>
+    <li>Real time has been split into true time (used for real life time) and real time (used for "real time"
+    mechanics like Ra and Lai)</li>
+    <li>Glyph effects are now stored in an array not a bitmask</li>
+    <li>All glyph information (i.e. effects, unlock requirement, sacriice) has been consolidated into core-glyph-info.js
+    </li></ul><br>
+    <br>
+    <b>Minor changes:</b><br>
+    <ul>
+    <li>All non-remote effects no longer apply beyond 1M or remote start, whichever is later.</li>
+    <li>5xEP formula is slightly weaker n^(x-1332)^1.2 -> n^(x^1.2 - 1332^1.2)</li>
+    <li>Multiplier tab has been hidden due to major issues</li>
+    <li>Glyph effects will take the color of the first glyph in their list, if they appear on multiple glyphs</li>
+    </ul>
+    `
+  },
+  {
     date: [2024, 5, 2],
     name: "Celebrate Android Reality Update",
     info: `

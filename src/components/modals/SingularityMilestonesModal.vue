@@ -20,20 +20,19 @@ export default {
   },
   computed: {
     resourceStr() {
-      const states = ["Singularity Count", "Condense Count", "Manual Time", "Auto Time"];
+      const states = i18n("modal", "singMilestoneGroupResource");
       return states[this.resourceVal];
     },
     sortStr() {
-      const states = ["Singularities needed", "Current Completions", "Progress to full completion",
-        "Final Singularities", "Most Recent"];
+      const states = i18n("modal", "singMilestoneGroupSort");
       return states[this.sortVal];
     },
     completedStr() {
-      const states = ["First", "Last", "Don't move"];
+      const states = i18n("modal", "singMilestoneGroupCompleted");
       return states[this.completedVal];
     },
     orderStr() {
-      const states = ["Ascending", "Descending"];
+      const states = i18n("modal", "ascDesc");
       return states[this.orderVal];
     },
   },
@@ -107,7 +106,7 @@ export default {
 <template>
   <ModalWrapper>
     <template #header>
-      Singularity Milestones
+      {{ i18n("modal", "singMile") }}
     </template>
     <div
       class="c-modal__confirmation-toggle"
@@ -120,7 +119,7 @@ export default {
         />
       </div>
       <span class="c-modal__confirmation-toggle__text">
-        Make button glow when new milestones have been reached
+        {{ i18n("modal", "toggleGlow") }}
       </span>
     </div>
     <div class="l-singularity-milestone-modal-container-outer">
@@ -137,7 +136,7 @@ export default {
         class="c-singularity-milestone-modal-sort-button"
         @click="cycleButton(0)"
       >
-        To Milestone:
+        {{ i18n("modal", "toMile") }}
         <br>
         {{ resourceStr }}
       </button>
@@ -145,7 +144,7 @@ export default {
         class="c-singularity-milestone-modal-sort-button"
         @click="cycleButton(1)"
       >
-        Sort by:
+        {{ i18n("modal", "toMile") }}
         <br>
         {{ sortStr }}
       </button>
@@ -153,7 +152,7 @@ export default {
         class="c-singularity-milestone-modal-sort-button"
         @click="cycleButton(2)"
       >
-        Completed Milestones:
+        {{ i18n("modal", "compMile") }}
         <br>
         {{ completedStr }}
       </button>
@@ -161,7 +160,7 @@ export default {
         class="c-singularity-milestone-modal-sort-button"
         @click="cycleButton(3)"
       >
-        Sort Order:
+        {{ i18n("modal", "sortOrder") }}
         <br>
         {{ orderStr }}
       </button>

@@ -99,7 +99,7 @@ export default {
         @click="doCancel"
       >
         <slot name="cancel-text">
-          Cancel
+          {{ i18n("modal", "cancel") }}
         </slot>
       </PrimaryButton>
 
@@ -111,7 +111,7 @@ export default {
         @click="doConfirm"
       >
         <slot name="confirm-text">
-          Confirm
+          {{ i18n("modal", "confirm") }}
         </slot>
       </PrimaryButton>
     </div>

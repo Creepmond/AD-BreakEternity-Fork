@@ -15,7 +15,7 @@ export default {
   <ModalWrapper class="l-credits-modal c-credits-modal">
     <template #header>
       <h1 class="c-game-header__antimatter">
-        Antimatter Dimensions
+        {{ i18n("modal", "ad") }}
       </h1>
     </template>
     <div class="c-credits-modal__body">

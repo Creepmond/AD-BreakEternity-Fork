@@ -99,8 +99,8 @@ export default {
       return combinedTree;
     },
     modalTitle() {
-      if (this.deleting) return `Deleting Study Preset "${this.name}"`;
-      return this.isImporting ? "Input your tree" : `Editing Study Preset "${this.name}"`;
+      if (this.deleting) return i18n("modal", "delStudyPreset", [this.name]);
+      return i18n("modal", this.isImporting ? "inputTree" : "editTree", [this.name]);
     },
     invalidMessage() {
       if (!this.inputIsValidTree || this.importedTree.invalidStudies.length === 0) return null;
@@ -123,8 +123,7 @@ export default {
             break;
         }
       }
-      return `Your import string has invalid study IDs: ${coloredString.replaceAll("#", "").replaceAll(",", ", ")}
-        <br><br>`;
+      return i18n("modal", "invalidImportStr", [coloredString.replaceAll("#", "").replaceAll(",", ", ")]);
     },
     truncatedInput() {
       return TimeStudyTree.truncateInput(this.input);
@@ -148,8 +147,23 @@ export default {
       return secretStrings.includes(sha512_256(this.input.toLowerCase()));
     },
     confirmText() {
-      if (this.deleting) return "Delete";
-      return this.isImporting ? "Import" : "Save";
+      if (this.deleting) return i18n("modal", "del");
+      return this.isImporting ? i18n("modal", "importAlt") : i18n("modal", "save");
+    },
+    hoverTextA() {
+      return i18n("modal", "presetHas");
+    },
+    hoverTextB() {
+      return i18n("modal", "noLoadStatus");
+    },
+    hoverTextC() {
+      return i18n("modal", "loadStatus");
+    },
+    hoverTextD() {
+      return i18n("modal", "formatPresetHover");
+    },
+    hoverTextE() {
+      return i18n("modal", "cantEterRN");
     }
   },
   watch: {
@@ -200,16 +214,16 @@ export default {
     savePreset() {
       if (this.inputIsValid) {
         player.timestudy.presets[this.id].studies = this.input;
-        GameUI.notify.eternity(`Study Tree ${this.name} successfully edited.`);
+        GameUI.notify.eternity(i18n("modal", "successEdit", [this.name]));
         this.emitClose();
       }
     },
     deletePreset() {
       const name = player.timestudy.presets[this.id].name;
-      const presetName = name ? `Study preset "${name}"` : "Study preset";
+      const presetName = i18n("modal", name ? "studyNamed" : "studyUnnamed", [name]);
       player.timestudy.presets[this.id].studies = "";
       player.timestudy.presets[this.id].name = "";
-      GameUI.notify.eternity(`${presetName} deleted from slot ${this.id + 1}`);
+      GameUI.notify.eternity(i18n("modal", "presetDeleted", [presetName, this.id + 1]));
     },
     studyString(study) {
       return study instanceof ECTimeStudyState ? `EC${study.id}` : `${study.id}`;
@@ -261,22 +275,22 @@ export default {
           />
           <StudyTreeInfo
             v-if="deleting && importedTree.hasInfo"
-            header-text="Study Preset contains:"
+            :header-text="hoverTextA()"
             :tree-status="importedTree"
           />
           <StudyTreeInfo
             v-if="!deleting && !isImporting && importedTree.hasInfo"
-            header-text="Status after loading with <b>no studies</b>:"
+            :header-text="hoverTextB()"
             :tree-status="importedTree"
           />
           <StudyTreeInfo
             v-if="!deleting && combinedTree.hasInfo"
-            header-text="Status after loading with <b>current tree</b>:"
+            :header-text="hoverTextC()"
             :tree-status="combinedTree"
           />
         </template>
         <div v-if="!deleting && !inputIsValidTree && hasInput">
-          Not a valid tree
+          {{ i18n("modal", "invalidTree") }}
         </div>
       </div>
       <div class="c-study-preview">
@@ -292,16 +306,16 @@ export default {
       <br>
       <PrimaryButton
         v-if="!deleting"
-        v-tooltip="'This will format the study preset text, for example, changing \'a,b,c|d\' to \'a, b, c | d\'.'"
+        v-tooltip="hoverTextD()"
         @click="convertInputShorthands"
       >
-        Format Preset Text
+        {{ i18n("modal", "formatPreset") }}
       </PrimaryButton>
     </div>
     <span v-if="isImporting">
       <br>
       <div
-        v-tooltip="canEternity ? '' : 'You are currently unable to eternity, so this will only do a normal load.'"
+        v-tooltip="canEternity ? '' : hoverTextE()"
         class="c-modal__confirmation-toggle"
         @click="respecAndLoad = !respecAndLoad"
       >
@@ -317,7 +331,7 @@ export default {
           />
         </div>
         <span class="c-modal__confirmation-toggle__text">
-          Also respec tree and eternity
+          {{ i18n("modal", "respecAndEter") }}
           <span
             v-if="!canEternity"
             class="c-modal__confirmation-toggle__warning"

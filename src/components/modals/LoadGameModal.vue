@@ -14,7 +14,7 @@ export default {
 <template>
   <ModalWrapperOptions>
     <template #header>
-      Save Selection
+      {{ i18n("modal", "saveSelect") }}
     </template>
     <LoadGameEntry
       v-for="id in 3"

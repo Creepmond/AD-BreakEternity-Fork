@@ -23,7 +23,7 @@ export default {
   },
   computed: {
     upgradeStr() {
-      return this.isImaginary ? "Imaginary Upgrade" : "Reality Upgrade";
+      return i18n("modal", "iUrU").split("$")[this.isImaginary ? 0 : 1];
     },
     lockEvent() {
       return this.specialLockText ?? this.upgrade.lockEvent;
@@ -42,26 +42,25 @@ export default {
     @confirm="disableLock"
   >
     <template #header>
-      {{ upgradeStr }} Condition Lock
+      {{ i18n("modal", "conditionLockHeader", [upgradeStr]) }}
     </template>
     <div class="c-modal-message__text">
-      Are you sure you wish to {{ lockEvent }}? Doing this right now will cause you to
+      {{ i18n("modal", "areYouSureCondition", [lockEvent, upgradeStr, upgrade.name]).split("$")[0] }}
       <span class="l-emphasis">
-        fail the requirement for the {{ upgradeStr }} "{{ upgrade.name }}"
+        {{ i18n("modal", "areYouSureCondition", [lockEvent, upgradeStr, upgrade.name]).split("$")[1] }}
       </span>
       <span :ach-tooltip="upgrade.requirement">
         <i class="fas fa-question-circle" />
       </span>
       <br>
       <br>
-      Selecting "Cancel" will close this modal with no effect, while selecting "Disable Lock" will disable the
-      requirement check for this upgrade and prevent this message from reappearing unless you turn it back on.
+      {{ i18n("modal", "selectCancel") }}
       <br>
       <br>
-      Neither of these options will perform the action you just attempted, so you will need to try again.
+      {{ i18n("modal", "neitherPerform") }}
     </div>
     <template #confirm-text>
-      Disable Lock
+      {{ i18n("modal", "disableLock") }}
     </template>
   </ModalWrapperChoice>
 </template>

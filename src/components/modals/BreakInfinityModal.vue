@@ -9,12 +9,9 @@ export default {
   computed: {
     message() {
       const infinity = formatPostBreak(Number.MAX_VALUE, 2);
-      return `Breaking Infinity will allow you to gain antimatter past ${infinity}${PlayerProgress.eternityUnlocked()
-        ? "." : `, and allow you to read numbers past ${infinity}.`}
-        Dimensions and Tickspeed Upgrades will scale in cost faster after ${infinity} antimatter.
-        You will gain additional Infinity Points on Big Crunch based on antimatter produced over ${infinity}.\
-        ${EternityMilestone.keepAutobuyers.isReached ? "" : `\nIt will also unlock Break Infinity Upgrades and max\
-        all Normal Challenge Autobuyers.`}`.split("\n");
+      return i18n("modal", "breakInfBaseText", [infinity,
+        i18n("modal", "breakInfExtraA", [infinity]).split("$")[PlayerProgress.eternityUnlocked() ? 0 : 1],
+        () => (breakInfExtraB ? i18n("modal", "breakInfExtraB") : "")]).split("\n");
     },
   },
   methods: {
@@ -31,7 +28,7 @@ export default {
     @confirm="handleYesClick"
   >
     <template #header>
-      You are Breaking Infinity
+      {{ i18n("modal", "breakInfHeader") }}
     </template>
     <div class="c-modal-message__text">
       <span
@@ -42,7 +39,7 @@ export default {
       </span>
     </div>
     <template #confirm-text>
-      Break
+      {{ i18n("modal", "break") }}
     </template>
   </ModalWrapperChoice>
 </template>

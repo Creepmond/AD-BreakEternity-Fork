@@ -36,10 +36,8 @@ export default {
     },
     headerText() {
       const timeDisplay = TimeSpan.fromSeconds(new Decimal(this.seconds)).toString();
-      if (this.nothingHappened || !this.somethingHappened) {
-        return `While you were away for ${timeDisplay}... Nothing happened.`;
-      }
-      return `While you were away for ${timeDisplay}: `;
+      return i18n("modal",
+        this.nothingHappened || !this.somethingHappened ? "whileAwayForAlt" : "whileAwayFor", [timeDisplay]);
     },
   },
   mounted() {
@@ -69,7 +67,7 @@ export default {
         @something-happened="somethingHappened = true"
       />
     </div>
-    <span v-if="!nothingHappened && somethingHappened">Note: Click an entry to hide it in the future.</span>
+    <span v-if="!nothingHappened && somethingHappened">{{ i18n("modal", "hideNote") }}</span>
   </ModalWrapper>
 </template>
 

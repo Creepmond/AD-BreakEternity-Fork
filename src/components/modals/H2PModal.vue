@@ -64,7 +64,7 @@ export default {
     <ModalCloseButton @click="emitClose" />
     <div class="l-h2p-header">
       <div class="c-h2p-title">
-        How To Play
+        {{ i18n("modal", "h2p") }}
       </div>
     </div>
     <div class="l-h2p-container">

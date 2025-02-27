@@ -29,7 +29,7 @@ export default {
     },
     createRealityGlyph() {
       if (GameCache.glyphInventorySpace.value === 0) {
-        Modal.message.show("No available inventory space; Sacrifice some Glyphs to free up space.",
+        Modal.message.show(i18n("modal", "noInvSpace"),
           { closeEvent: GAME_EVENT.GLYPHS_CHANGED });
         return;
       }
@@ -39,7 +39,7 @@ export default {
       this.emitClose();
     },
     formatGlyphEffect(effect) {
-      if (this.realityGlyphLevel.lt(effect[0])) return `(Requires Glyph level ${formatInt(effect[0])})`;
+      if (this.realityGlyphLevel.lt(effect[0])) return i18n("modal", "reqGlX", [formatInt(effect[0])]);
       const config = GlyphEffects[effect[1]];
       const value = config.effect(this.realityGlyphLevel, rarityToStrength(100));
       const effectTemplate = config.singleDesc;
@@ -52,20 +52,15 @@ export default {
 <template>
   <ModalWrapper>
     <template #header>
-      Reality Glyph Creation
+      {{ i18n("modal", "realGlyphCreation") }}
     </template>
     <div class="c-reality-glyph-creation">
       <div>
-        Create a level {{ formatInt(realityGlyphLevel) }} Reality Glyph.
-        Rarity will always be {{ formatPercents(1) }} and
-        level scales on your current Reality Resource amount (which is all consumed). All other Alchemy Resources will
-        be unaffected. Reality Glyphs have unique effects, some of which are only available with higher level Glyphs.
-        Reality Glyphs can also be sacrificed to increase all Memory Chunk gain. Like Effarig Glyphs,
-        you cannot equip more than one at the same time.
+        {{ i18n("modal", "rgcText", [formatInt(realityGlyphLevel), formatPercents(1)]) }}
       </div>
       <div class="o-available-effects-container">
         <div class="o-available-effects">
-          Available Effects:
+          {{ i18n("modal", "availableEffects") }}
         </div>
         <div
           v-for="(effect, index) in possibleEffects"
@@ -78,19 +73,19 @@ export default {
         v-if="isDoomed"
         :enabled="false"
       >
-        You cannot create Reality Glyphs while Doomed
+        {{ i18n("modal", "noRealDoomed") }}
       </PrimaryButton>
       <PrimaryButton
         v-else-if="realityGlyphLevel.neq(0)"
         @click="createRealityGlyph"
       >
-        Create a Reality Glyph!
+        {{ i18n("modal", "makeReal") }}
       </PrimaryButton>
       <PrimaryButton
         v-else
         :enabled="false"
       >
-        Reality Glyph level must be higher than {{ formatInt(0) }}
+        {{ i18n("modal", "gtZero", [formatInt(0)]) }}
       </PrimaryButton>
     </div>
   </ModalWrapper>

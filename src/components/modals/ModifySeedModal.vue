@@ -20,6 +20,7 @@ export default {
   computed: {
     choiceEnum: () => SPEEDRUN_SEED_STATE,
     officialSeed: () => Speedrun.officialFixedSeed,
+    i18nA: () => i18n("modal", "cantInputZero")
   },
   created() {
     this.seedValue = player.speedrun.initialSeed;
@@ -76,48 +77,43 @@ export default {
 <template>
   <ModalWrapper>
     <template #header>
-      Modifying Glyph RNG Seed
+      {{ i18n("modal", "modGRNG") }}
     </template>
     <div>
-      All Glyph options beyond the first Reality for an entire playthrough are randomly determined from the very
-      beginning, based on the value of an initial seed number. The role of this seed is that it chooses a single,
-      <i>particular</i> set of Glyph options for your playthrough. If you or anyone else chooses the same seed
-      in a different run, you will get the same options for Glyphs.
+      {{ i18n("modal", "modGRNGTextA") }}
       <br>
       <br>
-      You can switch between these three options any point before you generate your first Glyph.
+      {{ i18n("modal", "canSwitch") }}
       <br>
-      Current Setting: <b>{{ seedText }}</b>
+      {{ i18n("modal", "currentSetting", [seedText]) }}
       <br>
       <br>
       <PrimaryButton
         :class="buttonClass(choiceEnum.FIXED)"
         @click="setMode(choiceEnum.FIXED)"
       >
-        Official Preset Seed
+        {{ i18n("modal", "oPS") }}
       </PrimaryButton>
       <br>
-      This is the default option which chooses the seed <b>{{ officialSeed }}</b>. Anyone who
-      chooses to not modify the seed at all will get these Glyph options.
+      {{ i18n("modal", "thisDefault", [officialSeed]) }}
       <br>
       <br>
       <PrimaryButton
         :class="buttonClass(choiceEnum.RANDOM)"
         @click="setMode(choiceEnum.RANDOM)"
       >
-        Randomized Seed
+        {{ i18n("modal", "rS") }}
       </PrimaryButton>
       <br>
-      This selects a completely randomized seed value, producing Glyph options which are very likely to be
-      different from anyone else's playthrough unless they intentionally choose the same value.
+      {{ i18n("modal", "rStxt") }}
       <br>
       <br>
       <PrimaryButton
-        v-tooltip="seedValue === 0 ? 'Input seed cannot be zero!' : ''"
+        v-tooltip="seedValue === 0 ? i18nA() : ''"
         :class="buttonClass(choiceEnum.PLAYER)"
         @click="setMode(choiceEnum.PLAYER, seedValue)"
       >
-        Player-selected Seed:
+        {{ i18n("modal", "pSS") }}
       </PrimaryButton>
       <input
         ref="inputSeed"
@@ -127,17 +123,16 @@ export default {
         @input="handleSeedInput()"
       >
       <br>
-      This option sets your seed to the value you type into the text box.
+      {{ i18n("modal", "pSStxt") }}
       <br>
       <span v-if="seedValue !== 0">
-        Your current input will be {{ convertedInput ? "converted to" : "used as" }} the number <b>{{ seedValue }}</b>.
+        {{ i18n("modal", "replaceInput", [i18n("modal", "convUsed").split("$")[convertedInput ? 0 : 1], seedValue]) }}
       </span>
       <span v-else>
-        Your current input {{ convertedInput ? "converts to" : "is equal to" }} <b>0</b>;
-        the seed will default to Official Preset.
+        {{ i18n("modal", "inputDefault", [i18n("modal", "convUsedAlt").split("$")[convertedInput ? 0 : 1]]) }}
       </span>
       <br>
-      For technical reasons, this value must be must be non-zero to be accepted.
+      {{ i18n("modal", "techReasons") }}
     </div>
   </ModalWrapper>
 </template>

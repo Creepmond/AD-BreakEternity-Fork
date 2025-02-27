@@ -13,7 +13,7 @@ export default {
   },
   computed: {
     importDestString() {
-      return this.intoEmpty ? "into an empty Tree" : "with your current Tree";
+      return i18n("modal", "emptyCurrent").split("$")[this.intoEmpty ? 0 : 1];
     }
   },
   methods: {
@@ -29,13 +29,13 @@ export default {
 <template>
   <div class="l-modal-import-tree__tree-info-line">
     <div v-if="tree.timeTheorems === 0 && tree.spaceTheorems === 0">
-      <i>Importing this {{ importDestString }} will not purchase any new Time Studies.</i>
+      <i>{{ i18n("modal", "notPurchase", [importDestString]) }}</i>
     </div>
     <div v-else>
-      Importing {{ importDestString }} will purchase:
+      {{ i18n("modal", "importWill", [importDestString]) }}
       <br>
       {{ tree.newStudies }}
-      (Cost: {{ formatTheoremCost(tree.timeTheorems, tree.spaceTheorems) }})
+      {{ i18n("modal", "cost" [formatTheoremCost(tree.timeTheorems, tree.spaceTheorems)]) }}
     </div>
     <br>
   </div>

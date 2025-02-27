@@ -24,7 +24,7 @@ export default {
     };
   },
   computed: {
-    resetTerm() { return this.isDoomed ? "Armageddon" : "Reality"; },
+    resetTerm() { return i18n("modal", this.isDoomed ? "arma" : "real"); },
   },
   methods: {
     update() {
@@ -46,8 +46,8 @@ export default {
     @confirm="handleYesClick"
   >
     <template #header>
-      You are about to replace a Glyph
+      {{ i18n("modal", "aboutToReplace") }}
     </template>
-    Replacing a Glyph will restart this {{ resetTerm }}.
+    {{ i18n("modal", "willRestart", [resetTerm]) }}
   </ModalWrapperChoice>
 </template>

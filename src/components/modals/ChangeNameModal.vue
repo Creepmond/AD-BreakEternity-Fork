@@ -34,7 +34,7 @@ export default {
 <template>
   <ModalWrapperChoice @confirm="confirmChange">
     <template #header>
-      Change your Speedrun Player Name
+      {{ i18n("modal", "changeNameHeader") }}
     </template>
     <input
       ref="input"
@@ -46,13 +46,13 @@ export default {
       @keyup.esc="emitClose"
     >
     <i>
-      This can no longer be changed once the timer starts, and there is a limit of {{ formatInt(40) }} characters.
+      {{ i18n("modal", "changeNameTextA", [formatInt(40)]) }}
     </i>
     <div>
-      Your new name will be {{ actualName }}
+      {{ i18n("modal", "changeNameTextB", [actualName]) }}
     </div>
     <template #confirm-text>
-      Change Name
+      {{ i18n("modal", "changeName") }}
     </template>
   </ModalWrapperChoice>
 </template>

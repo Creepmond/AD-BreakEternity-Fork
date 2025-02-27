@@ -42,14 +42,14 @@ export default {
 
 <template>
   <div class="l-modal-options__save-record">
-    <h3>Save #{{ saveId + 1 }}:<span v-if="isSelected"> (selected)</span></h3>
-    <span v-if="fileName">File name: {{ fileName }}</span>
-    <span>Antimatter: {{ formatAntimatter(antimatter) }}</span>
+    <h3>{{ i18n("modal", "saveX", [saveId + 1]) }}<span v-if="isSelected"> {{ i18n("modal", "selected") }}</span></h3>
+    <span v-if="fileName">{{ i18n("modal", "fileName", [fileName]) }}</span>
+    <span>{{ i18n("modal", "saveAM", [formatAntimatter(antimatter)]) }}</span>
     <PrimaryButton
       class="o-primary-btn--width-medium"
       @click="load"
     >
-      Load
+      {{ i18n("modal", "load") }}
     </PrimaryButton>
   </div>
 </template>

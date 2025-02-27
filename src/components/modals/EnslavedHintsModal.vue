@@ -21,10 +21,10 @@ export default {
   },
   computed: {
     hintCost() {
-      return `${quantify("year", TimeSpan.fromMilliseconds(this.nextHintCost).totalYears, 2)}`;
+      return `${quantify(i18n("modal", "year"), TimeSpan.fromMilliseconds(this.nextHintCost).totalYears, 2)}`;
     },
     formattedStored() {
-      return `${quantify("year", TimeSpan.fromMilliseconds(this.currentStored).totalYears, 2)}`;
+      return `${quantify(i18n("modal", "year"), TimeSpan.fromMilliseconds(this.currentStored).totalYears, 2)}`;
     },
     hasProgress(id) {
       return this.progressEntries.some(entry => entry.id === id);
@@ -95,11 +95,11 @@ export default {
 <template>
   <ModalWrapper>
     <template #header>
-      Cracks in The Nameless Ones' Reality
+      {{ i18n("modal", "namelessCracks") }}
     </template>
     <div class="c-enslaved-hint-modal c-modal--short">
       <div>
-        This Reality seems to be resisting your efforts to complete it. So far you have done the following:
+        {{ i18n("modal", "realityResist") }}
       </div>
       <br>
       <div
@@ -109,11 +109,11 @@ export default {
         <div v-if="!entry[0]">
           <span v-if="entry[1].hasHint && !entry[1].hasProgress">
             <i class="c-icon-wrapper fas fa-question-circle" />
-            <b>You have not figured out what this hint means yet.</b>
+            <b>{{ i18n("modal", "haveNotFigured") }}</b>
           </span>
           <span v-else>
             <i class="c-icon-wrapper fa-solid fa-house-crack" />
-            <b>You have exposed a crack in the Reality:</b>
+            <b>{{ i18n("modal", "foundCrack") }}</b>
           </span>
           <br>
           - {{ entry[1].hintInfo }}
@@ -128,14 +128,11 @@ export default {
         <br>
       </div>
       <div v-if="realityHintsLeft + glyphHintsLeft > 0">
-        You can spend some time looking for some more cracks in the Reality, but every hint you spend Stored Time on
-        will increase the Stored Time needed for the next by a factor of {{ formatInt(3) }}. This cost bump will
-        gradually go away over {{ formatInt(24) }} hours and figuring out what the hint means will immediately
-        divide the cost by {{ formatInt(2) }}. The cost can't be reduced below {{ format(1e40) }} years.
+        {{ i18n("modal", "canSpendTime", [formatInt(3), formatInt(24), formatInt(2), format(1e40)]) }}
         <br><br>
-        The next hint will cost {{ hintCost }} of Stored Time. You currently have {{ formattedStored }}.
+        {{ i18n("modal", "nextHint", [hintCost, formattedStored]) }}
         <span v-if="currentStored.lt(nextHintCost)">
-          You will reach this if you charge your Black Hole for {{ timeEstimate }}.
+          {{ i18n("modal", "timeToReach", [timeEstimate]) }}
         </span>
         <br><br>
         <PrimaryButton
@@ -143,7 +140,7 @@ export default {
           class="l-enslaved-hint-button"
           @click="giveRealityHint(realityHintsLeft)"
         >
-          Get a hint about the Reality itself ({{ formatInt(realityHintsLeft) }} left)
+          {{ i18n("modal", "getRealityHint", [realityHintsLeft]) }}
         </PrimaryButton>
         <br>
         <PrimaryButton
@@ -151,11 +148,11 @@ export default {
           class="l-enslaved-hint-button"
           @click="giveGlyphHint(glyphHintsLeft)"
         >
-          Get a hint on what Glyphs to use ({{ formatInt(glyphHintsLeft) }} left)
+          {{ i18n("modal", "getGlyphHint", [glyphHintsLeft]) }}
         </PrimaryButton>
       </div>
       <div v-else>
-        <b>There are no more hints left!</b>
+        <b>{{ i18n("modal", "noHints") }}</b>
       </div>
     </div>
   </ModalWrapper>

@@ -53,7 +53,7 @@ export default {
       </div>
     </div>
     <span class="c-modal__confirmation-toggle__text">
-      Don't show this message again
+      {{ i18n("modal", "dontShowAgain") }}
     </span>
   </div>
 </template>

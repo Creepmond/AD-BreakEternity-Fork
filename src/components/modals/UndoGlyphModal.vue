@@ -34,26 +34,23 @@ export default {
     @confirm="handleYesClick"
   >
     <template #header>
-      You are about to undo equipping a Glyph
+      {{ i18n("modal", "aboutToUndo") }}
     </template>
     <div
       class="c-modal-message__text c-text-wrapper"
     >
-      The last equipped Glyph will be removed.
-      Reality will be reset, but some things will be restored to what they were when it was equipped:
+      {{ i18n("modal", "lastRemoved") }}
       <br>
       <div class="c-text-wrapper">
-        <br>- Antimatter, Infinity Points, and Eternity Points
-        <br>- Dilation Upgrades, Tachyon Particles, and Dilated Time
-        <br>- Time Theorems and Eternity Challenge completions
-        <br>- Time Dimension and Reality unlocks
-        <br>- Time in current Infinity/Eternity/Reality
-        <span v-if="showStoredGameTime"><br>- Stored game time</span>
+        {{ i18n("modal", "undoList").split("$")[0] }}
+        {{ i18n("modal", "undoList").split("$")[1] }}
+        {{ i18n("modal", "undoList").split("$")[2] }}
+        {{ i18n("modal", "undoList").split("$")[3] }}
+        {{ i18n("modal", "undoList").split("$")[4] }}
+        <span v-if="showStoredGameTime">{{ i18n("modal", "undoList").split("$")[5] }}</span>
       </div>
       <br>
-      Note that if you invalidate special requirements for certain things (such as the achievement for completing
-      a Reality without producing antimatter), they will remain invalid even after undoing. In those cases, you will
-      need to complete the conditions in a single Reality without using undo.
+      {{ i18n("modal", "invalidStayInvalid") }}
     </div>
   </ModalWrapperChoice>
 </template>

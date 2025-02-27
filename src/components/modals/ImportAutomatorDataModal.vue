@@ -77,10 +77,10 @@ export default {
       return this.constantCountAfterImport - this.maxConstantCount;
     },
     presetButtonText() {
-      return this.ignorePresets ? "Will Ignore Presets" : "Will Import Presets";
+      return this.ignorePresets ? i18n("modal", "ignorePresets") : i18n("modal", "impPresets");
     },
     constantButtonText() {
-      return this.ignoreConstants ? "Will Ignore Constants" : "Will Import Constants";
+      return this.ignoreConstants ? i18n("modal", "ignoreConst") : i18n("modal", "impConst");
     }
   },
   mounted() {
@@ -134,10 +134,10 @@ export default {
     @confirm="importSave"
   >
     <template #header>
-      Import Automator Script Data
+      {{ i18n("modal", "importASD") }}
     </template>
-    This will create a new Automator script at the end of your list.
-    <span v-if="isImportingExtraData">This will also import additional data related to the script.</span>
+    {{ i18n("modal", "newScript") }}
+    <span v-if="isImportingExtraData">{{ i18n("modal", "newScriptExtraData") }}</span>
     <input
       ref="input"
       v-model="input"
@@ -147,26 +147,25 @@ export default {
       @keyup.esc="emitClose"
     >
     <div v-if="isValid">
-      Script name: {{ scriptName }}
+      {{ i18n("modal", "scriptName", [scriptName]) }}
       <br>
-      Line count: {{ lineCount }}
+      {{ i18n("modal", "lineCount", [lineCount]) }}
       <div v-if="hasPresets">
         <br>
-        Study Presets:
+        {{ i18n("modal", "studyPresets") }}
         <span
           v-for="(preset, id) in importedPresets"
           :key="id"
           class="c-import-data-name"
         >
-          <span v-if="preset.name">"{{ preset.name }}" (slot {{ preset.id + 1 }})</span>
-          <span v-else>Preset slot #{{ preset.id + 1 }}</span>
+          <span v-if="preset.name">"{{ i18n("modal", "presetSlotXAlt", [preset.name, preset.id + 1]) }}</span>
+          <span v-else>{{ i18n("modal", "presetSlotX", [preset.id + 1]) }}</span>
         </span>
         <div
           v-if="!ignorePresets && overwrittenPresetCount > 0"
           class="l-has-errors"
         >
-          {{ formatInt(overwrittenPresetCount) }} of your existing presets
-          will be overwritten by imported presets!
+          {{ i18n("modal", "overwrittenPresets", [formatInt(overwrittenPresetCount)]) }}
         </div>
         <br>
         <button
@@ -178,7 +177,7 @@ export default {
       </div>
       <div v-if="hasConstants">
         <br>
-        Constants:
+        {{ i18n("modal", "consts") }}
         <span
           v-for="(constant, id) in importedConstants"
           :key="id + 10"
@@ -190,11 +189,10 @@ export default {
           v-if="!ignoreConstants && (willOverwriteConstant || extraConstants > 0)"
           class="l-has-errors"
         >
-          <span v-if="willOverwriteConstant">Some of your existing constants will be overwritten!</span>
+          <span v-if="willOverwriteConstant">{{ i18n("modal", "overwrittenConsts") }}</span>
           <br v-if="willOverwriteConstant && extraConstants > 0">
           <span v-if="extraConstants > 0">
-            {{ quantifyInt("constant", extraConstants) }} will not be imported due to the
-            {{ maxConstantCount }} constant limit.
+            {{ i18n("modal", "constLim", [quanitfyInt(i18n("modal, const"), extraConstants), maxConstantCount]) }}
           </span>
         </div>
         <br>
@@ -210,17 +208,17 @@ export default {
         v-if="hasErrors"
         class="l-has-errors"
       >
-        This script has errors which need to be fixed before it can be run!
+        {{ i18n("modal", "scriptHasErrors") }}
       </div>
       <div v-if="hasErrors && isImportingExtraData">
-        <i>Some errors may be fixed with the additional data being imported.</i>
+        <i>{{ i18n("modal", "someErrFix") }}</i>
       </div>
     </div>
     <div v-else-if="input.length !== 0">
-      Invalid Automator data string
+      {{ i18n("modal", "invalidADS") }}
     </div>
     <template #confirm-text>
-      Import
+      {{ i18n("modal", "import") }}
     </template>
   </ModalWrapperChoice>
 </template>

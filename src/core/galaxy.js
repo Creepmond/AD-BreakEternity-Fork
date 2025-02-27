@@ -60,10 +60,10 @@ export class Galaxy {
     const remote = Galaxy.remoteStart;
     const inc = Galaxy.costMult;
     const start = Galaxy.baseCost;
-    const A = Decimal.ln(1.008);
+    const A = Decimal.ln(1.002);
     const B = (inc.sub(delay.times(2)).add(3)).div(2);
-    const C = Decimal.ln(1.008).pow(2).times(Decimal.pow(1.008, inc.add(3).div(2).add(remote).sub(delay).sub(1)));
-    const D = Decimal.ln(1.008).pow(2).times(inc.pow(2).sub(inc.times(2).times(delay))
+    const C = Decimal.ln(1.002).pow(2).times(Decimal.pow(1.002, inc.add(3).div(2).add(remote).sub(delay).sub(1)));
+    const D = Decimal.ln(1.002).pow(2).times(inc.pow(2).sub(inc.times(2).times(delay))
       .add(inc.times(6)).sub(start.times(4).add(1))).div(4);
     let mzz = C.times(currency);
 
@@ -96,7 +96,7 @@ export class Galaxy {
     */
 
     if (Galaxy.requirementAt(Decimal.max(1e6, Galaxy.remoteStart)).amount.lt(currency)) {
-      return Decimal.log(currency.div(Galaxy.requirementAt(Decimal.max(1e6, Galaxy.remoteStart))), 1.008)
+      return Decimal.log(currency.div(Galaxy.requirementAt(Decimal.max(1e6, Galaxy.remoteStart))), 1.002)
         .add(Decimal.max(1e6, Galaxy.remoteStart)).floor().max(minVal);
     }
     // Ignore BBBS' warning, even though its theoretically quite dangerous

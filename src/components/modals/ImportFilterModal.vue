@@ -1,8 +1,10 @@
 <script>
+import { GlyphInfo } from "../../core/secret-formula/reality/core-glyph-info";
+
 import ImportFilterSingleType from "./ImportFilterSingleType";
 import ModalWrapperChoice from "@/components/modals/ModalWrapperChoice";
 import PrimaryButton from "@/components/PrimaryButton";
-import { GlyphInfo } from "../../core/secret-formula/index";
+
 
 export default {
   name: "ImportFilterModal",
@@ -71,8 +73,7 @@ export default {
       return GlyphInfo.alchemyGlyphTypes.filter(t => GlyphInfo[t.type].isGenerated && GlyphInfo[t.type].generationRequirement);
     },
     settingTooltipText() {
-      return `Mouseover each box for more details. ✔ and ✘ symbols denote an effect
-        selected/unselected for Specified Effect mode.`;
+      return i18n("modal", "mouseover");
     }
   },
   mounted() {
@@ -101,11 +102,11 @@ export default {
     :show-confirm="false"
   >
     <template #header>
-      Import Glyph filter settings
+      {{ i18n("modal", "impGFS") }}
     </template>
-    Note: Importing Glyph filter options will overwrite settings
+    {{ i18n("modal", "impGFS").split($)[0] }}
     <br>
-    in all filter modes, not just the currently-selected one.
+    {{ i18n("modal", "impGFS").split($)[1] }}
     <input
       ref="input"
       v-model="input"
@@ -117,13 +118,13 @@ export default {
     <div class="c-modal-import__save-info">
       <div v-if="!input" />
       <div v-else-if="inputIsValid">
-        <b>Selection mode:</b> {{ selectStr }}
+        <b>{{ i18n("modal", "selMode") }}</b> {{ selectStr }}
         <br>
-        <b>Effect Count ("Number of Effects"):</b> {{ basicCountStr }}
+        <b>{{ i18n("modal", "effCount") }}</b> {{ basicCountStr }}
         <br>
-        <b>Rejected Glyphs:</b> {{ trashStr }}
+        <b>{{ i18n("modal", "rejGlph") }}</b> {{ trashStr }}
         <br>
-        <u><b>Type-specific Settings</b></u> <span :ach-tooltip="settingTooltipText">
+        <u><b>{{ i18n("modal", "typeSpec") }}</b></u> <span :ach-tooltip="settingTooltipText">
           <i class="fas fa-question-circle" />
         </span>
         <br>
@@ -137,7 +138,7 @@ export default {
         />
       </div>
       <div v-else>
-        Not a valid Glyph filter string
+        {{ i18n("modal", "invalidGFS") }}
       </div>
     </div>
 
@@ -146,7 +147,7 @@ export default {
       class="o-primary-btn--width-medium c-modal-message__okay-btn c-modal__confirm-btn"
       @click="importFilter"
     >
-      Import
+      {{ i18n("modal", "import") }}
     </PrimaryButton>
   </ModalWrapperChoice>
 </template>

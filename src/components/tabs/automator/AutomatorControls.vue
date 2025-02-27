@@ -1,12 +1,10 @@
 <script>
 import AutomatorButton from "./AutomatorButton";
-import AutomatorModeSwitch from "./AutomatorModeSwitch";
 
 export default {
   name: "AutomatorControls",
   components: {
     AutomatorButton,
-    AutomatorModeSwitch
   },
   data() {
     return {
@@ -181,7 +179,6 @@ export default {
           :class="{ 'c-automator__button--inactive' : !hasRedo }"
           @click="redo"
         />
-        <AutomatorModeSwitch />
       </div>
     </div>
     <div class="l-automator-button-row">

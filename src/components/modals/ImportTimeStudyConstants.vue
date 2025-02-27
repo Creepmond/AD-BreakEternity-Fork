@@ -64,12 +64,10 @@ export default {
     @confirm="importConstants"
   >
     <template #header>
-      Importing Time Study Presets as Constants
+      {{ i18n("modal", "importTSConstHeader") }}
     </template>
     <div class="c-modal-message__text">
-      Confirming this modal will import all of your saved Time Study presets as new Automator constants.
-      Below are all the valid presets which will be imported, with the beginning and end of their contained
-      studies shown. Some names may be changed due to restrictions on constant name formatting.
+      {{ i18n("modal", "iTSCtextA") }}
       <br>
       <br>
       <div
@@ -77,7 +75,7 @@ export default {
         :key="i"
         :class="{ 'l-not-imported' : !willImport[i-1] }"
       >
-        Name: {{ presets[i-1].name }} ➜ <b>{{ names[i-1] }}</b>
+        {{ i18n("modal", "nameAtoB", [presets[i-1].name, names[i-1]]) }}
         <br>
         {{ shortenString(presets[i-1].studies) }}
         <span
@@ -85,7 +83,7 @@ export default {
           class="l-warn-text"
         >
           <br>
-          This will overwrite an existing constant!
+          {{ i18n("modal", "willOverwriteExistingConst") }}
         </span>
         <br>
         <br>
@@ -94,12 +92,11 @@ export default {
         v-if="missedImports() > 0"
         class="l-warn-text"
       >
-        {{ quantify("preset", missedImports()) }} in this list cannot be imported
-        due to the limit on constant count.
+        {{ i18n("modal", "cantImportX", [quantify(i18n("modal", "preset"), missedImports())]) }}
       </div>
     </div>
     <template #confirm-text>
-      Import All
+      {{ i18n("modal", "impAll") }}
     </template>
   </ModalWrapperChoice>
 </template>

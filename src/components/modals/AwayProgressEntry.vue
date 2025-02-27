@@ -69,7 +69,7 @@ export default {
     },
     formatBlackHoleActivations() {
       const activations = this.after.sub(this.before);
-      return quantifyInt("time", activations);
+      return quantifyInt(i18n("modal", "time"), activations);
     },
     isVeryLarge() {
       return this.isBlackHole
@@ -85,12 +85,7 @@ export default {
       if (number === undefined) return "";
       // Surrounding text is formatted differently to specify that this is log10
       if (this.isVeryLarge) return format(Decimal.floor(number.max(1).log10()));
-      if (Decimal.lt(number, 1e9)) {
-        // Both numbers and decimals get passed in here so this is needed
-        // Not a fan of this solution but whatever
-        const numberAsDecimal = new Decimal(number);
-        return formatInt(numberAsDecimal.floor());
-      }
+      if (Decimal.lt(number, 1e9)) return formatInt(Decimal.floor(number));
       return format(number, 2, 2);
     },
     hideEntry() {
@@ -108,16 +103,11 @@ export default {
     @click="hideEntry"
   >
     <span v-if="isBlackHole">
-      Your
-      <b>{{ formattedName }}</b>
-      activated
-      {{ formatBlackHoleActivations }}
+      {{ i18n("modal", "yourXactivatedY") }}
     </span>
     <span v-else>
-      <b>{{ formattedName }}</b>
-      <i v-if="isVeryLarge"> exponent</i>
-      increased from
-      {{ formatBefore }} to {{ formatAfter }}
+      {{ i18n("modal", "xIncreased",
+              [formattedName, isVeryLarge ? i18n("modal, expo") : "", formatBefore, formatAfter]) }}
     </span>
   </div>
 </template>

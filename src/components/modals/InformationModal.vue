@@ -8,6 +8,14 @@ export default {
     ModalCloseButton,
     InformationModalButton
   },
+  computed: {
+    ghRepo() { return i18n("modal", "ghRepo"); },
+    adserv() { return i18n("modal", "adserv"); },
+    adgp() { return i18n("modal", "adgp"); },
+    adstm() { return i18n("modal", "adstm"); },
+    cred() { return i18n("modal", "cred"); },
+    changelog() { return i18n("modal", "changelog"); }
+  }
 };
 </script>
 
@@ -16,25 +24,21 @@ export default {
     <ModalCloseButton @click="emitClose" />
     <div class="l-h2p-header">
       <div class="c-h2p-title">
-        About the game
+        {{ i18n("modal", "aboutGame") }}
       </div>
     </div>
     <div class="c-info-body">
-      Antimatter Dimensions is an Idle Incremental game created by Finnish developer Hevipelle. Originating as a solo
-      project in 2016, it was expanded upon by a large team of developers and testers from then on.
+      {{ i18n("modal", "infoModalText").split("$")[0] }}
       <br>
       <br>
-      The game has unfolding gameplay and multiple prestige layers. The "How to Play" button contains useful
-      information about progressing.
+      {{ i18n("modal", "infoModalText").split("$")[1] }}
       <br>
       <br>
-      The Break Eternity port is a port intended to allow modders to extend the vanilla game beyond e9e15 by using a new
-      library aswell as other changes, such as better glyph handing. The repository link here has been changed
-      appropriately.
+      {{ i18n("modal", "infoModalText").split("$")[2] }}
     </div>
     <div class="l-socials">
       <InformationModalButton
-        name="GitHub repository"
+        :name="ghRepo"
         icon="fa-brands fa-github"
         link="https://github.com/HexaVault/AD-breaketernity"
       />
@@ -44,27 +48,27 @@ export default {
         link="https://www.reddit.com/r/AntimatterDimensions/"
       />
       <InformationModalButton
-        name="Antimatter Dimensions Discord Server"
+        :name="adserv"
         icon="fa-brands fa-discord"
         link="https://discord.gg/ST9NaXa"
       />
       <InformationModalButton
-        name="Antimatter Dimensions on Google Play"
+        :name="adgp"
         icon="fa-brands fa-google-play"
         link="https://play.google.com/store/apps/details?id=kajfosz.antimatterdimensions"
       />
       <InformationModalButton
-        name="Antimatter Dimensions on Steam"
+        :name="adstm"
         icon="fa-brands fa-steam"
         link="https://store.steampowered.com/app/1399720/Antimatter_Dimensions/"
       />
       <InformationModalButton
-        name="Credits"
+        :name="cred"
         icon="fa-solid fa-users"
         show-modal="credits"
       />
       <InformationModalButton
-        name="Game Changelog"
+        :name="changelog"
         icon="fa-solid fa-file-lines"
         show-modal="changelog"
       />

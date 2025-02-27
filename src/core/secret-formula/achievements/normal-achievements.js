@@ -2,58 +2,50 @@
 export const normalAchievements = [
   {
     id: 11,
-    name: "You gotta start somewhere",
-    description: "Buy a 1st Antimatter Dimension.",
+    get name() { return i18n("ach", "ach11title") },
+    get description() { return i18n("ach", "ach11desc") },
     checkEvent: GAME_EVENT.ACHIEVEMENT_EVENT_OTHER,
   },
   {
     id: 12,
-    name: "100 antimatter is a lot",
-    description: "Buy a 2nd Antimatter Dimension.",
+    get name() { return i18n("ach", "ach12title") },
+    get description() { return i18n("ach", "ach12desc") },
     checkEvent: GAME_EVENT.ACHIEVEMENT_EVENT_OTHER,
   },
   {
     id: 13,
-    name: "Half life 3 CONFIRMED",
-    description: "Buy a 3rd Antimatter Dimension.",
+    get name() { return i18n("ach", "ach13title") },
+    get description() { return i18n("ach", "ach13desc") },
     checkEvent: GAME_EVENT.ACHIEVEMENT_EVENT_OTHER,
   },
   {
     id: 14,
-    name: "L4D: Left 4 Dimensions",
-    description: "Buy a 4th Antimatter Dimension.",
+    get name() { return i18n("ach", "ach14title") },
+    get description() { return i18n("ach", "ach14desc") },
     checkEvent: GAME_EVENT.ACHIEVEMENT_EVENT_OTHER,
   },
   {
     id: 15,
-    name: "5 Dimension Antimatter Punch",
-    description: "Buy a 5th Antimatter Dimension.",
+    get name() { return i18n("ach", "ach15title") },
+    get description() { return i18n("ach", "ach15desc") },
     checkEvent: GAME_EVENT.ACHIEVEMENT_EVENT_OTHER,
   },
   {
     id: 16,
-    name: "We couldn't afford 9",
-    get description() {
-      return Enslaved.isRunning
-        ? "Buy a 6th Antimatter Dimension (they never amount to anything)"
-        : "Buy a 6th Antimatter Dimension.";
-    },
+    get name() { return i18n("ach", "ach16title") },
+    get description() { return i18n("ach", "ach16desc").split("$")[Enslaved.isRunning ? 1 : 0] },
     checkEvent: GAME_EVENT.ACHIEVEMENT_EVENT_OTHER,
   },
   {
     id: 17,
-    name: "Not a luck related achievement",
-    description: "Buy a 7th Antimatter Dimension.",
+    get name() { return i18n("ach", "ach17title") },
+    get description() { return i18n("ach", "ach17desc") },
     checkEvent: GAME_EVENT.ACHIEVEMENT_EVENT_OTHER,
   },
   {
     id: 18,
-    name: "90 degrees to infinity",
-    get description() {
-      return Enslaved.isRunning
-        ? "Buy an 8th Antimatter Dimension (don't get used to it)"
-        : "Buy an 8th Antimatter Dimension.";
-    },
+    get name() { return i18n("ach", "ach18title") },
+    get description() { return i18n("ach", "ach18desc").split("$")[Enslaved.isRunning ? 1 : 0] },
     checkEvent: GAME_EVENT.ACHIEVEMENT_EVENT_OTHER,
   },
   {
