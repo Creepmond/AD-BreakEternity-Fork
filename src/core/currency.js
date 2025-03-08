@@ -85,7 +85,7 @@ MathOperations.number = new class NumberMathOperations extends MathOperations {
 
 MathOperations.decimal = new class DecimalMathOperations extends MathOperations {
   add(left, right) { return Decimal.add(left, right); }
-  subtract(left, right) { return Decimal.subtract(left, right); }
+  subtract(left, right) { return left.gt("ee10") ? left : Decimal.subtract(left, right); }
   multiply(left, right) { return Decimal.multiply(left, right); }
   divide(left, right) { return Decimal.divide(left, right); }
   max(left, right) { return Decimal.max(left, right); }

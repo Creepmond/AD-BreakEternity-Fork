@@ -29,7 +29,7 @@ export class DimensionState {
   get productionPerSecond() { throw new NotImplementedError(); }
 
   get productionPerRealSecond() {
-    return this.productionPerSecond.times(getGameSpeedupForDisplay());
+    return this.productionPerSecond.div(getGameSpeedupForDisplay());
   }
 
   productionForDiff(diff) {

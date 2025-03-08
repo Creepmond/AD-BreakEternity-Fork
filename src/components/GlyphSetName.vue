@@ -221,7 +221,7 @@ export default {
       this.sortedGlyphs = this.glyphTypeList.filter(t => t.perc !== 0);
       // This composite function is required in order to ensure consistent names with equal percentages, as JS doesn't
       // guarantee .sort() operations are stable sorts. Sorts by adjOrder, followed by perc, followed by alphabetical.
-      const sortFn = t => 100 * t.adjOrder + t.perc + t.type.charCodeAt(0) / 1000;
+      const sortFn = t => 100 * t.adjOrder + t.perc + GlyphInfo.glyphTypes.sort().indexOf(t.type) / 100000;
       this.sortedGlyphs.sort((a, b) => sortFn(b) - sortFn(a));
     },
     getAdjective(listEntry) {

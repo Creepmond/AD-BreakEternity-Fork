@@ -10,30 +10,42 @@
 // rarities are just the rarities. They must be descending in rarity, and must use hex codes
 // GLYPH INFO
 // id is just the glyph type - its used in a couple places, mainly glyph cosmetics. Must be the same as name of glyph type object
-// Adjective is whats used for GlyphSetName.vue - If undefined, will default to ""
-// Noun is also used by GlyphSetName.vue - The word at the end of the set name (the "Infinity" in "Boundless Infinity")
-// adjNounImportance dictates which noun to use - Lower means itll be used earlier for noun if it exists, higher is later
-// isGenerated states whether or not the glyph is naturally generated
-// generationRequirement states the requirement to generate the glyph. Not needed on glyphs where isGenerated is false. Defaults to true.
-// canCustomize gives the requirement to customize. Defaults to true.
+// effects - This just grabs the effects from glyph-effects, you can just put in your glyphs name and leave it, dont worry about it
+// effectIDs - This needs to be done manually - A list of all the ids of the effects that can generate on that glyph.
+// excessEffects allows you to add extra effects to glyphs (independant of other generation criteria) similar to Nameless 25.
+// adjective is whats used for GlyphSetName.vue - If undefined, will default to ""
+// noun is also used by GlyphSetName.vue - The word at the end of the set name (the "Infinity" in "Boundless Infinity")
 // isBasic states whether the glyph is classed as a basic glyph.
-// regularGlyphSymbol is the symbol shown when not using design theme, else cancerGlyphSymbol is used
+// regularGlyphSymbol is the symbol shown when not using design theme
+// cancerGlyphSymbol is the symbol show when you are using design (cancer) theme
+// strOverride is the override for strength. Does not have to exist, but if it does, it should take the STRENGTH (str = rarity/40 + 1) and return a value based on that
+// levelOverride is the override for level. Same as strOverride, but the input is level.
+// effectOverride is the override for effect count. Same as above, but input is the number of effects - Returned value should be a whole number, but it will be rounded down otherwise.
+// appearanceWeight is how likely it is to appear. 1 is the default value, but 0.5 would make your glyph 2x rarer, while 2 would make your glyph 2x more common. Not required.
+// bannedEffectPairs - An array of arrays [effectA, effectB, override]. effectA and effectB are the two effects, and override means if true, ignore the ban. Not required.
+// effectWeights is the likelyhood of effects. Not required, same as appearanceWeight
 // hasSacrifice states whether or not the glyph has a sacrifice.
 // sacrificeInfo holds information about the sacrifice, if it exists
 // - id: The id of the sacrifice. Only really used in cases where we need this legacy info
 // - effect: the effect of the sacrifice
-// - description: the description shown im the glyph tab, under glyph sacrifice
+// - description: the description shown in the glyph tab, under glyph sacrifice
 // - cap: the cap of the effect
 // - unlock: when is the sacrifice unlocked, defaults to ru19
+// adjNounImportance dictates which noun to use - Lower means itll be used earlier for noun if it exists, higher is later
+// isGenerated states whether or not the glyph is naturally generated
+// generationRequirement states the requirement to generate the glyph. Not needed on glyphs where isGenerated is false. Defaults to true.
+// canCustomize gives the requirement to customize. Defaults to true.
 // hasAlchemyResource states whether or not the glyph can be refined into it's appropriate alcheemy resource (if it exists)
-// pelleUniqueEffect states whether or not the glyph has a unique effect in Pelle due to rift 3
+// pelleUniqueEffect states whether or not the glyph has a unique effect in Pelle due to rift 3. Not required. Defaults to false
 // color gives the base color of the glyph
-// primaryEffect gives the primary effect, which should always appear on glyphs of that type
+// primaryEffect gives the primary effect, which should always appear on glyphs of that type.  Not required.
 // alchemyResource gives the alchemy resource of that glyph, where applicable
-// setColor states whether or not the color of that glyph can be modified
+// setColor states whether or not the color of that glyph can be modified. Not required.
 // hasRarity basically just states whether it should display (has) rarity or not. Cursed glyphs and reality glyphs, for example, have this as false in vanilla. Defaults to false.
+//
 // To prevent issues, make sure there is always as many note().mp4 files (with the numbers 1-x) as there are glyph types, else you might get errors with music glyphs and audio
 // Its not perfect, you will likely still need to touch GlyphSetName.vue to implement new glyphs completely, but i tried my best :P
+// PS. There is a sample glyph below to show you how the structure of your glyph might look
 
 const complexIncludes = (x, filterItem) => x.map(n => n().includes(filterItem)).includes(true);
 
@@ -146,10 +158,65 @@ export const GlyphInfo = {
     }
   ],
 
+  // eslint-disable-next-line capitalized-comments, multiline-comment-style
+  /*
+  sampleGlyph: {
+    id: "sampleGlyph",
+    effects: () => GlyphEffects.all.filter(e => complexIncludes(e.glyphTypes, "sampleGlyph")),
+    effectIDs: ["sampleEffectA", "sampleEffectB", "sampleEffectC", "sampleEffectD", "sampleEffectE", "sampleEffectF"],
+    excessEffects: () => [Ra.unlocks.allGamespeedGlyphs.canBeApplied ? "timespeed" : ""]
+    adjective: { high: "Big", mid: "Medium", low: "Small" },
+    noun: Glyph,
+    isBasic: false,
+    regularGlyphSymbol: "S",
+    cancerGlyphSymbol: "$",
+    strOverride: x => cbrt(x.sub(1)).add(1),
+    levelOverride: x => x.div(3).add(x.cbrt()),
+    effectOverride: x => Math.max(4, x/3)
+    appearanceWeight: 0.2,
+    bannedEffectPairs: [
+      ["sampleEffectA", "sampleEffectD", () => player.realities.log10() > 1000],
+      ["sampleEffectA", "sampleEffectB", () => false],
+      ["sampleEffectD", "sampleEffectE"]
+    ],
+    effectWeights: {
+      sampleEffectA: 0.5,
+      sampleEffectB: 1.4,
+      sampleEffectC: 2.5,
+      sampleEffectD: 2,
+      sampleEffectE: 1.5,
+      sampleEffectF: 0.5
+    }
+    hasSacrifice: true,
+    sacrificeInfo: {
+      id: "sampleGlyph",
+      effect: added => {
+        if (Pelle.isDisabled("glyphsac")) return DC.D0;
+        const sac = player.reality.glyphs.sac.sample.add(added ?? 0);
+        return sac.log10().pow(3).add(1);
+      },
+      description: amount => `Boost something by ${formatX(amount, 2, 3)}`,
+      cap: () => GlyphSacrificeHandler.maxSacrificeForEffects,
+      unlock: () => player.eternities.gt("ee45")
+    },
+    hasAlchemyResource: true,
+    pelleUniqueEffect: false,
+    isGenerated: true,
+    generationRequirement: () => player.realities.log10() > 777,
+    canCustomize: () => player.version > 455,
+    adjNounImportance: 9,
+    alchemyResource: ALCHEMY_RESOURCE.SAMPLE,
+    hasRarity: true,
+    color: "#ABCDEF",
+    setColor: true,
+    maxEquipped: 3,
+  }
+  */
   cursed: {
     id: "cursed",
     effects: () => GlyphEffects.all.filter(e => complexIncludes(e.glyphTypes, "cursed")),
     effectIDs: ["cursedgalaxies", "curseddimensions", "cursedtickspeed", "cursedEP"],
+    excessEffects: () => [Ra.unlocks.allGamespeedGlyphs.canBeApplied ? "timespeed" : ""],
     adjective: { high: "Cursed", mid: "Hexed", low: "Jinxed" },
     noun: "Curse",
     isBasic: false,
@@ -169,6 +236,7 @@ export const GlyphInfo = {
     id: "reality",
     effects: () => GlyphEffects.all.filter(e => complexIncludes(e.glyphTypes, "reality")),
     effectIDs: ["realityglyphlevel", "realitygalaxies", "realityrow1pow", "realityDTglyph"],
+    excessEffects: () => [Ra.unlocks.allGamespeedGlyphs.canBeApplied ? "timespeed" : ""],
     adjective: "Real",
     noun: "Reality",
     isBasic: false,
@@ -200,11 +268,15 @@ export const GlyphInfo = {
     id: "effarig",
     effects: () => GlyphEffects.all.filter(e => complexIncludes(e.glyphTypes, "effarig")),
     effectIDs: ["effarigrm", "effarigglyph", "effarigblackhole", "effarigachievement", "effarigforgotten", "effarigdimensions", "effarigantimatter"],
+    excessEffects: () => [Ra.unlocks.allGamespeedGlyphs.canBeApplied ? "timespeed" : ""],
     adjective: { both: "Meta", glyph: "Stable", rm: "Mechanical", none: "Fragmented" },
     noun: { both: "Effarig", glyph: "Stability", rm: "Mechanism", none: "Fragmentation" },
     isBasic: false,
     regularGlyphSymbol: "Ϙ",
     cancerGlyphSymbol: "🦒",
+    bannedEffectPairs: [
+      ["effarigrm", "effarigglyph", () => Ra.unlocks.glyphEffectCount.canBeApplied]
+    ],
     hasSacrifice: true,
     sacrificeInfo: {
       effect: added => {
@@ -233,6 +305,7 @@ export const GlyphInfo = {
     id: "companion",
     effects: () => GlyphEffects.all.filter(e => complexIncludes(e.glyphTypes, "companion")),
     effectIDs: ["companiondescription", "companionEP"],
+    excessEffects: () => [Ra.unlocks.allGamespeedGlyphs.canBeApplied ? "timespeed" : ""],
     adjective: "Huggable",
     noun: "Companion",
     isBasic: false,
@@ -251,8 +324,9 @@ export const GlyphInfo = {
   power: {
     id: "power",
     effects: () => GlyphEffects.all.filter(e => complexIncludes(e.glyphTypes, "power")),
-    adjective: { high: "Powerful", mid: "Mastered", low: "Potential" },
     effectIDs: ["powerpow", "powermult", "powerdimboost", "powerbuy10"],
+    excessEffects: () => [Ra.unlocks.allGamespeedGlyphs.canBeApplied ? "timespeed" : ""],
+    adjective: { high: "Powerful", mid: "Mastered", low: "Potential" },
     noun: "Power",
     isBasic: true,
     regularGlyphSymbol: "Ω",
@@ -283,7 +357,7 @@ export const GlyphInfo = {
     isGenerated: true,
     adjNounImportance: 1,
     color: "#22aa48",
-    primaryEffect: "powerpow",
+    primaryEffects: ["powerpow"],
     alchemyResource: ALCHEMY_RESOURCE.POWER,
     hasRarity: true
   },
@@ -292,6 +366,7 @@ export const GlyphInfo = {
     id: "infinity",
     effects: () => GlyphEffects.all.filter(e => complexIncludes(e.glyphTypes, "infinity")),
     effectIDs: ["infinitypow", "infinityrate", "infinityIP", "infinityinfmult"],
+    excessEffects: () => [Ra.unlocks.allGamespeedGlyphs.canBeApplied ? "timespeed" : ""],
     adjective: { high: "Infinite", mid: "Boundless", low: "Immense" },
     noun: "Infinity",
     isBasic: true,
@@ -314,7 +389,7 @@ export const GlyphInfo = {
     isGenerated: true,
     adjNounImportance: 1,
     color: "#b67f33",
-    primaryEffect: "infinitypow",
+    primaryEffects: ["infinitypow"],
     alchemyResource: ALCHEMY_RESOURCE.INFINITY,
     hasRarity: true
   },
@@ -323,6 +398,7 @@ export const GlyphInfo = {
     id: "replication",
     effects: () => GlyphEffects.all.filter(e => complexIncludes(e.glyphTypes, "replication")),
     effectIDs: ["replicationspeed", "replicationpow", "replicationdtgain", "replicationglyphlevel"],
+    excessEffects: () => [Ra.unlocks.allGamespeedGlyphs.canBeApplied ? "timespeed" : ""],
     adjective: { high: "Replicated", mid: "Simulated", low: "Duplicated" },
     noun: "Replication",
     isBasic: true,
@@ -362,6 +438,7 @@ export const GlyphInfo = {
     id: "time",
     effects: () => GlyphEffects.all.filter(e => complexIncludes(e.glyphTypes, "time")),
     effectIDs: ["timepow", "timespeed", "timeetermult", "timeEP"],
+    excessEffects: () => [Ra.unlocks.allGamespeedGlyphs.canBeApplied ? "timespeed" : ""],
     adjective: { high: "Temporal", mid: "Chronal", low: "Transient" },
     noun: "Time",
     isBasic: true,
@@ -384,7 +461,7 @@ export const GlyphInfo = {
     isGenerated: true,
     adjNounImportance: 1,
     color: "#b241e3",
-    primaryEffect: "timepow",
+    primaryEffects: ["timepow"],
     alchemyResource: ALCHEMY_RESOURCE.TIME,
     hasRarity: true
   },
@@ -393,6 +470,7 @@ export const GlyphInfo = {
     id: "dilation",
     effects: () => GlyphEffects.all.filter(e => complexIncludes(e.glyphTypes, "dilation")),
     effectIDs: ["dilationDT", "dilationgalaxyThreshold", "dilationTTgen", "dilationpow"],
+    excessEffects: () => [Ra.unlocks.allGamespeedGlyphs.canBeApplied ? "timespeed" : ""],
     adjective: { high: "Dilated", mid: "Attenuated", low: "Diluted" },
     noun: "Dilation",
     isBasic: true,

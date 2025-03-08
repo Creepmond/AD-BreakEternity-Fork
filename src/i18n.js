@@ -15,7 +15,6 @@ window.i18n = function(type, id, mods = []) {
   for (let i = 1; i <= mods.length; i ++) {
     text = text.replace(`$${i}aX`, typeof mods[i - 1] === "function" ? mods[i - 1]() : mods[i - 1]);
   }
-  console.log(text)
   return text;
 };
 
