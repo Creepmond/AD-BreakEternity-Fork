@@ -9,7 +9,7 @@ This repository is worked on using Visual Studio Code and if you don't know what
 - On the github repo, click "Code", "HTTPS", and then copy the url
 - Paste the URL into the box and press enter
 - For modifying other branches (i.e. not main):
-  - Install Git (link[https://git-scm.com/downloads/win])
+  - Install Git ([link](https://git-scm.com/downloads/win))
   - Open terminal (You can open it via the top in VSCode, or use any command line terminal)
   - Run `git branch` to list all branches
   - Run `git switch x` (where x is the branch you want) to swap branch
