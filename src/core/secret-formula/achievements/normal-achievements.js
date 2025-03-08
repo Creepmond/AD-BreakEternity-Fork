@@ -2,173 +2,166 @@
 export const normalAchievements = [
   {
     id: 11,
-    get name() { return i18n("ach", "ach11title") },
-    get description() { return i18n("ach", "ach11desc") },
+    get name() { return i18n("ach", "ach11title"); },
+    get description() { return i18n("ach", "ach11desc"); },
     checkEvent: GAME_EVENT.ACHIEVEMENT_EVENT_OTHER,
   },
   {
     id: 12,
-    get name() { return i18n("ach", "ach12title") },
-    get description() { return i18n("ach", "ach12desc") },
+    get name() { return i18n("ach", "ach12title"); },
+    get description() { return i18n("ach", "ach12desc"); },
     checkEvent: GAME_EVENT.ACHIEVEMENT_EVENT_OTHER,
   },
   {
     id: 13,
-    get name() { return i18n("ach", "ach13title") },
-    get description() { return i18n("ach", "ach13desc") },
+    get name() { return i18n("ach", "ach13title"); },
+    get description() { return i18n("ach", "ach13desc"); },
     checkEvent: GAME_EVENT.ACHIEVEMENT_EVENT_OTHER,
   },
   {
     id: 14,
-    get name() { return i18n("ach", "ach14title") },
-    get description() { return i18n("ach", "ach14desc") },
+    get name() { return i18n("ach", "ach14title"); },
+    get description() { return i18n("ach", "ach14desc"); },
     checkEvent: GAME_EVENT.ACHIEVEMENT_EVENT_OTHER,
   },
   {
     id: 15,
-    get name() { return i18n("ach", "ach15title") },
-    get description() { return i18n("ach", "ach15desc") },
+    get name() { return i18n("ach", "ach15title"); },
+    get description() { return i18n("ach", "ach15desc"); },
     checkEvent: GAME_EVENT.ACHIEVEMENT_EVENT_OTHER,
   },
   {
     id: 16,
-    get name() { return i18n("ach", "ach16title") },
-    get description() { return i18n("ach", "ach16desc").split("$")[Enslaved.isRunning ? 1 : 0] },
+    get name() { return i18n("ach", "ach16title"); },
+    get description() { return i18n("ach", "ach16desc").split("$")[Enslaved.isRunning ? 1 : 0]; },
     checkEvent: GAME_EVENT.ACHIEVEMENT_EVENT_OTHER,
   },
   {
     id: 17,
-    get name() { return i18n("ach", "ach17title") },
-    get description() { return i18n("ach", "ach17desc") },
+    get name() { return i18n("ach", "ach17title"); },
+    get description() { return i18n("ach", "ach17desc"); },
     checkEvent: GAME_EVENT.ACHIEVEMENT_EVENT_OTHER,
   },
   {
     id: 18,
-    get name() { return i18n("ach", "ach18title") },
-    get description() { return i18n("ach", "ach18desc").split("$")[Enslaved.isRunning ? 1 : 0] },
+    get name() { return i18n("ach", "ach18title"); },
+    get description() { return i18n("ach", "ach18desc").split("$")[Enslaved.isRunning ? 1 : 0]; },
     checkEvent: GAME_EVENT.ACHIEVEMENT_EVENT_OTHER,
   },
   {
     id: 21,
-    name: "To infinity!",
-    description: "Go Infinite.",
+    get name() { return i18n("ach", "ach21title"); },
+    get description() { return i18n("ach", "ach21desc"); },
     checkRequirement: () => true,
     checkEvent: GAME_EVENT.BIG_CRUNCH_BEFORE,
-    get reward() { return `Start with ${formatInt(100)} antimatter.`; },
+    get reward() { return i18n("ach", "ach21reward", [formatInt(100)]); },
     effect: 100
   },
   {
     id: 22,
-    name: "FAKE NEWS!",
-    get description() { return `Encounter ${formatInt(50)} different news messages.`; },
+    get name() { return i18n("ach", "ach22title"); },
+    get description() { return i18n("ach", "ach22desc", [formatInt(50)]); },
     checkRequirement: () => NewsHandler.uniqueTickersSeen >= 50,
     checkEvent: GAME_EVENT.REALITY_RESET_AFTER
   },
   {
     id: 23,
-    name: "The 9th Dimension is a lie",
-    get description() { return `Have exactly ${formatInt(99)} 8th Antimatter Dimensions.`; },
+    get name() { return i18n("ach", "ach23title"); },
+    get description() { return i18n("ach", "ach23desc", [formatInt(99)]); },
     checkRequirement: () => AntimatterDimension(8).amount.eq(99),
-    get reward() { return `8th Antimatter Dimensions are ${formatPercents(new Decimal(0.1))} stronger.`; },
+    get reward() { return i18n("ach", "ach23reward", [formatPercents(0.1)]); },
     effect: 1.1
   },
   {
     id: 24,
-    name: "Antimatter Apocalypse",
-    get description() { return `Get over ${format(DC.E80)} antimatter.`; },
+    get name() { return i18n("ach", "ach24title"); },
+    get description() { return i18n("ach", "ach24desc", [format(DC.E80)]); },
     checkRequirement: () => Currency.antimatter.gte(DC.E80),
     checkEvent: GAME_EVENT.GAME_TICK_AFTER
   },
   {
     id: 25,
-    name: "Boosting to the max",
-    get description() { return `Buy ${formatInt(10)} Dimension Boosts.`; },
+    get name() { return i18n("ach", "ach25title"); },
+    get description() { return i18n("ach", "ach25desc", [formatInt(10)]); },
     checkRequirement: () => DimBoost.purchasedBoosts.gte(10),
     checkEvent: GAME_EVENT.DIMBOOST_AFTER
   },
   {
     id: 26,
-    name: "You got past The Big Wall",
-    description: "Buy an Antimatter Galaxy.",
+    get name() { return i18n("ach", "ach26title"); },
+    get description() { return i18n("ach", "ach26desc"); },
     checkRequirement: () => true,
     checkEvent: GAME_EVENT.GALAXY_RESET_BEFORE
   },
   {
     id: 27,
-    name: "Double Galaxy",
-    get description() { return `Buy ${formatInt(2)} Antimatter Galaxies.`; },
+    get name() { return i18n("ach", "ach27title"); },
+    get description() { return i18n("ach", "ach27desc", [formatInt(2)]); },
     checkRequirement: () => player.galaxies.gte(2),
     checkEvent: GAME_EVENT.GALAXY_RESET_AFTER
   },
   {
     id: 28,
-    name: "There's no point in doing that...",
-    get description() {
-      return `Buy a single 1st Antimatter Dimension when you have over ${format(DC.E150)} of them.`;
-    },
+    get name() { return i18n("ach", "ach28title"); },
+    get description() { return i18n("ach", "ach28desc", [format(DC.E150)]); },
     checkRequirement: () => AntimatterDimension(1).amount.gte(DC.E150),
     checkEvent: GAME_EVENT.ACHIEVEMENT_EVENT_OTHER,
-    get reward() { return `1st Antimatter Dimensions are ${formatPercents(new Decimal(0.1))} stronger.`; },
+    get reward() { return i18n("ach", "ach28reward", [formatPercents(0.1)]); },
     effect: 1.1
   },
   {
     id: 31,
-    name: "I forgot to nerf that",
-    get description() { return `Get any Antimatter Dimension multiplier over ${formatX(DC.E31)}.`; },
+    get name() { return i18n("ach", "ach31title"); },
+    get description() { return i18n("ach", "ach31desc", [formatX(DC.E31)]); },
     checkRequirement: () => AntimatterDimensions.all.some(x => x.multiplier.gte(DC.E31)),
     checkEvent: GAME_EVENT.GAME_TICK_AFTER,
-    get reward() { return `1st Antimatter Dimensions are ${formatPercents(new Decimal(0.05))} stronger.`; },
+    get reward() { return i18n("ach", "ach31reward", [formatPercents(0.05)]); },
     effect: 1.05
   },
   {
     id: 32,
-    name: "The Gods are pleased",
-    get description() { return `Get over ${formatX(600)} from Dimensional Sacrifice outside of Challenge 8.`; },
+    get name() { return i18n("ach", "ach32title"); },
+    get description() { return i18n("ach", "ach32desc", [formatX(600)]); },
     checkRequirement: () => !NormalChallenge(8).isOnlyActiveChallenge && Sacrifice.totalBoost.gte(600),
     checkEvent: GAME_EVENT.SACRIFICE_RESET_AFTER,
     get reward() {
-      return `Dimensional Sacrifice is stronger.
-      ${Sacrifice.getSacrificeDescription({ "Achievement32": false, "Achievement57": false, "Achievement88": false })} ➜
-      ${Sacrifice.getSacrificeDescription({ "Achievement32": true, "Achievement57": false, "Achievement88": false })}`;
+      return i18n("ach", "ach32reward", [
+        Sacrifice.getSacrificeDescription({ "Achievement32": false, "Achievement57": false, "Achievement88": false }),
+        Sacrifice.getSacrificeDescription({ "Achievement32": true, "Achievement57": false, "Achievement88": false })
+      ]);
     },
     effect: 0.1,
   },
   {
     id: 33,
-    name: "That's a lot of infinites",
-    get description() { return `Reach Infinity ${formatInt(10)} times.`; },
+    get name() { return i18n("ach", "ach33title"); },
+    get description() { return i18n("ach", "ach33desc", [formatInt(10)]); },
     checkRequirement: () => Currency.infinities.gte(10),
     checkEvent: GAME_EVENT.BIG_CRUNCH_AFTER
   },
   {
     id: 34,
-    name: "You didn't need it anyway",
-    description: "Infinity without having any 8th Antimatter Dimensions.",
+    get name() { return i18n("ach", "ach34title"); },
+    get description() { return i18n("ach", "ach34desc"); },
     checkRequirement: () => AntimatterDimension(8).totalAmount.eq(0),
     checkEvent: GAME_EVENT.BIG_CRUNCH_BEFORE,
-    get reward() { return `Dimensions 1-7 are ${formatPercents(new Decimal(0.02))} stronger.`; },
+    get reward() { return i18n("ach", "ach34reward", [formatPercents(0.02)]); },
     effect: 1.02
   },
   {
     id: 35,
-    name: "Don't you dare sleep",
-    get description() {
-      return PlayerProgress.realityUnlocked()
-        ? `Be offline for a period of over ${formatInt(6)} hours (real time).`
-        : `Be offline for a period of over ${formatInt(6)} hours.`;
-    },
+    get name() { return i18n("ach", "ach35title"); },
+    get description() { return i18n("ach", "ach35desc", [formatInt(6)]).split("$")[PlayerProgress.realityUnlocked() ? 1 : 0]; },
     checkRequirement: () => Date.now() - new Decimal(player.lastUpdate).toNumber() >= 21600000,
     checkEvent: GAME_EVENT.GAME_TICK_BEFORE
   },
   {
     id: 36,
-    name: "Claustrophobic",
-    get description() {
-      return `Infinity with just ${formatInt(1)} Antimatter Galaxy. (Your Antimatter Galaxies are reset on Infinity.)`;
-    },
+    get name() { return i18n("ach", "ach36title"); },
+    get description() { return i18n("ach", "ach36desc", [formatInt(1)]); },
     checkRequirement: () => player.galaxies.eq(1),
     checkEvent: GAME_EVENT.BIG_CRUNCH_BEFORE,
-    get reward() { return `Multiply starting tick speed by ${format(1.02, 2, 2)}.`; },
+    get reward() { return i18n("ach", "ach36reward", [format(1.02)]); },
     effect: 1 / 1.02
   },
   {
