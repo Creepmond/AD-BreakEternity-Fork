@@ -20,11 +20,17 @@ This repository is worked on using Visual Studio Code and if you don't know what
   - Click "New Pull request"
   - Here you can add a title, a description, then make a pull request
   - (A pull request is basically a request for someone to merge your code into theirs)
+- Updating your local repository
+  - On your repository, click the "Sync" button.
+  - Assuming you have not done anything major, you should be able to do so without any conflicts
+    - If there are conflicts, you will need to resolve them by hand
+  - You can then go to "Source Control" -> "Pull" or run `git pull` to pull any changes
+    - This will pull changes from **your** repository, not this repository, so sync first.
 
 ## Run
 
 To run the game locally, you will need to install
-[Node.js](https://nodejs.org/) (LTS suggested).
+[Node.js](https://nodejs.org/) (LTS suggested, v16 works, possibly higher do aswell).
 
 First, run the following command in your terminal (or command line) while being
 inside the checked out repository:
