@@ -166,43 +166,36 @@ export const normalAchievements = [
   },
   {
     id: 37,
-    name: "That's FAST!",
-    get description() { return `Infinity in under ${formatInt(2)} hours.`; },
+    get name() { return i18n("ach", "ach37title"); },
+    get description() { return i18n("ach", "ach37desc", [formatInt(2)]); },
     checkRequirement: () => Time.thisInfinityRealTime.totalHours.lte(2),
     checkEvent: GAME_EVENT.BIG_CRUNCH_BEFORE,
-    get reward() { return `Start with ${formatInt(5000)} antimatter.`; },
+    get reward() { return i18n("ach", "ach36reward", [formatInt(5000)]); },
     effect: 5000
   },
   {
     id: 38,
-    name: "I don't believe in Gods",
-    get description() {
-      return `Buy an Antimatter Galaxy without Dimensional Sacrificing.
-        (Your Antimatter Galaxies are reset on Infinity.)`;
-    },
+    get name() { return i18n("ach", "ach38title"); },
+    get description() { return i18n("ach", "ach38desc"); },
     checkRequirement: () => player.requirementChecks.infinity.noSacrifice,
     checkEvent: GAME_EVENT.GALAXY_RESET_BEFORE
   },
   {
     id: 41,
-    name: "No DLC required",
-    get description() { return `Buy ${formatInt(16)} Infinity Upgrades.`; },
+    get name() { return i18n("ach", "ach41title"); },
+    get description() { return i18n("ach", "ach41desc", [formatInt(16)]); },
     checkRequirement: () => player.infinityUpgrades.size >= 16,
     checkEvent: [
       GAME_EVENT.INFINITY_UPGRADE_BOUGHT,
       GAME_EVENT.REALITY_RESET_AFTER,
       GAME_EVENT.REALITY_UPGRADE_TEN_BOUGHT
     ],
-    get reward() {
-      return `Unlock two new Infinity Upgrades- ${formatX(2)} IP multiplier and offline IP generation.`;
-    },
+    get reward() { return i18n("ach", "ach41reward", [formatX(2)]); },
   },
   {
     id: 42,
-    name: "Super Sanic",
-    get description() {
-      return `Have antimatter per second exceed your current antimatter above ${format(DC.E63)}.`;
-    },
+    get name() { return i18n("ach", "ach42title"); },
+    get description() { return i18n("ach", "ach42desc", [format(DC.E63)]); },
     checkRequirement: () =>
       Currency.antimatter.gte(DC.E63) &&
       Currency.antimatter.productionPerSecond.gt(Currency.antimatter.value),
@@ -210,10 +203,8 @@ export const normalAchievements = [
   },
   {
     id: 43,
-    name: "How the antitables have turned..",
-    description:
-      "Get the 8th Antimatter Dimension multiplier to be highest, 7th Antimatter Dimension multiplier " +
-      " second highest, etc.",
+    get name() { return i18n("ach", "ach43title"); },
+    get description() { return i18n("ach", "ach43desc"); },
     checkRequirement: () => {
       const multipliers = Array.range(1, 8).map(tier => AntimatterDimension(tier).multiplier);
       for (let i = 0; i < multipliers.length - 1; i++) {
@@ -222,73 +213,67 @@ export const normalAchievements = [
       return true;
     },
     checkEvent: GAME_EVENT.GAME_TICK_AFTER,
-    get reward() {
-      return `Each Antimatter Dimension gains a boost proportional to tier
-      (8th gets ${formatPercents(new Decimal(0.08))}, 7th gets ${formatPercents(new Decimal(0.07))}, etc.)`;
-    }
+    get reward() { return i18n("ach", "ach43reward", [formatPercents(8), formatPercents(7)]); },
   },
   {
     id: 44,
-    name: "Over in 30 Seconds",
-    get description() {
-      return `Have antimatter per second exceed your current antimatter
-      for ${formatInt(30)} consecutive seconds.`;
-    },
+    get name() { return i18n("ach", "ach44title"); },
+    get description() { return i18n("ach", "ach44desc", [formatInt(30)]); },
     checkRequirement: () => AchievementTimers.marathon1
       .check(Currency.antimatter.productionPerSecond.gt(Currency.antimatter.value), 30),
     checkEvent: GAME_EVENT.GAME_TICK_AFTER,
   },
   {
     id: 45,
-    name: "Faster than a potato",
-    get description() { return `Get more than ${format(DC.E29)} ticks per second.`; },
+    get name() { return i18n("ach", "ach45title"); },
+    get description() { return i18n("ach", "ach45desc", [format(DC.E29)]); },
     checkRequirement: () => Tickspeed.current.lte(1e-26),
     checkEvent: GAME_EVENT.GAME_TICK_AFTER,
-    get reward() { return `Multiply starting tickspeed by ${formatX(1.02, 0, 2)}.`; },
+    get reward() { return i18n("ach", "ach45reward", [formatX(1.02, 0, 2)]); },
     effect: 0.98
   },
   {
     id: 46,
-    name: "Multidimensional",
-    get description() { return `Reach ${format(DC.E12)} of all Antimatter Dimensions except the 8th.`; },
+    get name() { return i18n("ach", "ach46title"); },
+    get description() { return i18n("ach", "ach46desc", [format(DC.E12)]); },
     checkRequirement: () => AntimatterDimension(7).amount.gte(1e12),
     checkEvent: GAME_EVENT.GAME_TICK_AFTER
   },
   {
     id: 47,
-    name: "Daredevil",
-    get description() { return `Complete ${formatInt(3)} Normal Challenges.`; },
+    get name() { return i18n("ach", "ach47title"); },
+    get description() { return i18n("ach", "ach47desc", [formatInt(3)]); },
     checkRequirement: () => NormalChallenges.all.countWhere(c => c.isCompleted) >= 3,
     checkEvent: [GAME_EVENT.BIG_CRUNCH_AFTER, GAME_EVENT.REALITY_RESET_AFTER, GAME_EVENT.REALITY_UPGRADE_TEN_BOUGHT],
   },
   {
     id: 48,
-    name: "Antichallenged",
-    get description() { return `Complete all ${formatInt(12)} Normal Challenges.`; },
+    get name() { return i18n("ach", "ach48title"); },
+    get description() { return i18n("ach", "ach48desc", [formatInt(12)]); },
     checkRequirement: () => NormalChallenges.all.countWhere(c => !c.isCompleted) === 0,
     checkEvent: [GAME_EVENT.BIG_CRUNCH_AFTER, GAME_EVENT.REALITY_RESET_AFTER, GAME_EVENT.REALITY_UPGRADE_TEN_BOUGHT],
-    get reward() { return `All Dimensions are ${formatPercents(new Decimal(0.1))} stronger.`; },
+    get reward() { return i18n("ach", "ach48eward", [formatPercents(0.1)]); },
     effect: 1.1
   },
   {
     id: 51,
-    name: "Limit Break",
-    description: "Break Infinity.",
+    get name() { return i18n("ach", "ach51title"); },
+    get description() { return i18n("ach", "ach51desc"); },
     checkRequirement: () => player.break,
     checkEvent: [GAME_EVENT.BREAK_INFINITY, GAME_EVENT.REALITY_RESET_AFTER, GAME_EVENT.REALITY_UPGRADE_TEN_BOUGHT],
   },
   {
     id: 52,
-    name: "Age of Automation",
-    description: "Max the interval for Antimatter Dimension and Tickspeed upgrade autobuyers.",
+    get name() { return i18n("ach", "ach52title"); },
+    get description() { return i18n("ach", "ach52desc"); },
     checkRequirement: () => Autobuyer.antimatterDimension.zeroIndexed.concat(Autobuyer.tickspeed)
       .every(a => a.isUnlocked && a.hasMaxedInterval),
     checkEvent: [GAME_EVENT.REALITY_RESET_AFTER, GAME_EVENT.REALITY_UPGRADE_TEN_BOUGHT]
   },
   {
     id: 53,
-    name: "Definitely not worth it",
-    description: "Max the intervals for all normal autobuyers.",
+    get name() { return i18n("ach", "ach53title"); },
+    get description() { return i18n("ach", "ach53desc"); },
     // The upgradeable autobuyers are dimensions, tickspeed, dimension boost,
     // galaxy, and big crunch (the ones you get from normal challenges).
     // We don't count autobuyers which can be upgraded via e.g. perks as upgradeable.
@@ -298,20 +283,20 @@ export const normalAchievements = [
   },
   {
     id: 54,
-    name: "That's FASTER!",
-    get description() { return `Infinity in ${formatInt(10)} minutes or less.`; },
+    get name() { return i18n("ach", "ach54title"); },
+    get description() { return i18n("ach", "ach54desc", [formatInt(10)]); },
     checkRequirement: () => Time.thisInfinityRealTime.totalMinutes.lte(10),
     checkEvent: GAME_EVENT.BIG_CRUNCH_BEFORE,
-    get reward() { return `Start with ${format(5e5)} antimatter.`; },
+    get description() { return i18n("ach", "ach54reward", [format(5e5)]); },
     effect: 5e5
   },
   {
     id: 55,
-    name: "Forever isn't that long",
-    get description() { return `Infinity in ${formatInt(1)} minute or less.`; },
+    get name() { return i18n("ach", "ach55title"); },
+    get description() { return i18n("ach", "ach55desc", [formatInt(10)]); },
     checkRequirement: () => Time.thisInfinityRealTime.totalMinutes.lte(1),
     checkEvent: GAME_EVENT.BIG_CRUNCH_BEFORE,
-    get reward() { return `Start with ${format(5e10)} antimatter.`; },
+    get description() { return i18n("ach", "ach55reward", [format(5e10)]); },
     effect: 5e10
   },
   {
