@@ -127,20 +127,19 @@ export default {
         :class="disChargeClassObject"
         @click="disCharge = !disCharge"
       >
-        Respec Charged Infinity Upgrades on next Reality
+        {{ i18n("inf", "respecCharged") }}
       </PrimaryButton>
     </div>
     <div v-if="chargeUnlocked">
-      You have charged {{ formatInt(chargesUsed) }}/{{ formatInt(totalCharges) }} Infinity Upgrades.
-      Charged Infinity Upgrades have their effect altered.
+      {{ i18n("inf", "haveCharged", [formatInt(chargesUsed), formatInt(totalCharges)]) }}
       <br>
-      Hold shift to show Charged Infinity Upgrades. You can freely respec your choices on Reality.
+      {{ i18n("inf", "shiftForCharged") }}
     </div>
     <div v-if="isUseless">
-      You cannot Charge Infinity Upgrades while Doomed.
+      {{ i18n("inf", "doomCharge") }}
     </div>
     <br>
-    Within each column, the upgrades must be purchased from top to bottom.
+    {{ i18n("inf", "topDownPur") }}
     <br>
     <div class="l-infinity-upgrade-grid l-infinity-upgrades-tab__grid">
       <div
@@ -171,10 +170,7 @@ export default {
       />
     </div>
     <div v-if="eternityUnlocked && bottomRowUnlocked">
-      The Infinity Point multiplier becomes more expensive
-      <br>
-      above {{ formatPostBreak(ipMultSoftCap) }} Infinity Points, and cannot be purchased past
-      {{ formatPostBreak(ipMultHardCap) }} Infinity Points.
+      {{ i18n("inf", "ipxNote", [formatPostBreak(ipMultSoftCap), formatPostBreak(ipMultHardCap)]) }}
     </div>
   </div>
 </template>

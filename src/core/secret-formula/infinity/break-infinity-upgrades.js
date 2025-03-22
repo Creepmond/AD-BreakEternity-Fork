@@ -28,41 +28,41 @@ export const breakInfinityUpgrades = {
   totalAMMult: {
     id: "totalMult",
     cost: DC.E4,
-    description: "Antimatter Dimensions gain a multiplier based on total antimatter produced",
+    get description() { return i18n("inf", "BiU1"); },
     effect: () => Decimal.pow(player.records.totalAntimatter.max(1).log10().add(1), 0.5),
     formatEffect: value => formatX(value, 2, 2)
   },
   currentAMMult: {
     id: "currentMult",
     cost: DC.E4.mul(5),
-    description: "Antimatter Dimensions gain a multiplier based on current antimatter",
+    get description() { return i18n("inf", "BiU2"); },
     effect: () => Decimal.pow(Currency.antimatter.value.max(1).log10().add(1), 0.5),
     formatEffect: value => formatX(value, 2, 2)
   },
   galaxyBoost: {
     id: "postGalaxy",
     cost: new Decimal(5e11),
-    description: () => `All Galaxies are ${formatPercents(0.5)} stronger`,
+    get description() { return i18n("inf", "BiU3", [formatPercents(0.5)],); },
     effect: 1.5
   },
   infinitiedMult: {
     id: "infinitiedMult",
     cost: DC.E5,
-    description: "Antimatter Dimensions gain a multiplier based on Infinities",
+    get description() { return i18n("inf", "BiU4"); },
     effect: () => Currency.infinitiesTotal.value.max(1).absLog10().times(10).add(1),
     formatEffect: value => formatX(value, 2, 2)
   },
   achievementMult: {
     id: "achievementMult",
     cost: DC.E6,
-    description: "Antimatter Dimensions gain a multiplier based on Achievements completed",
+    get description() { return i18n("inf", "BiU5"); },
     effect: () => Math.max(Math.pow((Achievements.effectiveCount - 30), 3) / 40, 1),
     formatEffect: value => formatX(value, 2, 2)
   },
   slowestChallengeMult: {
     id: "challengeMult",
     cost: new Decimal(1e7),
-    description: "Antimatter Dimensions gain a multiplier based on how fast your slowest challenge run is",
+    get description() { return i18n("inf", "BiU6"); },
     effect: () => Decimal.clampMin(new Decimal(50).div(Time.worstChallenge.totalMinutes), 1),
     formatEffect: value => formatX(value, 2, 2),
     hasCap: true,
@@ -71,10 +71,10 @@ export const breakInfinityUpgrades = {
   infinitiedGen: {
     id: "infinitiedGeneration",
     cost: new Decimal(2e7),
-    description: "Passively generate Infinities based on your fastest Infinity",
+    get description() { return i18n("inf", "BiU7"); },
     effect: () => player.records.bestInfinity.time,
     formatEffect: value => {
-      if (value === Number.MAX_VALUE && !Pelle.isDoomed) return "No Infinity generation";
+      if (value === Number.MAX_VALUE && !Pelle.isDoomed) return i18n("inf", "BiU7no");
       let infinities = DC.D1;
       infinities = infinities.timesEffectsOf(
         RealityUpgrade(5),
@@ -83,29 +83,29 @@ export const breakInfinityUpgrades = {
       );
       infinities = infinities.times(getAdjustedGlyphEffect("infinityinfmult"));
       const timeStr = Time.bestInfinity.totalMilliseconds.lte(50)
-        ? `${TimeSpan.fromMilliseconds(new Decimal(100)).toStringShort()} (capped)`
+        ? i18n("inf", "biU7cap", [TimeSpan.fromMilliseconds(new Decimal(100)).toStringShort()])
         : `${Time.bestInfinity.times(new Decimal(2)).toStringShort()}`;
-      return `${quantify("Infinity", infinities)} every ${timeStr}`;
+      return i18n("inf", "BiU7eff", [quantify(i18n("inf", "inf"), infinities), timeStr]);
     }
   },
   autobuyMaxDimboosts: {
     id: "autobuyMaxDimboosts",
     cost: new Decimal(5e9),
-    description: "Unlock the buy max Dimension Boost Autobuyer mode"
+    get description() { return i18n("inf", "BiU8"); },
   },
   autobuyerSpeed: {
     id: "autoBuyerUpgrade",
     cost: DC.E15,
-    description: "Autobuyers unlocked or improved by Normal Challenges work twice as fast"
+    get description() { return i18n("inf", "BiU9"); },
   },
   tickspeedCostMult: rebuyable({
     id: 0,
     initialCost: DC.E6,
     costIncrease: DC.D5,
     maxUpgrades: DC.D8,
-    description: "Reduce post-infinity Tickspeed Upgrade cost multiplier scaling",
+    get description() { return i18n("inf", "BiU10"); },
     afterEC: () => (EternityChallenge(11).completions > 0
-      ? `After EC11: ${formatX(Player.tickSpeedMultDecrease, 2, 2)}`
+      ? i18n("inf", "BiU10ec11", [formatX(Player.tickSpeedMultDecrease, 2, 2)])
       : ""
     ),
     noLabel: true,
@@ -116,9 +116,9 @@ export const breakInfinityUpgrades = {
     initialCost: new Decimal(1e7),
     costIncrease: new Decimal(5e3),
     maxUpgrades: new Decimal(7),
-    description: "Reduce post-infinity Antimatter Dimension cost multiplier scaling",
+    get description() { return i18n("inf", "BiU11"); },
     afterEC: () => (EternityChallenge(6).completions > 0
-      ? `After EC6: ${formatX(Player.dimensionMultDecrease, 2, 2)}`
+      ? i18n("inf", "BiU11ec6", [formatX(Player.dimensionMultDecrease, 2, 2)])
       : ""
     ),
     noLabel: true,
@@ -131,14 +131,14 @@ export const breakInfinityUpgrades = {
     maxUpgrades: DC.E1,
     effect: value => Player.bestRunIPPM.times(value.div(20)),
     description: () => {
-      let generation = `Generate ${format(player.infinityRebuyables[2].mul(5))}%`;
+      let generation = `${formatPercents(player.infinityRebuyables[2].div(20))}`;
       if (!BreakInfinityUpgrade.ipGen.isCapped) {
-        generation += ` ➜ ${format(player.infinityRebuyables[2].add(1).mul(5))}%`;
+        generation += ` ➜ ${formatPercents(player.infinityRebuyables[2].add(1).div(20))}`;
       }
-      return `${generation} of your best IP/min from your last 10 Infinities`;
+      return i18n("inf", "BiU12", [generation]);
     },
     isDisabled: effect => effect.eq(0),
-    formatEffect: value => `${format(value, 2, 1)} IP/min`,
+    formatEffect: value => i18n("inf", "BiU12eff", [format(value, 2, 1)]),
     noLabel: false
   })
 };

@@ -30,7 +30,7 @@ export default {
         v-if="!smallCrunch"
         class="l-spacing"
       >
-        The world has collapsed due to excess antimatter.
+        {{ i18n("inf", "collapse") }}
       </h3>
       <button
         :class="{
@@ -39,7 +39,7 @@ export default {
         }"
         @click="handleClick"
       >
-        Big Crunch
+        {{ i18n("inf", "crunch") }}
       </button>
     </div>
     <div v-else>
@@ -52,13 +52,13 @@ export default {
         }"
         @click="handleClick"
       >
-        Big Crunch
+        {{ i18n("inf", "crunch") }}
       </button>
       <div
         v-if="!smallCrunch"
         class="o-emptiness"
       >
-        The world has collapsed due to excess of antimatter.
+        {{ i18n("inf", "collapse") }}
       </div>
     </div>
   </span>

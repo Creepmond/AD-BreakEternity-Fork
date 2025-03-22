@@ -20,12 +20,12 @@ export default {
       };
     },
     tooltip() {
-      if (this.isEnslaved) return "...eons stacked on eons stacked on eons stacked on eons stacked on ...";
+      if (this.isEnslaved) return i18n("inf", "breakFeelHoverTooltip");
       return undefined;
     },
     text() {
-      if (this.isEnslaved) return "FEEL ETERNITY";
-      return this.isBroken ? "INFINITY IS BROKEN" : "BREAK INFINITY";
+      if (this.isEnslaved) return i18n("inf", "breakFeel");
+      return this.isBroken ? i18n("inf", "breakDone") : i18n("inf", "breakRegular");
     }
   },
   methods: {

@@ -111,34 +111,24 @@ export default {
   >
     <!-- Cannot Crunch -->
     <template v-if="!canCrunch">
-      Reach {{ format(infinityGoal, 2, 2) }}
-      <br>
-      antimatter
+      {{ i18n("inf", "reachAM", [format(infinityGoal, 2, 2)]) }}
     </template>
 
     <!-- Can Crunch in challenge -->
     <template v-else-if="inAntimatterChallenge">
-      Big Crunch to
-      <br>
-      complete the challenge
+      {{ i18n("inf", "completeChall") }}
     </template>
 
     <!-- Can Crunch -->
     <template v-else>
       <div v-if="!showIPRate" />
       <b>
-        Big Crunch for
-        <span :style="amountStyle">{{ format(gainedIP, 2) }}</span>
-        <span v-if="showIPRate"> IP</span>
-        <span v-else> Infinity {{ pluralize("Point", gainedIP) }}</span>
+        {{ i18n("inf", "crunchFor", [`<span :style="amountStyle">${format(gainedIP, 2)}</span>
+        <span v-if="showIPRate">${i18n("inf", "IPformats").split("$")[0]}</span>
+        <span v-else>${pluralize(i18n("inf", "IPformats").split("$")[1], gainedIP)}</span>`]) }}
       </b>
       <template v-if="showIPRate">
-        <br>
-        Current: {{ format(currentIPRate, 2) }} IP/min
-        <br>
-        Peak: {{ format(peakIPRate, 2) }} IP/min
-        <br>
-        at {{ format(peakIPRateVal, 2) }} IP
+        {{ i18n("inf", "IPrate", [format(currentIPRate, 2), format(peakIPRate, 2), format(peakIPRateVal, 2)]) }}
       </template>
       <div v-else />
     </template>
@@ -151,7 +141,7 @@ export default {
     @click="switchToInfinity"
   >
     <b>
-      You have enough Infinity Points to buy a Tesseract
+      {{ i18n("inf", "tess") }}
     </b>
   </button>
 </template>

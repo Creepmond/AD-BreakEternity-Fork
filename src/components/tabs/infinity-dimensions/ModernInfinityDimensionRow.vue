@@ -43,27 +43,27 @@ export default {
       return ui.view.shiftDown;
     },
     name() {
-      return `${InfinityDimension(this.tier).shortDisplayName} Infinity Dimension`;
+      return i18n("inf", "nthID", [InfinityDimension(this.tier).shortDisplayName]);
     },
     costDisplay() {
       if (this.isUnlocked || this.shiftDown) {
-        if (this.isCapped) return "Capped";
-        return this.showCostTitle ? `Cost: ${format(this.cost)} IP` : `${format(this.cost)} IP`;
+        if (this.isCapped) return i18n("inf", "IDcost").split("$")[0];
+        return i18n("inf", "IDcost", [format(this.cost)]).split("$")[this.showCostTitle ? 1 : 2];
       }
 
       if (this.canUnlock) {
-        return "Unlock";
+        return i18n("inf", "IDunl");
       }
 
-      return `Reach ${formatPostBreak(InfinityDimension(this.tier).amRequirement)} AM`;
+      return i18n("inf", "IDamReq", [formatPostBreak(InfinityDimension(this.tier).amRequirement)]);
     },
     hasLongText() {
       return this.costDisplay.length > 20;
     },
     capTooltip() {
-      if (this.enslavedRunning) return `Nameless prevents the purchase of more than ${format(10)} Infinity Dimensions`;
-      if (this.isCapped) return `Cap reached at ${format(this.capIP)} IP`;
-      return `Purchased ${quantifyInt("time", this.purchases)}`;
+      if (this.enslavedRunning) return i18n("inf", "namelessID", [format(10)]);
+      if (this.isCapped) return i18n("inf", "IDcap", [format(this.capIP)]);
+      return i18n("inf", "IDpur", [quantifyInt(i18n("inf", "time"), this.purchases)]);
     },
     showRow() {
       return this.eternityReached || this.isUnlocked || this.canUnlock || this.amount.gt(0) ||
@@ -71,6 +71,9 @@ export default {
     },
     showCostTitle() {
       return this.cost.max(1).log10().lte(1e6);
+    },
+    auto() {
+      return i18n("inf", "auto");
     }
   },
   watch: {
@@ -142,7 +145,7 @@ export default {
         v-if="isAutobuyerUnlocked && !isEC8Running"
         v-model="isAutobuyerOn"
         class="o-primary-btn--id-auto"
-        label="Auto:"
+        :label="auto()"
       />
       <PrimaryButton
         v-else
@@ -150,7 +153,7 @@ export default {
         class="o-primary-btn--id-auto"
         @click="buyMaxInfinityDimension"
       >
-        Buy Max
+        {{ i18n("inf", "buymax") }}
       </PrimaryButton>
     </div>
   </div>
