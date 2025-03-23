@@ -193,14 +193,12 @@ export const Enslaved = {
   },
   feelEternity() {
     if (this.feltEternity) {
-      Modal.message.show(`You have already exposed this crack in the Reality. Time in this Eternity is being multiplied
-        by your Eternity count, up to a maximum of ${formatX(1e66)}.`,
-      { closeEvent: GAME_EVENT.REALITY_RESET_AFTER }, 1);
+      Modal.message.show(i18n("modal", "alrShownCrack", [formatX(1e66)]),
+        { closeEvent: GAME_EVENT.REALITY_RESET_AFTER }, 1);
     } else {
       EnslavedProgress.feelEternity.giveProgress();
       this.feltEternity = true;
-      Modal.message.show(`Time in this Eternity will be multiplied by your Eternity count,
-        up to a maximum of ${formatX(1e66)}.`, { closeEvent: GAME_EVENT.REALITY_RESET_AFTER }, 1);
+      Modal.message.show(i18n("modal", "feelEter", [formatX(1e66)]), { closeEvent: GAME_EVENT.REALITY_RESET_AFTER }, 1);
     }
   },
   get feltEternity() {

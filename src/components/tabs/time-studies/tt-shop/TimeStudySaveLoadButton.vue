@@ -68,7 +68,7 @@ export default {
         const presetName = this.name ? `Study preset "${this.name}"` : "Study preset";
         GameUI.notify.eternity(`${presetName} loaded from slot ${this.saveslot}`);
       } else {
-        Modal.message.show("This Time Study list currently contains no Time Studies.");
+        Modal.message.show(i18n("modal", "tsNoStudies"));
       }
     },
     respecAndLoad() {
@@ -82,7 +82,7 @@ export default {
     deletePreset() {
       this.hideContextMenu();
       if (this.preset.studies) Modal.studyString.show({ id: this.saveslot - 1, deleting: true });
-      else Modal.message.show("This Time Study list currently contains no Time Studies.");
+      else Modal.message.show(i18n("modal", "tsNoStudies"));
     },
     handleExport() {
       this.hideContextMenu();

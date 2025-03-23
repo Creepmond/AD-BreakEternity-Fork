@@ -70,8 +70,7 @@ export default {
       if (this.canModifySeed) {
         Modal.modifySeed.show();
       } else {
-        Modal.message.show(`You cannot modify your seed any more. Glyph RNG has already been used to generate
-          at least one Glyph on this run.`);
+        Modal.message.show(i18n("modal", "noChangeSeed"));
       }
     }
   }

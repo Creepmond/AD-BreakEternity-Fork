@@ -17,7 +17,7 @@ export default {
     },
     realityInvalidate() {
       this.emitClose();
-      Modal.message.show("Glyph Undo can only undo with a Reality!",
+      Modal.message.show(i18n("modal", "glyphUndoOnly"),
         { closeEvent: GAME_EVENT.REALITY_RESET_AFTER });
     },
     handleYesClick() {

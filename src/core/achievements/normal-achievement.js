@@ -60,9 +60,7 @@ class AchievementState extends GameMechanicState {
       Autobuyer.bigCrunch.bumpAmount(4);
     }
     if (this.id === 55 && !PlayerProgress.realityUnlocked()) {
-      Modal.message.show(`Since you performed an Infinity in under a minute, the UI changed on the screen.
-        Instead of the Dimensions disappearing, they stay and the Big Crunch button appears on top of them.
-        This is purely visual, and is there to prevent flickering.`, {}, 3);
+      Modal.message.show(i18n("modal", "subMinuteInf"), {}, 3);
     }
     if (this.id === 148 || this.id === 166) {
       GameCache.staticGlyphWeights.invalidate();

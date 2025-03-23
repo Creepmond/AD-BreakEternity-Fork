@@ -85,8 +85,8 @@ export function checkPerkValidity() {
   dev.respecPerks();
   if (Currency.perkPoints.gte(Perks.all.length)) {
     dev.buyAllPerks();
-    Modal.message.show("Some of your Perks were invalid, but you auto-bought all valid perks.");
+    Modal.message.show(i18n("modal", "invalidPerks"));
   } else {
-    Modal.message.show("Some of your Perks were invalid, so your Perks have been reset and your Perk Points refunded.");
+    Modal.message.show(i18n("modal", "invalidPerksAlt"));
   }
 }

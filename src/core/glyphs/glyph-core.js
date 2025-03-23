@@ -307,7 +307,7 @@ export const Glyphs = {
     }
     if (this.active[targetSlot] === null) {
       if (sameSpecialTypeIndex >= 0) {
-        Modal.message.show(`You may only have one ${glyph.type.capitalize()} Glyph equipped!`,
+        Modal.message.show(i18n("modal", "onlyOneXGlyph", [glyph.type.capitalize()]),
           { closeEvent: GAME_EVENT.GLYPHS_CHANGED });
         return;
       }
@@ -324,7 +324,7 @@ export const Glyphs = {
     } else {
       // We can only replace effarig/reality glyph
       if (sameSpecialTypeIndex >= 0 && sameSpecialTypeIndex !== targetSlot) {
-        Modal.message.show(`You may only have one ${glyph.type.capitalize()} Glyph equipped!`,
+        Modal.message.show(i18n("modal", "onlyOneXGlyph", [glyph.type.capitalize()]),
           { closeEvent: GAME_EVENT.GLYPHS_CHANGED });
         return;
       }
@@ -360,11 +360,15 @@ export const Glyphs = {
     const stillEquipped = player.reality.glyphs.active.length;
     const fastReality = player.records.recentRealities[0][1].lt(3e3);
     if (stillEquipped && !fastReality) {
-      const target = player.options.respecIntoProtected ? "Protected slots" : "Main Inventory";
+      const target = player.options.respecIntoProtected ? i18n("modal", "opt").split("$")[0] : i18n("modal", "opt").split("$")[1];
       const hasOther = this.findFreeIndex(!player.options.respecIntoProtected) !== -1;
-      setTimeout(() => Modal.message.show(`${quantifyInt("Glyph", stillEquipped)} could not be unequipped due to lack
-        of space. Free up some space in your ${target}${hasOther ? " or switch where you are unequipping to" : ""}
-        in order to unequip ${stillEquipped === 1 ? "it" : "them"}.`, { closeEvent: GAME_EVENT.GLYPHS_CHANGED }),
+      setTimeout(() => Modal.message.show(i18n("modal", "cantUEallGlyphs" [
+        // AAA eslint is very confused on the concept of an array here for some reason
+        // eslint-disable-next-line no-sequences
+        quantifyInt(i18n("modal", "glyph"), stillEquipped),
+        `${target}${hasOther ? i18n("modal", "opt").split("$")[2] : ""}`,
+        i18n("modal", itthem).split("$")[stillEquipped === 1 ? 0 : 1]
+      ]), { closeEvent: GAME_EVENT.GLYPHS_CHANGED }),
       50);
     }
 
@@ -810,8 +814,7 @@ export const Glyphs = {
   },
   giveCursedGlyph() {
     if (GameCache.glyphInventorySpace.value === 0) {
-      Modal.message.show("No available inventory space; Sacrifice some Glyphs to free up space.",
-        { closeEvent: GAME_EVENT.GLYPHS_CHANGED });
+      Modal.message.show(i18n("modal", "noInvSpaceD"), { closeEvent: GAME_EVENT.GLYPHS_CHANGED });
       return;
     }
     const cursedCount = this.allGlyphs.filter(g => g !== null && g.type === "cursed").length;
@@ -872,7 +875,7 @@ export function getAdjustedGlyphLevel(glyph, realityGlyphBoost = Glyphs.levelBoo
 
 export function respecGlyphs() {
   if (!Glyphs.unequipAll()) {
-    Modal.message.show("Some of your Glyphs could not be unequipped due to lack of inventory space.",
+    Modal.message.show(i18n("modal", "cantUEinv"),
       { closeEvent: GAME_EVENT.GLYPHS_CHANGED });
   }
   player.reality.respec = false;

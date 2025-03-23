@@ -571,7 +571,7 @@ in a different run, you will get the same options for Glyphs.`,
   noRealDoomed: "You cannot create Reality Glyphs while Doomed",
   makeReal: "Create a Reality Glyph!",
   gtZero: "Reality Glyph Level must be greater than $1aX",
-  noInvSpace: "No available inventory space; Sacrifice some Glyphs to free up space.",
+  noInvSpaceB: "No available inventory space; Sacrifice some Glyphs to free up space.",
   reqGlX: "(Requires Glyph level $1aX)",
   aboutToReplace: "You are about to replace a Glyph",
   willRestart: "Replacing a Glyph will restart this $1aX",
@@ -665,5 +665,38 @@ in a different run, you will get the same options for Glyphs.`,
   requirement check for this upgrade and prevent this message from reappearing unless you turn it back on.`,
   neitherPerform: "Neither of these options will perform the action you just attempted, so you will need to try again",
   disableLock: "Disable Lock",
-  iUrU: "Imaginary Upgrade$Reality Upgrade"
+  iUrU: "Imaginary Upgrade$Reality Upgrade",
+  glyphUndoOnly: "Glyph Undo can only undo with a Reality!",
+  noChangeSeed: "You cannot modify your seed any more. Glyph RNG has already been used to generate at least one Glyph on this run.",
+  tsNoStudies: "This Time Study lists currently contains no Time Studies",
+  crash: "$1aX<br>Check the console for more details",
+  causedExit: "$1aX, which has caused you to exit it.",
+  amAnnihilation: "Your $1aX antimatter was annihilated by $2aX matter.",
+  invalidPerks: "Some of your Perks were invalid, but you auto-bought all valid perks.",
+  invalidPerksAlt: "Some of your Perks were invalid, so your Perks have been reset and your Perk Points refunded.",
+  noInvSpaceC: "No available inventory space; free up space by shift-clicking Glyphs to get rid of them.",
+  unlockedSpeedrun: `You have unlocked Speedrun Mode! This allows you to start a new save file with some slight
+      changes which can be helpful if you're trying to complete the game as quickly as possible. The option to
+      start a Speedrun Save is now available in the Options tab, under Saving. Choosing to start a Speedrun Save
+      will provide you with another modal with more in-depth information.`,
+  animatedTheme: "This secret theme has animations. If they are giving you performance issues, you can turn them off in the Options/Visual tab to reduce lag",
+  tdBeforett: "You need to buy atleast $1aX Time Dimension before you can purchase Time Theorems.",
+  subMinuteInf: `Since you performed an Infinity in under a minute, the UI changed on the screen.
+    Instead of the Dimensions disappearing, they stay and the Big Crunch button appears on top of them.
+    This is purely visual, and is there to prevent flickering.`,
+  alrShownCrack: "You have already exposed this crack in the Reality. Time in this Eternity is being multiplied by your Eternity count, up to a maximum of $1aX",
+  feelEter: "Time in this Eternity will be multiplied by your Eternity count, up to a maximum of $1aX",
+  doomUnequip: "Dooming your Reality will unequip your Glyphs. Some of your Glyphs could not be unequipped due to lack of inventory space.",
+  doomSpace: "You must have enough empty unprotected Glyph slots for $1aX additional Glyphs in order to Doom your Reality",
+  refresh: "Refresh the page (game will be saved) we've got new stuff: $1aX by $2aX",
+  onlyOneXGlyph: "You may only have one $1aX Glyph equipped!",
+  cantUEallGlyphs: "$1aX could not be unequipped due to lack of space. Free up some space in your $2aX in order to unequip $3aX",
+  opt: "Protected slots$Main Inventory$ or switch where you are equipping to",
+  itthem: "it$them",
+  noInvSpaceD: "No available inventory space; Sacrifice some Glyphs to free up space.",
+  cantUEinv: "Some of your Glyphs could not be unequipped due to lack of inventory space.",
+  cantLoadSave: "Could not load the save (format unrecognized or invalid).",
+  rmLimited: `Reality Machine gain for your first Reality is reduced above $1aX Eternity Points and capped at $2aX Eternity Points.
+  This is due to balance changes made in the Reality update which affect the difficulty of reaching those amounts,
+  such as the increased Time Dimension cost scaling above $3aX.`
 };

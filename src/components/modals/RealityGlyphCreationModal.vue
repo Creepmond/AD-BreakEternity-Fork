@@ -29,7 +29,7 @@ export default {
     },
     createRealityGlyph() {
       if (GameCache.glyphInventorySpace.value === 0) {
-        Modal.message.show(i18n("modal", "noInvSpace"),
+        Modal.message.show(i18n("modal", "noInvSpaceB"),
           { closeEvent: GAME_EVENT.GLYPHS_CHANGED });
         return;
       }

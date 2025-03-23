@@ -145,7 +145,7 @@ export function requestManualReality() {
     return;
   }
   if (GameCache.glyphInventorySpace.value === 0) {
-    Modal.message.show("No available inventory space; free up space by shift-clicking Glyphs to get rid of them.",
+    Modal.message.show(i18n("modal", "noInvSpaceC"),
       { closeEvent: GAME_EVENT.GLYPHS_CHANGED });
     return;
   }
@@ -338,6 +338,7 @@ function giveRealityRewards(realityProps) {
     const current = Teresa.runRewardMultiplier;
     const newMultiplier = Teresa.rewardMultiplier(player.antimatter);
     const isHigher = newMultiplier.gt(current);
+    // TODO: Fucking this
     const modalText = `You have completed Teresa's Reality! ${isHigher
       ? `Since you gained more Antimatter, you increased your
       Glyph Sacrifice multiplier from ${format(current, 2, 2)} to ${format(newMultiplier, 2, 2)}`

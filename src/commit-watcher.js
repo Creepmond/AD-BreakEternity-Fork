@@ -20,8 +20,7 @@ export function watchLatestCommit() {
         }
 
         Modal.message.show(
-          "Refresh the page (game will be saved), we've got new stuff: " +
-          `"${json.message}" by ${json.author}`,
+          i18n("modal", "refresh", [json.message, json.author]),
           {
             callback: updateRefresh,
             closeButton: true

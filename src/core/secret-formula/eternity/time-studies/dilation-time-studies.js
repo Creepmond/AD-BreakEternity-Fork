@@ -1,7 +1,7 @@
 export const dilationTimeStudies = [
   {
     id: 1,
-    description: "Unlock Time Dilation",
+    description: () => i18n("studies", "ds1"),
     cost: new Decimal(5000),
     requirement: () => {
       const ttRequirement = Currency.timeTheorems.max.gte(TimeStudy.dilation.totalTimeTheoremRequirement);
@@ -19,33 +19,33 @@ export const dilationTimeStudies = [
   },
   {
     id: 2,
-    description: "Unlock the 5th Time Dimension",
+    description: () => i18n("studies", "ds2"),
     cost: DC.E6,
     requirement: () => PlayerProgress.dilationUnlocked()
   },
   {
     id: 3,
-    description: "Unlock the 6th Time Dimension",
+    description: () => i18n("studies", "ds3"),
     cost: DC.E7,
     requirement: () => TimeStudy.timeDimension(5).isBought
   },
   {
     id: 4,
-    description: "Unlock the 7th Time Dimension",
+    description: () => i18n("studies", "ds4"),
     cost: DC.E8,
     requirement: () => TimeStudy.timeDimension(6).isBought
   },
   {
     id: 5,
-    description: "Unlock the 8th Time Dimension",
+    description: () => i18n("studies", "ds4"),
     cost: DC.E9,
     requirement: () => TimeStudy.timeDimension(7).isBought
   },
   {
     id: 6,
     description: () => (Pelle.isDoomed
-      ? "You cannot escape a Doomed Reality"
-      : "Unlock Reality"),
+      ? i18n("studies", "ds6alt")
+      : i18n("studies", "ds6")),
     cost: DC.D1,
     requirement: () => TimeStudy.timeDimension(8).isBought &&
       player.records.thisReality.maxEP.add(1).log10().gte(4000) &&

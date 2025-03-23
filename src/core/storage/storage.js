@@ -154,7 +154,7 @@ export const GameStorage = {
     }
     const newPlayer = GameSaveSerializer.deserialize(saveData);
     if (this.checkPlayerObject(newPlayer) !== "") {
-      Modal.message.show("Could not load the save (format unrecognized or invalid).");
+      Modal.message.show(i18n("modal", "cantLoadSave"));
       return;
     }
     this.oldBackupTimer = player.backupTimer;

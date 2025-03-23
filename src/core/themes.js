@@ -116,8 +116,7 @@ Theme.tryUnlock = function(name) {
   if (!isAlreadyUnlocked) {
     GameUI.notify.success(`You have unlocked the ${name.capitalize()} theme!`, 5000);
     if (Theme.current().isAnimated) {
-      setTimeout(Modal.message.show(`This secret theme has animations. If they are giving you performance issues,
-        you can turn them off in the Options/Visual tab to reduce lag.`), 100);
+      setTimeout(Modal.message.show(i18n("modal", "animatedTheme")), 100);
     }
   }
   return true;
