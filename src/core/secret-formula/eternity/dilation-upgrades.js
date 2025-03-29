@@ -25,11 +25,13 @@ export const dilationUpgrades = {
     increment: 10,
     description: () =>
       ((SingularityMilestone.dilatedTimeFromSingularities.canBeApplied || Achievement(187).canBeApplied)
-        ? `${formatX(Effects.product(
-          SingularityMilestone.dilatedTimeFromSingularities,
-          Achievement(187)
-        ).mul(2), 2, 2)} Dilated Time gain`
-        : "Double Dilated Time gain"),
+        ? i18n("eter", "rdu1alt", [
+          formatX(Effects.product(
+            SingularityMilestone.dilatedTimeFromSingularities,
+            Achievement(187)
+          ).mul(2), 2, 2)
+        ])
+        : i18n("rdu1")),
     effect: bought => {
       const base = Effects.product(
         SingularityMilestone.dilatedTimeFromSingularities,
@@ -51,8 +53,8 @@ export const dilationUpgrades = {
     increment: 100,
     description: () =>
       (Perk.bypassTGReset.isBought && !Pelle.isDoomed
-        ? "Reset Tachyon Galaxies, but lower their threshold"
-        : "Reset Dilated Time and Tachyon Galaxies, but lower their threshold"),
+        ? i18n("eter", "rdu2alt")
+        : i18n("eter", "rdu2")),
     // The 38th purchase is at 1e80, and is the last purchase.
     effect: bought => (bought.lt(38) ? Decimal.pow(0.8, bought) : new Decimal()),
     formatEffect: effect => {
@@ -69,10 +71,9 @@ export const dilationUpgrades = {
     initialCost: 1e7,
     increment: 20,
     description: () => {
-      if (Pelle.isDoomed) return `Multiply the amount of Tachyon Particles gained by ${formatInt(1)}`;
-      if (Enslaved.isRunning) return `Multiply the amount of Tachyon Particles gained
-      by ${Math.pow(3, Enslaved.tachyonNerf).toFixed(2)}`;
-      return "Triple the amount of Tachyon Particles gained";
+      if (Pelle.isDoomed) return i18n("eter", "rdu3alt", [formatInt(1)]);
+      if (Enslaved.isRunning) return i18n("eter", "rdu3alt", [Math.pow(3, Enslaved.tachyonNerf).toFixed(2)]);
+      return i18n("eter", "rdu3");
     },
     effect: bought => {
       if (Pelle.isDoomed) return DC.D1.pow(bought);
@@ -85,7 +86,7 @@ export const dilationUpgrades = {
   doubleGalaxies: {
     id: 4,
     cost: 5e6,
-    description: () => `Gain twice as many Tachyon Galaxies, up to ${formatInt(500)} base Galaxies`,
+    description: () => i18n("eter", "du1", [formatInt(500)]),
     effect: 2
   },
   tdMultReplicanti: {
@@ -100,8 +101,7 @@ export const dilationUpgrades = {
           multiplier = ratio.toFixed(2);
         }
       }
-      return `Time Dimensions are affected by Replicanti multiplier ${formatPow(multiplier, 1, 3)}, reduced
-        effect above ${formatX(DC.E9000)}`;
+      return i18n("eter", "du2", [formatPow(multiplier, 1, 3), formatX(DC.E9000)]);
     },
     effect: () => {
       let rep10 = replicantiMult().pLog10().div(10);
@@ -113,14 +113,14 @@ export const dilationUpgrades = {
   ndMultDT: {
     id: 6,
     cost: 5e7,
-    description: "Antimatter Dimension multiplier based on Dilated Time, unaffected by Time Dilation",
+    description: () => i18n("eter", "du3"),
     effect: () => Currency.dilatedTime.value.pow(308).clampMin(1),
     formatEffect: value => formatX(value, 2, 1)
   },
   ipMultDT: {
     id: 7,
     cost: 2e12,
-    description: "Gain a multiplier to Infinity Points based on Dilated Time",
+    description: () => i18n("eter", "du4"),
     effect: () => Currency.dilatedTime.value.pow(1000).clampMin(1),
     formatEffect: value => formatX(value, 2, 1),
     cap: () => Effarig.eternityCap
@@ -128,27 +128,27 @@ export const dilationUpgrades = {
   timeStudySplit: {
     id: 8,
     cost: 1e10,
-    description: "You can buy all three Time Study paths from the Dimension Split"
+    description: () => i18n("eter", "du5")
   },
   dilationPenalty: {
     id: 9,
     cost: 1e11,
-    description: () => `Reduce the Dilation penalty (${formatPow(1.05, 2, 2)} after reduction)`,
+    description: () => i18n("eter", "du6", [formatPow(1.05, 2, 2)]),
     effect: 1.05,
   },
   ttGenerator: {
     id: 10,
     cost: 1e15,
-    description: "Generate Time Theorems based on Tachyon Particles",
+    description: i18n("eter", "du7"),
     effect: () => Currency.tachyonParticles.value.div(20000),
-    formatEffect: value => `${format(value, 2, 1)}/sec`
+    formatEffect: value => i18n("eter", "xperesc", [format(value, 2, 1)])
   },
   dtGainPelle: rebuyable({
     id: 11,
     initialCost: 1e14,
     increment: 100,
     pelleOnly: true,
-    description: () => `${formatX(5)} Dilated Time gain`,
+    description: () => i18n("eter", "prdu1", [formatX(5)]),
     effect: bought => Decimal.pow(5, bought),
     formatEffect: value => formatX(value, 2),
     formatCost: value => format(value, 2),
@@ -159,7 +159,7 @@ export const dilationUpgrades = {
     initialCost: 1e15,
     increment: 1000,
     pelleOnly: true,
-    description: "Multiply Tachyon Galaxies gained, applies after TG doubling upgrade",
+    description: () => i18n("eter", "prdu2"),
     effect: bought => bought.add(1),
     formatEffect: value => `${formatX(value, 2)} ➜ ${formatX(value.add(1), 2)}`,
     formatCost: value => format(value, 2),
@@ -170,7 +170,7 @@ export const dilationUpgrades = {
     initialCost: 1e16,
     increment: 1e4,
     pelleOnly: true,
-    description: "Gain a power to Tickspeed",
+    description: () => i18n("eter", "prdu3"),
     effect: bought => bought.mul(0.03).add(1),
     formatEffect: value => `${formatPow(value, 2, 2)} ➜ ${formatPow(value.add(0.03), 2, 2)}`,
     formatCost: value => format(value, 2),
@@ -180,14 +180,14 @@ export const dilationUpgrades = {
     id: 14,
     cost: 1e45,
     pelleOnly: true,
-    description: "Apply a cube root to the Tachyon Galaxy threshold",
+    description: () => i18n("eter", "pdu1"),
     effect: 1 / 3
   },
   flatDilationMult: {
     id: 15,
     cost: 1e55,
     pelleOnly: true,
-    description: () => `Gain more Dilated Time based on current EP`,
+    description: () => i18n("eter", "pdu2"),
     effect: () => DC.E9.pow(player.eternityPoints.max(1).log10().sub(1500).max(0).div(2500).pow(1.2).clampMax(1)),
     formatEffect: value => formatX(value, 2, 2)
   },

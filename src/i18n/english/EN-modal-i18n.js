@@ -581,7 +581,7 @@ in a different run, you will get the same options for Glyphs.`,
   noAchSacrifice: `Dimensional Sacrifice will remove all of your 1st through 7th Antimatter Dimensions
   (with the cost and multiplier unchanged), for a boost to the 8th Antimatter Dimension based on the total
   amount of 1st Antimatter Dimensions sacrificed. It will take time to regain production.`,
-  dsMultText: "Multilier is current $1aX and will increase to $2aX on Dimensional Sacrifice",
+  dsMultText: "Multiplier is currently $1aX and will increase to $2aX on Dimensional Sacrifice",
   singMilestoneGroupResource: "Singularity Count$Condense Count$Manual Time$Auto Time",
   singMilestoneGroupSort: "Singularities needed$Current Completions$Progress to full completions$Final Singularities$Most Recent",
   singMilestoneGroupCompleted: "First$Last$Don't move",

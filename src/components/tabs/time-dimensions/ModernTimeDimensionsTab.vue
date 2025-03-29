@@ -33,7 +33,7 @@ export default {
       this.timeShards.copyFrom(Currency.timeShards);
       this.upgradeThreshold.copyFrom(FreeTickspeed.fromShards(Currency.timeShards.value).nextShards);
       this.shardsPerSecond.copyFrom(TimeDimension(1).productionPerSecond);
-      this.incomeType = EternityChallenge(7).isRunning ? "Eighth Infinity Dimensions" : "Time Shards";
+      this.incomeType = i18n("eter", "income").split("$")[EternityChallenge(7).isRunning ? 0 : 1];
       this.areAutobuyersUnlocked = Autobuyer.timeDimension(1).isUnlocked;
     },
     maxAll() {
@@ -54,34 +54,34 @@ export default {
         class="o-primary-btn--subtab-option"
         @click="maxAll"
       >
-        Max all
+        {{ i18n("eter", "maxall") }}
       </PrimaryButton>
       <PrimaryButton
         v-if="areAutobuyersUnlocked"
         class="o-primary-btn--subtab-option"
         @click="toggleAllAutobuyers"
       >
-        Toggle all autobuyers
+        {{ i18n("eter", "toggleauto") }}
       </PrimaryButton>
     </div>
     <div>
       <p>
-        You have gained
-        <span class="c-time-dim-description__accent">{{ formatInt(totalUpgrades) }}</span> Tickspeed upgrades from
-        <span class="c-time-dim-description__accent">{{ format(timeShards, 2, 1) }}</span> Time Shards.
+        {{ i18n("eter", "youhavegained", [
+          `<span class="c-time-dim-description__accent">${formatInt(totalUpgrades)}</span>`,
+          `<span class="c-time-dim-description__accent">${format(timeShards, 2, 1)}</span>`
+        ]) }}
       </p>
       <p>
-        Next Tickspeed upgrade at
-        <span class="c-time-dim-description__accent">{{ format(upgradeThreshold, 2, 1) }}</span>, increasing by
-        <span class="c-time-dim-description__accent">{{ formatX(multPerTickspeed, 2, 2) }}</span> per
-        Tickspeed upgrade gained.
+        {{ i18n("eter", "nexttsupg", [
+          `<span class="c-time-dim-description__accent">${format(upgradeThreshold, 2, 1)}</span>`,
+          `<span class="c-time-dim-description__accent">${formatX(multPerTickspeed, 2, 2)}</span>`
+        ]) }}
       </p>
     </div>
     <div>
-      The amount each additional upgrade requires will start
-      increasing above {{ formatInt(tickspeedSoftcap) }} Tickspeed upgrades.
+      {{ i18n("eter", "scaleisquartic", [formatInt(tickspeedSoftcap)]) }}
     </div>
-    <div>You are getting {{ format(shardsPerSecond, 2, 0) }} {{ incomeType }} per second.</div>
+    <div> {{ i18n("eter", "gaining", [format(shardsPerSecond, 2, 0), incomeType]) }}</div>
     <div class="l-dimensions-container">
       <NewTimeDimensionRow
         v-for="tier in 8"
@@ -91,15 +91,12 @@ export default {
       />
     </div>
     <div>
-      Time Dimension costs jump at {{ format(costIncreases[0], 2, 2) }} and
-      {{ format(costIncreases[1]) }} Eternity Points,
-      <br>
-      and costs increase much faster after {{ format(costIncreases[2]) }} Eternity Points.
+      {{ i18n("eter", "tdcostjump" [format(costIncreases[0], 2, 2), format(costIncreases[1]), format(costIncreases[2])]) }}
       <br>
       <div v-if="showLockedDimCostNote">
-        Hold shift to see the Eternity Point cost for locked Time Dimensions.
+        {{ i18n("eter", "seeEPcost") }}
       </div>
-      Any 8th Time Dimensions purchased above {{ format(1e8) }} will not further increase the multiplier.
+      {{ i18n("eter", "td8wontinc", [format(1e8)]) }}
     </div>
   </div>
 </template>

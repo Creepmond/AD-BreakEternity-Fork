@@ -34,9 +34,9 @@ export default {
 
 <template>
   <div class="l-eternity-milestone-grid">
-    <div>You have {{ quantify("Eternity", eternityCount, 3) }}.</div>
+    <div>{{ i18n("eter", "youhave", [quantify(i18n("eter", "eter"), eternityCount)]) }}</div>
     <div>
-      Offline generation milestones are only active under certain conditions, mouse-over to see these conditions.
+      {{ i18n("eter", "offlineGen") }}
     </div>
     <div
       v-for="row in rows"

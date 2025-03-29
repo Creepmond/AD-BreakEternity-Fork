@@ -35,7 +35,7 @@ export default {
     },
     goalDisplay() {
       const config = this.config;
-      let goal = `Goal: ${this.goalAtCompletions(this.completions)} IP`;
+      let goal = i18n("eter", "goal", [this.goalAtCompletions(this.completions)])
       if (config.restriction) {
         goal += ` ${config.formatRestriction(config.restriction(this.completions))}`;
       }
@@ -64,6 +64,9 @@ export default {
     },
     name() {
       return `EC${this.challenge.id}`;
+    },
+    next() {
+      return i18n("eter", "next");
     }
   },
   methods: {
@@ -108,15 +111,15 @@ export default {
     <template #bottom>
       <div :style="{ visiblity: completions < 5 ? 'visible' : 'hidden' }">
         <div>
-          Completed {{ quantifyInt("time", completions) }}
+          {{ i18n("eter", "comp", [quantifyInt(i18n("eter", "time"), completions)]) }}
         </div>
         {{ goalDisplay }}
       </div>
       <span v-if="showGoalSpan">
-        Goal Span: {{ firstGoal }} IP - {{ lastGoal }} IP
+        {{ i18n("eter", "goalspan", [firstGoal, lastGoal]) }}
       </span>
       <span>
-        Reward:
+        {{ i18n("eter", "rew") }}
         <DescriptionDisplay
           :config="config.reward"
           :length="55"
@@ -132,7 +135,7 @@ export default {
         <EffectDisplay
           v-if="completions < 5"
           :config="nextRewardConfig"
-          label="Next"
+          :label="next()"
           :ignore-capped="true"
         />
       </span>

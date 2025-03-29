@@ -3,7 +3,13 @@ import * as i18nText from "./i18n/exports";
 window.i18n = function(type, id, mods = []) {
   let text = "";
   // eslint-disable-next-line import/namespace
-  text = Lang.current.allText[type][id];
+  // If the player is holding the "show formula" keybind, use the formula i18n
+  if (Lang.showFormula) {
+    text = Lang.current.allText[type][id];
+  }
+  if (text === undefined || text === "") {
+    text = Lang.current.allText[type][id];
+  }
   // If it's not defined for that language, default to English
   if (text === undefined || text === "") {
     text = Lang.EN.allText[type][id];
@@ -54,4 +60,9 @@ export const Lang = mapGameDataToObject(
 
 Object.defineProperty(Lang, "current", {
   get() { return Lang[player.options.language]; }
+});
+
+Object.defineProperty(Lang, "showFormula", {
+  get() { return player.options.showFomula; },
+  set(value) { player.options.showFomula = value; }
 });

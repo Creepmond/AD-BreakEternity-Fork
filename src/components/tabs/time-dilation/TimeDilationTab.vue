@@ -69,7 +69,7 @@ export default {
       return DilationUpgrade.ttGenerator;
     },
     baseGalaxyText() {
-      return `${format(this.baseGalaxies, 3)} Base`;
+      return i18n("eter", "base", [format(this.baseGalaxies, 3)]);
     },
     hasMaxText: () => PlayerProgress.realityUnlocked() && !Pelle.isDoomed,
     allRebuyables() {
@@ -119,8 +119,8 @@ export default {
       this.maxDT.copyFrom(player.records.thisReality.maxDT);
 
       const estimateText = getDilationTimeEstimate(this.maxDT);
-      if (this.dilatedTimeIncome.lte(0)) this.toMaxTooltip = "No DT gain";
-      else this.toMaxTooltip = estimateText.startsWith("<") ? "Currently Increasing" : estimateText;
+      if (this.dilatedTimeIncome.lte(0)) this.toMaxTooltip = i18n("eter", "nodtgain");
+      else this.toMaxTooltip = estimateText.startsWith("<") ? i18n("eter", "curinc") : estimateText;
     }
   }
 };
@@ -129,9 +129,9 @@ export default {
 <template>
   <div class="l-dilation-tab">
     <span>
-      You have
+      {{ i18n("eter", "youhave", [""]) }}
       <span class="c-dilation-tab__tachyons">{{ format(tachyons, 2, 1) }}</span>
-      {{ pluralize("Tachyon Particle", tachyons) }}.
+      {{ pluralize(i18n("eter", "tp"), tachyons) }}.
     </span>
     <div
       @mouseover="isHovering = true"
@@ -140,28 +140,27 @@ export default {
       <DilationButton />
     </div>
     <span>
-      You have
-      <span class="c-dilation-tab__dilated-time">{{ format(dilatedTime, 2, 1) }}</span>
-      Dilated Time.
+      {{ i18n("eter", "youhavedt", [`<span class="c-dilation-tab__dilated-time">${format(dilatedTime, 2, 1)}</span>`]) }}
       <span class="c-dilation-tab__dilated-time-income">{{ dilatedTimeGainText }}/s</span>
     </span>
     <span>
-      Next
-      <span v-if="tachyonGalaxyGain.gt(1)">{{ format(tachyonGalaxyGain, 3, 0) }}</span>
-      {{ pluralize("Tachyon Galaxy", tachyonGalaxyGain) }} at
-      <span
+      {{ i18n("eter", "nextAatB", [
+        `<span v-if="tachyonGalaxyGain.gt(1)">${format(tachyonGalaxyGain, 3, 0)}</span>
+      ${pluralize(i18n("eter", "tg"), tachyonGalaxyGain)}`,
+        `<span
         class="c-dilation-tab__galaxy-threshold"
         :ach-tooltip="galaxyTimeEstimate"
-      >{{ format(galaxyThreshold, 2, 1) }}</span>
-      Dilated Time, gained total of
-      <span
+      >${format(galaxyThreshold, 2, 1)}</span>`,
+        `<span
         class="c-dilation-tab__galaxies"
         :ach-tooltip="baseGalaxyText"
-      >{{ format(totalGalaxies, 3, 0) }}</span>
-      {{ pluralize("Tachyon Galaxy", totalGalaxies) }}
+      >${format(totalGalaxies, 3, 0)}</span>
+      ${pluralize(i18n("eter", "tg"), totalGalaxies)}
+    </span>`
+      ]) }}
     </span>
     <span v-if="hasMaxText">
-      Your maximum Dilated Time reached this Reality is
+      {{ i18n("eter", "maxdt") }}
       <span
         v-tooltip="toMaxTooltip"
         class="max-accent"
@@ -171,7 +170,7 @@ export default {
       class="o-primary-btn l-button-container"
       @click="maxPurchaseDilationUpgrades"
     >
-      Max Dilation Upgrades
+      {{ i18n("eter", "maxdtupg") }}
     </button>
     <div class="l-dilation-upgrades-grid">
       <div

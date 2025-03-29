@@ -87,6 +87,13 @@ export const shortcuts = [
     function: () => manualBigCrunchResetRequest(),
     visible: true
   }, {
+    name: "Show Formulas",
+    keys: [";"],
+    type: "bindHotkey",
+    function: () => {
+      Lang.showFormula = true;
+    },
+  }, {
     name: "Replicanti Galaxy",
     keys: ["r"],
     type: "bindHotkey",
@@ -350,6 +357,9 @@ for (const hotkey of shortcuts) {
 // We need to know whether the player is holding R or not for the replicanti galaxy
 // The keydown version is above, with the replicantiGalaxyRequest, as otherwise it would be overridden
 GameKeyboard.bind("r", () => setHoldingR(false), "keyup");
+
+// We also need to do this for the "show formulas" keybind
+GameKeyboard.bind(";", () => Lang.showFormula = false, "keyup");
 
 // Same thing with Shift; we need to double-up on ctrl-shift as well since they're technically different keybinds
 GameKeyboard.bind("shift", () => setShiftKey(true), "keydown");

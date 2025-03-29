@@ -910,6 +910,7 @@ window.player = {
     autoRealityForFilter: false,
     language: "EN",
     englishLangNames: true,
+    showFomula: false,
   },
   IAP: {
     enabled: false,

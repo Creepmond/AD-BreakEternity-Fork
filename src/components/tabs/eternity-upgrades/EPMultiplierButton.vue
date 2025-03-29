@@ -40,6 +40,7 @@ export default {
       };
     },
     isDoomed: () => Pelle.isDoomed,
+    autoep: () => i18n("eter", "autoep")
   },
   watch: {
     isAutobuyerActive(newValue) {
@@ -70,23 +71,23 @@ export default {
       @click="purchaseUpgrade"
     >
       <div :class="{ 'o-pelle-disabled': isDoomed }">
-        Multiply Eternity Points from all sources by {{ formatX(5) }}
+        {{ i18n("eter", "epxsource", [formatX(5)]) }}
         <br>
-        Currently: {{ formatX(multiplier, 2, 0) }}
+        {{ i18n("eter", "current", [formatX(multiplier, 2, 0)]) }}
       </div>
       <br>
-      Cost: {{ quantify("Eternity Point", cost, 2, 0) }}
+      {{ i18n("eter", "cost", [quantify(i18n("eter", "ep"), cost, 2, 0)]) }}
     </button>
     <PrimaryButton
       class="l--spoon-btn-group__little-spoon o-primary-btn--small-spoon"
       @click="upgrade.buyMax(false)"
     >
-      Max Eternity Point mult
+      {{ i18n("eter", "maxepx") }}
     </PrimaryButton>
     <PrimaryToggleButton
       v-if="isAutoUnlocked"
       v-model="isAutobuyerActive"
-      label="Autobuy EP mult"
+      :label="autoep()"
       class="l--spoon-btn-group__little-spoon o-primary-btn--small-spoon"
     />
   </div>

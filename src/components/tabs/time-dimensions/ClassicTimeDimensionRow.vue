@@ -44,7 +44,7 @@ export default {
       return ui.view.shiftDown;
     },
     name() {
-      return `${TimeDimension(this.tier).shortDisplayName} Time Dimension`;
+      return i18n("eter", "nthTD", [TimeDimension(this.tier).shortDisplayName]);
     },
     buttonContents() {
       if (this.showTTCost) return this.formattedTTCost;
@@ -52,17 +52,17 @@ export default {
     },
     tooltipContents() {
       if (this.showTTCost) return `${this.formattedEPCost}<br>${this.timeEstimate}`;
-      if (this.isCapped) return `Nameless prevents the purchase of more than ${format(1)} Time Dimension`;
-      return `Purchased ${quantifyInt("time", this.bought)}`;
+      if (this.isCapped) return i18n("eter", "namelessPur", [format(1)]);
+      return i18n("eter", "purx", [quantifyInt(i18n("eter", "time"), this.bought)]);
     },
     showRow() {
       return this.realityUnlocked || this.isUnlocked || this.requirementReached;
     },
     formattedTTCost() {
-      return `Unlock: ${format(this.ttCost)} TT`;
+      return i18n("eter", "ttunl", [format(this.ttCost)]);
     },
     formattedEPCost() {
-      return this.isCapped ? "Capped" : `${this.showCostTitle ? "Cost: " : ""}${format(this.cost, 2)} EP`;
+      return this.isCapped ? i18n("eter", "capped") : i18n("eter", "cost", format(this.cost, 2)).split("$")[this.showCostTitle ? 0 : 1];
     },
     hasLongText() {
       return this.buttonContents.length > 20;
@@ -73,8 +73,9 @@ export default {
     timeEstimate() {
       if (!this.showTTCost || this.ttGen.eq(0)) return "";
       const time = Decimal.sub(this.ttCost, this.currTT).dividedBy(this.ttGen);
-      return time.gt(0) ? `Enough TT in ${TimeSpan.fromSeconds(time).toStringShort()}` : "";
-    }
+      return time.gt(0) ? i18n("eter", "ttin", [TimeSpan.fromSeconds(time).toStringShort()]) : "";
+    },
+    auto: () => i18n("eter", "auto"),
   },
   watch: {
     isAutobuyerOn(newValue) {
@@ -149,7 +150,7 @@ export default {
         v-if="areAutobuyersUnlocked"
         v-model="isAutobuyerOn"
         class="o-primary-btn--buy-td-auto"
-        label="Auto:"
+        :label="auto"
       />
       <PrimaryButton
         v-else
@@ -157,7 +158,7 @@ export default {
         class="o-primary-btn--buy-td-auto"
         @click="buyMaxTimeDimension"
       >
-        Buy Max
+        {{ i18n("eter", "buymax") }}
       </PrimaryButton>
     </div>
   </div>

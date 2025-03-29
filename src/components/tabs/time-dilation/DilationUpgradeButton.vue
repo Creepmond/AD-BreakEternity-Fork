@@ -67,7 +67,9 @@ export default {
     isUseless() {
       const tpip = this.upgrade.id === 3 || this.upgrade.id === 7;
       return Pelle.isDoomed && tpip;
-    }
+    },
+    dt: () => i18n("eter", "dt"),
+    auto: () => i18n("eter", "auto"),
   },
   watch: {
     isAutobuyerOn(newValue) {
@@ -135,13 +137,13 @@ export default {
         v-if="!isBought && !isCapped"
         br
         :config="upgrade.config"
-        name="Dilated Time"
+        :name="dt"
       />
     </button>
     <PrimaryToggleButton
       v-if="isRebuyable && isAutoUnlocked"
       v-model="isAutobuyerOn"
-      label="Auto:"
+      :label="auto"
       class="l--spoon-btn-group__little-spoon o-primary-btn--dilation-upgrade-toggle"
     />
   </div>

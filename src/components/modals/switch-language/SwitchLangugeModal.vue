@@ -15,7 +15,10 @@ export default {
     return {};
   },
   computed: {
-    languages: () => Lang.all,
+    languages: () => {
+      const languages = Lang.all;
+      delete languages.form;
+    },
     langChange: () => i18n("options", "langChange"),
     showLangIn: () => i18n("options", "showLang",
       [player.options.englishLangNames ? Lang.EN.name : Lang.current.name]),

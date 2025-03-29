@@ -33,6 +33,9 @@ export default {
     },
     hasEU2() {
       return Perk.autounlockEU2.canBeApplied;
+    },
+    ep() {
+      return i18n("eter", "ep");
     }
   },
   methods: {
@@ -56,13 +59,13 @@ export default {
       :config="upgrade.config"
     />
     <div v-if="!isBought && hasEU2">
-      Auto: {{ format(upgrade.config.cost / 1e10) }} Eternity Points
+      {{ i18n("eter", "autoeu2", [format(upgrade.config.cost/1e10)]) }}
     </div>
     <CostDisplay
       v-else-if="!isBought"
       br
       :config="upgrade.config"
-      name="Eternity Point"
+      :name="ep()"
     />
   </button>
 </template>

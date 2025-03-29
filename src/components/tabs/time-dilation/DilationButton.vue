@@ -18,7 +18,7 @@ export default {
   computed: {
     disableText() {
       // Doesn't need to be reactive or check strike status; it's always permanent once entered in Doomed
-      return Pelle.isDoomed ? "Dilation is permanent." : "Disable Dilation.";
+      return Pelle.isDoomed ? i18n("eter", "pelleexitdil") : i18n("eter", "exitdil");
     }
   },
   methods: {
@@ -54,27 +54,27 @@ export default {
     :class="isUnlocked ? 'o-dilation-btn--unlocked' : 'o-dilation-btn--locked'"
     @click="dilate()"
   >
-    <span v-if="!isUnlocked">Purchase the Dilation Study to unlock.</span>
+    <span v-if="!isUnlocked">{{ i18n("eter", "purdilstudy") }}</span>
     <span v-else-if="!isRunning">
-      Dilate time.
+      {{ i18n("eter", "dil") }}
       <div v-if="showRequirement">
-        Requires {{ format(remnantRequirement, 2) }} Remnants
+        {{ i18n("eter", "remreq", [format(remnantRequirement, 2)]) }}
       </div>
     </span>
     <span v-else-if="canEternity && hasGain">
       {{ disableText }}
       <br>
-      Gain {{ quantify("Tachyon Particle", tachyonGain, 2, 1) }}.
+      {{ i18n("eter", "tpgain", [quantify(i18n("eter", "tp"), tachyonGain, 2, 1)]) }}.
     </span>
     <span v-else-if="hasGain">
       {{ disableText }}
       <br>
-      Reach {{ quantify("Infinity Point", eternityGoal, 1, 0) }} to Eternity and gain Tachyon Particles.
+      {{ i18n("eter", "reachip", [quantify(i18n("eter", "ip"), eternityGoal, 1, 0)]) }}
     </span>
     <span v-else>
       {{ disableText }}
       <br>
-      Reach {{ format(requiredForGain, 2, 1) }} antimatter to gain more Tachyon Particles.
+      {{ i18n("eter", "amreq", [format(requiredForGain, 2, 1)]) }}
     </span>
   </button>
 </template>

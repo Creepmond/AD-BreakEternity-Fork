@@ -34,13 +34,13 @@ export default {
     },
     nextECText() {
       return this.untilNextEC.totalMilliseconds === 0 && !this.autoEC
-        ? "Immediately upon unpausing"
-        : `${this.untilNextEC} (real time)`;
+        ? i18n("eter", "onUnpause")
+        : i18n("eter", "afterX", [this.untilNextEC]);
     },
     allECText() {
       return this.untilAllEC.totalMilliseconds === 0 && !this.autoEC
-        ? "Immediately upon unpausing"
-        : `After ${this.untilAllEC} (real time)`;
+        ? i18n("eter", "onUnpause")
+        : i18n("eter", "afterX", [this.untilAllEC]);
     }
   },
   methods: {
@@ -77,8 +77,7 @@ export default {
   <div class="l-challenges-tab">
     <ChallengeTabHeader />
     <div v-if="isAutoECVisible">
-      Eternity Challenges are automatically completed sequentially, requiring all previous
-      Eternity Challenges to be fully completed before any progress is made.
+      {{ i18n("eter", "ecTextA") }}
     </div>
     <div
       v-if="isAutoECVisible && remainingECTiers > 0"
@@ -89,7 +88,7 @@ export default {
           v-if="hasUpgradeLock"
           class="l-emphasis"
         >
-          Auto EC is currently disabled because of the "{{ upgradeLockNameText }}" upgrade requirement lock.
+          {{ i18n("eter", "ecTextB", [upgradeLockNameText]) }}
         </span>
         <span v-if="remainingECTiers > 0">
           Next Auto Eternity Challenge completion: {{ nextECText }}
@@ -101,18 +100,16 @@ export default {
       </div>
     </div>
     <div>
-      Complete Eternity Challenges again for a bigger reward, maximum of {{ formatInt(5) }} times.<br>
-      The rewards are applied permanently with no need to have the respective Eternity Challenge Time Study purchased.
+      {{ i18n("eter", "ecTextC", [formatInt(5)]) }}<br>{{ i18n("eter", "ecTextD") }}
     </div>
     <div v-if="!hasECR">
-      When you respec out of an unlocked Eternity Challenge, you don't need to redo the secondary requirement<br>
-      in order to unlock it again until you complete it; only the Time Theorems are required.
+      {{ i18n("eter", "ecTextE") }}<br>{{ i18n("eter", "ecTextF") }}
     </div>
     <div v-if="unlockedCount !== 12">
-      You have seen {{ formatInt(unlockedCount) }} out of {{ formatInt(12) }} Eternity Challenges.
+      {{ i18n("eter", "ecTextG", [formatInt(unlockedCount), formatInt(12)]) }}
     </div>
     <div v-else>
-      You have seen all {{ formatInt(12) }} Eternity Challenges.
+      {{ i18n("eter", "ecTextH", [formatInt(12)]) }}
     </div>
     <ChallengeGrid
       v-slot="{ challenge }"
