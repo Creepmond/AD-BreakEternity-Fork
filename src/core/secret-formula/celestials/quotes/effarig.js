@@ -1,66 +1,42 @@
+function i18nquote(quoteArray, showCelName = true) {
+  const returnArray = [];
+  for (value in quoteArray) {
+    returnArray.push(showCelName === false && value === 0 ? { text: i18n("quotes", quoteArray[value]), showCelestialName: showCelName } : i18n("quotes", quoteArray[value]));
+  }
+  return quoteArray;
+}
+
 export const effarigQuotes = {
   initial: {
     id: 0,
-    lines: [
-      "Welcome to my humble abode.",
-      "I am Effarig, and I govern Glyphs.",
-      "I am different from Teresa; not as simplistic as you think.",
-      "I use the shards of Glyphs to enforce my will.",
-      "I collect them for the bounty of this realm.",
-      "What are you waiting for? Get started.",
-    ]
+    get lines() { return i18nquote(["effarig0q0", "effarig0q1", "effarig0q2", "effarig0q3", "effarig0q4"]); }
   },
   unlockWeights: {
     id: 1,
-    lines: [
-      "Do you like my little shop? It is not much, but it is mine."
-    ]
+    get lines() { return i18nquote(["effarig1q0"]); }
   },
   unlockGlyphFilter: {
     id: 2,
-    lines: [
-      "This purchase will help you out."
-    ]
+    get lines() { return i18nquote(["effarig2q0"]); }
   },
   unlockSetSaves: {
     id: 3,
-    lines: [
-      "Is that too much? I think it is too much."
-    ]
+    get lines() { return i18nquote(["effarig3q0"]); }
   },
   unlockRun: {
     id: 4,
-    lines: [
-      "You bought out my entire stock... well, at least I am rich now.",
-      "The heart of my Reality is suffering. Each Layer is harder than the last.",
-      "I hope you never complete it.",
-    ]
+    get lines() { return i18nquote(["effarig4q0", "effarig4q1", "effarig4q2"]); }
   },
   completeInfinity: {
     id: 5,
-    lines: [
-      { text: "You have completed Effarig's Infinity.", showCelestialName: false },
-      "This is the first threshold. It only gets worse from here.",
-      "None but me know enough about my domain to get further.",
-    ]
+    get lines() { return i18nquote(["effarig5q0", "effarig5q1", "effarig5q2"], false); }
   },
   completeEternity: {
     id: 6,
-    lines: [
-      { text: "You have completed Effarig's Eternity.", showCelestialName: false },
-      "This is the limit. I do not want you to proceed past this point.",
-      "You will not finish this in your lifetime.",
-      "I will just wait here until you give up.",
-    ]
+    get lines() { return i18nquote(["effarig6q0", "effarig6q1", "effarig6q2", "effarig6q3"], false); }
   },
   completeReality: {
     id: 7,
-    lines: [
-      { text: "You have completed Effarig's Reality.", showCelestialName: false },
-      "So this is the diabolical power... what frightened the others...",
-      "Do you think this was worth it? Trampling on what I have done?",
-      "And for what purpose? You could have joined, we could have cooperated.",
-      "But no. It is over. Leave while I cling onto what is left.",
-    ]
+    get lines() { return i18nquote(["effarig7q0", "effarig7q1", "effarig7q2", "effarig7q3", "effarig7q4"], false); }
   }
 };

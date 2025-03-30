@@ -1,50 +1,34 @@
+function i18nquote(quoteArray, showCelName = true) {
+  const returnArray = [];
+  for (value in quoteArray) {
+    returnArray.push(showCelName === false && value === 2 ? { text: i18n("quotes", quoteArray[value]), showCelestialName: showCelName } : i18n("quotes", quoteArray[value]));
+  }
+  return quoteArray;
+}
+
 export const enslavedQuotes = {
   initial: {
     id: 0,
-    lines: [
-      "A visitor? We have not had one... eons.",
-      "We... had a name. It has been lost... to this place.",
-      "The others... will not let us rest. We do their work with time...",
-      "Place time... into places... that need it...",
-      "Watch ourselves grow... pass and die.",
-      "Perhaps you... will break these chains... we will wait.",
-    ]
+    get lines() { return i18nquote(["enslaved0q0", "enslaved0q1", "enslaved0q2", "enslaved0q3", "enslaved0q4", "enslaved0q5"]); }
   },
   unlockRun: {
     id: 1,
-    lines: [
-      "The others... used us. They will use... or destroy you.",
-      "End our suffering... power will be yours...",
-    ]
+    get lines() { return i18nquote(["enslaved1q0", "enslaved1q1"]); }
   },
   startRun: {
     id: 2,
-    lines: [
-      "So little space... but no... prison... is perfect.",
-      "They squeezed... this Reality... too tightly. Cracks appeared.",
-      "Search... everywhere. We will help... where we can.",
-    ]
+    get lines() { return i18nquote(["enslaved2q0", "enslaved2q1", "enslaved2q2"]); }
   },
   hintUnlock: {
     id: 3,
-    lines: [
-      "... you need... to look harder...",
-      "We think... we can help...",
-      { text: "You have unlocked help from The Nameless Ones.", showCelestialName: false }
-    ]
+    get lines() { return i18nquote(["enslaved3q0", "enslaved3q1", "enslaved3q2"], false); }
   },
   ec6C10: {
     id: 4,
-    lines: [
-      "... did not... underestimate you..."
-    ]
+    get lines() { return i18nquote(["enslaved4q0"]); }
   },
   completeReality: {
     id: 5,
-    lines: [
-      "All... fragments... clones... freed.",
-      "We have given... tools... of our imprisoning. Use them...",
-      "Freedom from torture... is torture itself.",
-    ]
+    get lines() { return i18nquote(["enslaved5q0", "enslaved5q1", "enslaved5q2"]); }
   },
 };

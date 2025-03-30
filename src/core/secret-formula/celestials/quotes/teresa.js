@@ -1,31 +1,26 @@
+function i18nquote(quoteArray) {
+  const returnArray = [];
+  for (value in quoteArray) {
+    returnArray.push(i18n("quotes", quoteArray[value]));
+  }
+  return quoteArray;
+}
+
 export const teresaQuotes = {
   initial: {
     id: 0,
-    lines: [
-      "We have been observing you.",
-      "You have shown promise with your bending of Reality.",
-      "We are the Celestials, and we want you to join us.",
-      "My name is Teresa, the Celestial Of Reality.",
-      "Prove your worth.",
-    ]
+    get lines() { return i18nquote(["teresa0q0", "teresa0q1", "teresa0q2", "teresa0q3", "teresa0q4"]); }
   },
   unlockReality: {
     id: 1,
-    lines: [
-      "I will let you inside my Reality, mortal. Do not get crushed by it."
-    ]
+    get lines() { return i18nquote(["teresa1q0"]); }
   },
   completeReality: {
     id: 2,
-    lines: [
-      "Why are you still here... you were supposed to fail."
-    ]
+    get lines() { return i18nquote(["teresa2q0"]); }
   },
   effarig: {
     id: 3,
-    lines: [
-      "You are still no match for us.",
-      "I hope the others succeed where I have failed."
-    ]
+    get lines() { return i18nquote(["teresa3q0", "teres3q1"]); }
   }
 };

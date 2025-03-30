@@ -1,94 +1,61 @@
+function i18nquote(quoteArray) {
+  const returnArray = [];
+  for (value in quoteArray) {
+    returnArray.push(i18n("quotes", quoteArray[value]));
+  }
+  return quoteArray;
+}
+
 export const vQuotes = {
   initial: {
     id: 0,
-    lines: [
-      "How pathetic..."
-    ],
+    get lines() { return i18nquote(["v0q0"]); }
   },
   unlock: {
     id: 1,
-    lines: [
-      "Welcome to my Reality.",
-      "I am surprised you could reach it.",
-      "This is my realm after all...",
-      "Not everyone is as great as me.",
-    ],
+    get lines() { return i18nquote(["v1q0", "v1q1", "v1q2", "v1q3"]); }
   },
   realityEnter: {
     id: 2,
-    lines: [
-      "Good luck with that!",
-      "You will need it.",
-      "My reality is flawless. You will fail.",
-    ],
+    get lines() { return i18nquote(["v2q0", "v2q1", "v2q2"]); }
   },
   realityComplete: {
     id: 3,
-    lines: [
-      "So fast...",
-      "Do not think so much of yourself.",
-      "This is just the beginning.",
-      "You will never be better than me.",
-    ],
+    get lines() { return i18nquote(["v3q0", "v3q1", "v3q2", "v3q3"]); }
   },
   achievement1: {
     id: 4,
     requirement: () => V.spaceTheorems >= 1,
-    lines: [
-      "Only one? Pathetic.",
-      "Your accomplishments pale in comparison to mine.",
-    ],
+    get lines() { return i18nquote(["v4q0", "v4q1"]); }
   },
   achievement6: {
     id: 5,
     requirement: () => V.spaceTheorems >= 6,
-    lines: [
-      "This is nothing.",
-      "Do not be so full of yourself.",
-    ],
+    get lines() { return i18nquote(["v5q0", "v5q1"]); }
   },
   hex1: {
     id: 6,
     requirement: () => player.celestials.v.runUnlocks.filter(a => a === 6).length >= 1,
-    lines: [
-      "Do not think it will get any easier from now on.",
-      "You are awfully proud for such a little achievement.",
-    ],
+    get lines() { return i18nquote(["v6q0", "v6q1"]); }
   },
   achievement12: {
     id: 7,
     requirement: () => V.spaceTheorems >= 12,
-    lines: [
-      "How did you...",
-      "This barely amounts to anything!",
-      "You will never complete them all.",
-    ],
+    get lines() { return i18nquote(["v7q0", "v7q1", "v7q2"]); }
   },
   achievement24: {
     id: 8,
     requirement: () => V.spaceTheorems >= 24,
-    lines: [
-      "Impossible...",
-      "After how difficult it was for me...",
-    ],
+    get lines() { return i18nquote(["v8q0", "v8q1"]); }
   },
   hex3: {
     id: 9,
     requirement: () => player.celestials.v.runUnlocks.filter(a => a === 6).length >= 3,
-    lines: [
-      "No... No... No...",
-      "This cannot be...",
-    ],
+    get lines() { return i18nquote(["v9q0", "v9q1"]); }
   },
   allAchievements: {
     id: 10,
     requirement: () => V.spaceTheorems >= 36,
-    lines: [
-      "I... how did you do it...",
-      "I worked so hard to get them...",
-      "I am the greatest...",
-      "No one is better than me...",
-      "No one... no one... no on-",
-    ],
+    get lines() { return i18nquote(["v10q0", "v10q1", "v10q2", "v10q3", "v10q4"]); }
   }
 };
