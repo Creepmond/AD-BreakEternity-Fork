@@ -15,6 +15,7 @@ export default {
   data() {
     return {
       isUnlocked: false,
+      isCancer: false,
       isMouseOver: false,
       showUnlockState: false
     };
@@ -37,7 +38,8 @@ export default {
         "o-achievement": true,
         "o-achievement--hidden": !this.isUnlocked,
         "o-achievement--unlocked": this.isUnlocked,
-        "o-achievement--secret": true
+        "o-achievement--secretcancer": this.isCancer,
+        "o-achievement--secret": !this.isCancer
       };
     },
     indicatorIconClass() {
@@ -56,6 +58,7 @@ export default {
   methods: {
     update() {
       this.isUnlocked = this.achievement.isUnlocked;
+      this.isCancer = Theme.current().name === "S4" || player.secretUnlocks.secretCancerAchievements;
       this.showUnlockState = player.options.showHintText.achievementUnlockStates;
     },
     onMouseEnter() {

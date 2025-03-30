@@ -3017,6 +3017,10 @@ br {
   background-image: url("../images/secret achievements.png");
 }
 
+.o-achievement--secretcancer {
+  background-image: url("../images/cancer secret achievements.png");
+}
+
 .o-achievement--unlocked {
   background-color: #5ac467;
   border-color: #127a20;

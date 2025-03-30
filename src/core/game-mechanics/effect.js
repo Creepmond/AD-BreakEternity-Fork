@@ -7,6 +7,10 @@ export class Effect {
     const isNumber = v => typeof v === "number";
     const isDecimal = v => v instanceof Decimal;
     const isConstant = v => isNumber(v) || isDecimal(v);
+    const isString = v => typeof v === "string";
+    if (isString(effect)) {
+      return;
+    }
     if (!isFunction(effect) && !isConstant(effect)) {
       throw new Error("Unknown effect value type.");
     }

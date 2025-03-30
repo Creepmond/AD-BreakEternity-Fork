@@ -1,10 +1,12 @@
 <script>
 import SecretAchievementRow from "./SecretAchievementRow";
+import SwapAchievementImagesButton from "./SwapAchievementImagesButton";
 
 export default {
   name: "SecretAchievementTab",
   components: {
-    SecretAchievementRow
+    SecretAchievementRow,
+    SwapAchievementImagesButton
   },
   computed: {
     rows: () => SecretAchievements.allRows,
@@ -16,7 +18,7 @@ export default {
   <div class="l-achievements-tab">
     <div class="c-achievements-tab__header">
       <span>
-        Secret Achievements are optional and give no bonuses.
+        Secret Achievements are optional <SwapAchievementImagesButton /> give no bonuses.
       </span>
     </div>
     <div class="l-achievement-grid">

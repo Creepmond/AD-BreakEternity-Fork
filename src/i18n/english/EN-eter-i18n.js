@@ -123,7 +123,7 @@ export const eter = {
   time: "time",
   ttunl: "Unlock: $1aX TT",
   capped: "Capped",
-  cost: "Cost $1aX EP$$1aX EP",
+  cost: "Cost: $1aX EP$$1aX EP",
   ttin: "Enough TT in $1aX",
   buymax: "Buy Max",
   youhavegained: "You have gained $1aX Tickspeed upgrades from $2aX Time Shards",

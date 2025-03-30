@@ -15,6 +15,9 @@ function mergeIntoGlobal(object) {
   }
 }
 
+// eslint-disable-next-line no-unused-vars
+import * as i18n from "./i18n";
+
 import * as Utils from "./core/utils";
 mergeIntoGlobal(Utils);
 

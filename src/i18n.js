@@ -1,3 +1,4 @@
+/* eslint-disable no-negated-condition */
 import * as i18nText from "./i18n/exports";
 
 window.i18n = function(type, id, mods = []) {
@@ -7,6 +8,7 @@ window.i18n = function(type, id, mods = []) {
   if (Lang.showFormula) {
     text = Lang.current.allText[type][id];
   }
+  // Else go to language
   if (text === undefined || text === "") {
     text = Lang.current.allText[type][id];
   }
@@ -52,17 +54,30 @@ class LanguageState {
   }
 }
 
-export const Lang = mapGameDataToObject(
+// Local version of "Map Game Date to Object" function in game database
+function mgdtoLocal(gameData, mapFun) {
+  const array = Object.entries(gameData);
+  const out = {};
+  for (let idx = 0; idx < array.length; idx++) {
+    out[array[idx][0]] = mapFun(array[idx][1]);
+  }
+  return {
+    all: Object.values(out),
+    ...out
+  };
+};
+
+export const Lang = mgdtoLocal(
   // Weird code to add the short name of the language (ie. EN) to all text
   Object.fromEntries(Object.entries(i18nText).map(i => [i[0], { ...i[1], shortName: i[0] }])),
   allText => new LanguageState(allText)
 );
 
 Object.defineProperty(Lang, "current", {
-  get() { return Lang[player.options.language]; }
+  get() { return Lang[typeof player !== "undefined" ? player.options.language : "EN"]; }
 });
 
 Object.defineProperty(Lang, "showFormula", {
-  get() { return player.options.showFomula; },
+  get() { return typeof player !== "undefined" ? player.options.showFomula : false; },
   set(value) { player.options.showFomula = value; }
 });

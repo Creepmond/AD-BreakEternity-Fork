@@ -228,6 +228,7 @@ window.player = {
     themes: new Set(),
     viewSecretTS: false,
     cancerAchievements: false,
+    secretCancerAchievements: false,
   },
   shownRuns: {
     Reality: true,

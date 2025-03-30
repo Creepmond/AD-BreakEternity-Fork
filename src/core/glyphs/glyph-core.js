@@ -444,7 +444,7 @@ export const Glyphs = {
     // This is done here when adding to the inventory in order to keep it out of the glyph generation hot path
     // It thus doesn't show up in manually choosing a glyph
     // This also only does anything if Ra has the appropriate unlock already.
-    this.applyGamespeed(glyph);
+    this.addGuarenteedEffects(glyph);
 
     // This should only apply to glyphs you actually choose, so can't be done in glyph generation.
     // Sometimes a glyph you already have is added to the inventory (for example, unequipping),
@@ -772,13 +772,12 @@ export const Glyphs = {
     if (startingReality) player.requirementChecks.reality.maxGlyphs = currCount;
     player.requirementChecks.reality.maxGlyphs = Math.max(player.requirementChecks.reality.maxGlyphs, currCount);
   },
-  // Modifies a basic glyph to have timespeed, and adds the new effect to time glyphs
-  applyGamespeed(glyph) {
-    if (!Ra.unlocks.allGamespeedGlyphs.canBeApplied) return;
-    if (GlyphInfo[glyph.type].isBasic) {
-      glyph.effects.push("timespeed");
-      if (glyph.type === "time") {
-        glyph.effects.push("timeshardpow");
+  // Adds the "excess effects" (guarenteed effects assuming conditions are met)
+  addGuarenteedEffects(glyph) {
+    if (!GlyphInfo[glyph].excessEffects) return;
+    for (let i = 0; i < GlyphInfo[glyph].excessEffects().length; i++) {
+      if (!GlyphInfo[glyph].excessEffects()[i] & !(glyph.effects.includes(GlyphInfo[glyph].excessEffects()[i]))) {
+        glyph.effects.push(GlyphInfo[glyph].excessEffects()[i]);
       }
     }
   },

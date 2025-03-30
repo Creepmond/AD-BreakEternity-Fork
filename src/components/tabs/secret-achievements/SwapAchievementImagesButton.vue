@@ -5,13 +5,11 @@ export default {
     return {
       canSwapImages: false,
       isCancerImages: false,
-      isDoomed: false,
     };
   },
   computed: {
     swapImagesButton() {
-      const symbol = this.isDoomed ? "." : ":";
-      return this.isCancerImages ? "😂" : symbol;
+      return this.isCancerImages ? "\uE010" : "and";
     },
     imageSwapperStyleObject() {
       return this.canSwapImages ? { "cursor": "pointer" } : {};
@@ -19,20 +17,17 @@ export default {
   },
   methods: {
     update() {
-      this.isDoomed = Pelle.isDoomed;
       const isCancerTheme = Theme.current().name === "S4";
       this.canSwapImages = !isCancerTheme && Themes.find("S4").isAvailable();
-      this.isCancerImages = isCancerTheme || player.secretUnlocks.cancerAchievements;
+      this.isCancerImages = isCancerTheme || player.secretUnlocks.secretCancerAchievements;
     },
     swapImages() {
       if (this.canSwapImages) {
-        player.secretUnlocks.cancerAchievements = !player.secretUnlocks.cancerAchievements;
+        player.secretUnlocks.secretCancerAchievements = !player.secretUnlocks.secretCancerAchievements;
       }
     }
   }
 };
-
-// Fyi, images were made by Creep (creepmond on discord as of writing)
 </script>
 
 <template>

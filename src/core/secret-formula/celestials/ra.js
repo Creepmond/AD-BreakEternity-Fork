@@ -218,7 +218,7 @@ export const ra = {
       onUnlock: () => {
         const allGlyphs = player.reality.glyphs.active.concat(player.reality.glyphs.inventory);
         for (const glyph of allGlyphs) {
-          Glyphs.applyGamespeed(glyph);
+          Glyphs.addGuarenteedEffects(glyph);
         }
       }
     },

@@ -33,7 +33,7 @@ export default {
     refreshGlyphs() {
       this.canRefresh = true;
       this.glyphs = GlyphSelection.upcomingGlyphs;
-      for (const glyph of this.glyphs) Glyphs.applyGamespeed(glyph);
+      for (const glyph of this.glyphs) Glyphs.addGuarenteedEffects(glyph);
       this.level = gainedGlyphLevel().actualLevel;
     },
     showModal() {
