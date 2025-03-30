@@ -1,86 +1,78 @@
 export const secretAchievements = [
   {
     id: 11,
-    name: "The first one's always free",
-    description: "Click on this Achievement."
+    get name() { return i18n("secret", "ach11title"); },
+    get description() { return i18n("secret", "ach11desc"); },
   },
   {
     id: 12,
-    name: "Just in case",
-    get description() { return `Save ${formatInt(100)} times without refreshing.`; }
+    get name() { return i18n("secret", "ach12title"); },
+    get description() { return i18n("secret", "ach12desc", [formatInt(100)]); },
   },
   {
     id: 13,
-    name: "It pays to have respect",
-    description: "Pay respects."
+    get name() { return i18n("secret", "ach13title"); },
+    get description() { return i18n("secret", "ach13desc"); },
   },
   {
     id: 14,
-    name: "So do I",
-    description: "Say something naughty."
+    get name() { return i18n("secret", "ach14title"); },
+    get description() { return i18n("secret", "ach14desc"); },
   },
   {
     id: 15,
-    name: "Do a barrel roll!",
-    description: "Do a barrel roll.",
+    get name() { return i18n("secret", "ach15title"); },
+    get description() { return i18n("secret", "ach15desc"); },
   },
   {
     id: 16,
-    name: "Do you enjoy pain?",
-    get description() {
-      return `Use a "painful" notation for ${formatInt(10)} real-time minutes
-      after doing an Eternity.`;
-    },
+    get name() { return i18n("secret", "ach16title"); },
+    get description() { return i18n("secret", "ach16desc", [formatInt(10)]); },
     checkRequirement: () => AchievementTimers.pain
       .check(PlayerProgress.eternityUnlocked() && Notations.current.isPainful, 600),
     checkEvent: GAME_EVENT.GAME_TICK_AFTER
   },
   {
     id: 17,
-    name: "30 Lives",
-    description: "Input the konami code."
+    get name() { return i18n("secret", "ach17title"); },
+    get description() { return i18n("secret", "ach17desc"); },
   },
   {
     id: 18,
-    name: "Do you feel lucky? Well do ya punk?",
-    get description() {
-      return `You have a ${formatInt(1)}/${formatInt(1e5)} chance of getting this achievement every second.`;
-    }
+    get name() { return i18n("secret", "ach18title"); },
+    get description() { return i18n("secret", "ach18desc", [formatInt(1), formatInt(1e5)]); },
   },
   {
     id: 21,
-    name: "Go study in real life instead",
-    description: "Purchase the secret Time Study."
+    get name() { return i18n("secret", "ach21title"); },
+    get description() { return i18n("secret", "ach21desc"); },
   },
   {
     id: 22,
-    name: "Deep fried",
-    get description() { return `Buy ${formatInt(1e5)} Antimatter Galaxies in total while using emoji notation.`; },
+    get name() { return i18n("secret", "ach22title"); },
+    get description() { return i18n("secret", "ach22desc", formatInt(1e5)); },
     checkRequirement: () => player.requirementChecks.permanent.emojiGalaxies.gte(1e5),
     checkEvent: GAME_EVENT.GALAXY_RESET_AFTER
   },
   {
     id: 23,
-    name: "Stop right there criminal scum!",
-    description: "Open the console."
+    get name() { return i18n("secret", "ach23title"); },
+    get description() { return i18n("secret", "ach23desc"); },
   },
   {
     id: 24,
-    name: "Real news",
-    description: "Click on a news ticker message that does something when you click on it."
+    get name() { return i18n("secret", "ach24title"); },
+    get description() { return i18n("secret", "ach24desc"); },
   },
   {
     id: 25,
-    name: "Shhh... It's a secret",
-    description: "Discover a secret theme."
+    get name() { return i18n("secret", "ach25title"); },
+    get description() { return i18n("secret", "ach25desc"); },
   },
   {
     id: 26,
-    name: "You're a failure",
-    get description() {
-      return `Fail Eternity Challenges ${formatInt(10)} times without refreshing.
-      What are you doing with your life...`;
-    },
+    get name() { return i18n("secret", "ach26title"); },
+    get description() { return i18n("secret", "ach26desc", [formatInt(10)]); },
     checkRequirement: (function() {
       let count = 0;
       return () => ++count >= 10;
@@ -89,27 +81,25 @@ export const secretAchievements = [
   },
   {
     id: 27,
-    name: "It's not called matter dimensions is it?",
-    description: "Get Infinite matter.",
+    get name() { return i18n("secret", "ach27title"); },
+    get description() { return i18n("secret", "ach27desc"); },
     checkRequirement: () => Currency.matter.gte(DC.NUMMAX),
     checkEvent: GAME_EVENT.GAME_TICK_AFTER
   },
   {
     id: 28,
-    name: "Nice.",
-    description: "Don't act like you don't know what you did."
+    get name() { return i18n("secret", "ach28title"); },
+    get description() { return i18n("secret", "ach28desc"); },
   },
   {
     id: 31,
-    name: "You should download some more RAM",
-    get description() { return `Set your update rate to ${formatInt(200)}ms.`; }
+    get name() { return i18n("secret", "ach31title"); },
+    get description() { return i18n("secret", "ach31desc", formatInt(200)); },
   },
   {
     id: 32,
-    name: "Less than or equal to 0.001",
-    get description() {
-      return `Get a fastest infinity or eternity time of less than or equal to ${format(0.001, 3, 3)} seconds.`;
-    },
+    get name() { return i18n("secret", "ach32title"); },
+    get description() { return i18n("secret", "ach32desc", format(0.001, 3, 3)); },
     checkRequirement: () =>
       Time.bestInfinity.totalMilliseconds.lte(1) ||
       Time.bestEternity.totalMilliseconds.lte(1),
@@ -117,79 +107,79 @@ export const secretAchievements = [
   },
   {
     id: 33,
-    name: "A sound financial decision",
-    description: "Import \"Shop\" (temporary req)"
+    get name() { return i18n("secret", "ach33title"); },
+    get description() { return i18n("secret", "ach33desc"); },
   },
   {
     id: 34,
-    name: "You do know how these work, right?",
-    description: "Respec with an empty Time Study Tree."
+    get name() { return i18n("secret", "ach34title"); },
+    get description() { return i18n("secret", "ach34desc"); },
   },
   {
     id: 35,
-    name: "Should we tell them about buy max...",
-    get description() { return `Buy single Tickspeed upgrades ${formatInt(1e5)} times.`; },
+    get name() { return i18n("secret", "ach35title"); },
+    get description() { return i18n("secret", "ach35desc", formatInt(1e5)); },
     checkRequirement: () => player.requirementChecks.permanent.singleTickspeed >= 1e5,
     checkEvent: GAME_EVENT.GAME_TICK_AFTER
   },
   {
     id: 36,
-    name: "While you were away... Nothing happened.",
-    description: "See nothing happen while you were away."
+    get name() { return i18n("secret", "ach36title"); },
+    get description() { return i18n("secret", "ach36desc"); },
   },
   {
     id: 37,
-    name: "You followed the instructions",
-    description: "Follow instructions."
+    get name() { return i18n("secret", "ach37title"); },
+    get description() { return i18n("secret", "ach37desc"); },
   },
   {
     id: 38,
-    name: "Knife's edge",
-    description: "Close the Hard Reset modal after typing in the confirmation."
+    get name() { return i18n("secret", "ach38title"); },
+    get description() { return i18n("secret", "ach38desc"); },
   },
   {
     id: 41,
-    name: "That dimension doesn’t exist",
-    description: "Try to purchase the 9th dimension."
+    get name() { return i18n("secret", "ach41title"); },
+    get description() { return i18n("secret", "ach41desc"); },
   },
   {
     id: 42,
-    name: "SHAME ON ME",
-    description: "Try to use EC12 to speed up time."
+    get name() { return i18n("secret", "ach42title"); },
+    get description() { return i18n("secret", "ach42desc"); },
   },
   {
     id: 43,
-    name: "A cacophonous chorus",
-    description: "Have all equipped Glyphs be Music Glyphs.",
+    get name() { return i18n("secret", "ach43title"); },
+    get description() { return i18n("secret", "ach43desc"); },
     checkRequirement: () => Glyphs.active.length && Glyphs.active.every(x => Glyphs.isMusicGlyph(x)),
     checkEvent: GAME_EVENT.GLYPHS_EQUIPPED_CHANGED
   },
   {
     id: 44,
-    name: "Are you statisfied now?",
-    get description() { return `Stare intently at the statistics tab for ${formatInt(15)} real-time minutes.`; },
+    get name() { return i18n("secret", "ach44title"); },
+    get description() { return i18n("secret", "ach44desc", [formatInt(15)]); },
     checkRequirement: () => AchievementTimers.stats.check(Tab.statistics.isOpen, 900),
     checkEvent: GAME_EVENT.GAME_TICK_AFTER
   },
   {
     id: 45,
-    name: "This dragging is dragging on",
-    description: "Drag the Perks around for a minute.",
+    get name() { return i18n("secret", "ach45title"); },
+    get description() { return i18n("secret", "ach45desc"); },
     checkRequirement: () => player.requirementChecks.permanent.perkTreeDragging++ / 100 >= 60
   },
   {
     id: 46,
-    name: "For a rainy day",
-    description: "Store a day of real time."
+    get name() { return i18n("secret", "ach46title"); },
+    get description() { return i18n("secret", "ach46desc"); },
   },
   {
     id: 47,
-    name: "ALT+",
-    description: "Hide every possible tab."
+    get name() { return i18n("secret", "ach47title"); },
+    get description() { return i18n("secret", "ach47desc"); },
   },
   {
     id: 48,
-    name: "Stack overflow",
-    description: "Have more Automator errors than lines."
+    get name() { return i18n("secret", "ach48title"); },
+    get description() { return i18n("secret", "ach48desc"); },
   },
 ];
