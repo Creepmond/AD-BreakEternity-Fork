@@ -32,6 +32,7 @@ export default {
       isCostsAD: false,
       amountDisplay: "",
       hasTutorial: false,
+      costJumps: new Decimal(),
     };
   },
   computed: {
@@ -67,7 +68,8 @@ export default {
       if (this.isContinuumActive) return this.continuumString;
       const prefix = this.showCostTitle(this.buyUntil10 ? this.until10Cost : this.singleCost) ? "Cost: " : "";
       const suffix = this.isCostsAD ? this.costUnit : "AM";
-      return `${prefix}${this.costDisplay} ${suffix}`;
+      const additional = this.costJumps.gt(0) ? ` (+${formatInt(this.costJumps)})` : "";
+      return `${prefix}${this.costDisplay} ${suffix}${additional}`;
     },
     hasLongText() {
       return this.buttonValue.length > 20;
@@ -101,6 +103,7 @@ export default {
       this.amountDisplay = this.tier < 8 ? format(this.amount, 2) : formatInt(this.amount);
       this.hasTutorial = (tier === 1 && Tutorial.isActive(TUTORIAL_STATE.DIM1)) ||
         (tier === 2 && Tutorial.isActive(TUTORIAL_STATE.DIM2));
+      this.costJumps = dimension.costBumps;
     },
     buy() {
       if (this.isContinuumActive) return;

@@ -60,4 +60,4 @@ export const laitelaQuotes = {
     requirement: () => player.celestials.laitela.difficultyTier >= 8,
     lines: i18nquote(["lai9q0", "lai9q1", "lai9q2", "lai9q3", "lai9q4", "lai9q5"])
   },
-}
+};
