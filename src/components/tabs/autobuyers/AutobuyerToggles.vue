@@ -14,7 +14,8 @@ export default {
       autobuyersOn: false,
       showContinuum: false,
       disableContinuum: false,
-      allAutobuyersDisabled: false
+      allAutobuyersDisabled: false,
+      allAutobuyersSingle: false,
     };
   },
   watch: {
@@ -36,10 +37,18 @@ export default {
       this.showContinuum = Laitela.isUnlocked;
       this.disableContinuum = player.auto.disableContinuum;
       this.allAutobuyersDisabled = Autobuyers.unlocked.every(autobuyer => !autobuyer.isActive);
+      this.allAutobuyersSingle = Autobuyers.unlocked.filter(n => n.fullName.splice(0, 4, "") === "Antimatter Dimension").every(autobuyer => autobuyer.mode === 1);
     },
     toggleAllAutobuyers() {
       for (const autobuyer of Autobuyers.unlocked) {
         autobuyer.isActive = this.allAutobuyersDisabled;
+      }
+    },
+    toggleSingleADauto() {
+      for (const autobuyer of Autobuyers.unlocked) {
+        if (autobuyer.fullName.splice(0, 4, "") === "Antimatter Dimension") {
+          autobuyer.mode = this.allAutobuyersSingle ? 10 : 1;
+        }
       }
     }
   }
@@ -59,6 +68,12 @@ export default {
       @click="toggleAllAutobuyers()"
     >
       {{ allAutobuyersDisabled ? "Enable" : "Disable" }} all autobuyers
+    </PrimaryButton>
+    <PrimaryButton
+      class="o-primary-btn--subtab-option"
+      @click="toggleSingleADauto()"
+    >
+      Antimatter Dimension autobuyers to {{ allAutobuyersSingle ? "Buy 10" : "Buy 1" }}
     </PrimaryButton>
     <span v-if="isDoomed">
       <PrimaryButton

@@ -117,7 +117,7 @@ export default {
       this.isCostsAD = NormalChallenge(6).isRunning && tier > 2 && !this.isContinuumActive;
       this.hasTutorial = (tier === 1 && Tutorial.isActive(TUTORIAL_STATE.DIM1)) ||
         (tier === 2 && Tutorial.isActive(TUTORIAL_STATE.DIM2));
-      this.costJumps = dimension.costJumps;
+      this.costJumps.copyFrom(dimension.costJumps);
     },
     buySingle() {
       if (this.isContinuumActive) return;

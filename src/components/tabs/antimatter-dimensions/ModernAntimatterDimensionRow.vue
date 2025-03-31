@@ -103,7 +103,7 @@ export default {
       this.amountDisplay = this.tier < 8 ? format(this.amount, 2) : formatInt(this.amount);
       this.hasTutorial = (tier === 1 && Tutorial.isActive(TUTORIAL_STATE.DIM1)) ||
         (tier === 2 && Tutorial.isActive(TUTORIAL_STATE.DIM2));
-      this.costJumps = dimension.costBumps;
+      this.costJumps.copyFrom(dimension.costBumps);
     },
     buy() {
       if (this.isContinuumActive) return;
