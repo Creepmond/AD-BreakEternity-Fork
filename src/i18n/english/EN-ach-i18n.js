@@ -65,7 +65,7 @@ export const ach = {
   ach42desc: "Have antimatter per second exceed your current antimatter above $1aX",
   ach43title: "How the antitables have turned...",
   ach43desc: "Get the 8th Antimatter Dimension multiplier to be highest, 7th Antimatter Dimension multiplier second highest, etc.",
-  ach43reward: "Reach Antimatter Dimension gains a boost proportional to tier (8th gets $1aX, 7th gets $2aX, etc.)",
+  ach43reward: "Each Antimatter Dimension gains a boost proportional to tier (8th gets $1aX, 7th gets $2aX, etc.)",
   ach44title: "Over in 30 Seconds",
   ach44desc: "Have antimatter per second exceed your current antimatter for $1aX consecutive seconds.",
   ach45title: "Faster than a potato",
