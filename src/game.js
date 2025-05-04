@@ -300,6 +300,30 @@ export function getGameSpeedupForDisplay() {
   return speedFactor;
 }
 
+/**
+  * @param {number[]?} effectsToConsider A list of various game speed changing effects to apply when calculating
+  *   the game speed.  If left undefined, all effects will be applied.
+  */
+export function getRealSpeedupFactor(effectsToConsider) {
+  let effects;
+  if (effectsToConsider === undefined) {
+    effects = [];
+  } else {
+    // eslint-disable-next-line no-unused-vars
+    effects = effectsToConsider;
+  }
+
+  // eslint-disable-next-line prefer-const
+  let factor = DC.D1;
+
+  return factor;
+}
+
+export function getRealSpeedupForDisplay() {
+  const speedFactor = getRealSpeedupFactor();
+  return speedFactor;
+}
+
 // Seperated for organisation - Very few things should need this
 export function trueTimeMechanics(trueDiff) {
   // Ra-Nameless auto-release stored time (once every 5 ticks)

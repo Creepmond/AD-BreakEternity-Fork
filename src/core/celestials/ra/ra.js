@@ -294,7 +294,7 @@ export const Ra = {
     const a = Enslaved.isStoringRealTime
       ? DC.D0
       : Ra.productionPerMemoryChunk.mul(pet.memoryUpgradeCurrentMult).mul(pet.memoryChunksPerSecond).div(2);
-    const b = Ra.productionPerMemoryChunk.mul(pet.memoryUpgradeCurrentMult).mul(pet.memoryChunks);
+    const b = Ra.productionPerMemoryChunk.mul(pet.memoryUpgradeCurrentMult).mul(pet.memoryChunks).mul(getRealSpeedupForDisplay());
     const c = expToGain.neg();
     const estimate = a === 0
       ? c.neg().div(b)

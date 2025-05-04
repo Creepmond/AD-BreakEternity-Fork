@@ -48,7 +48,7 @@ export default {
       } else {
         this.dimMultiplier.copyFrom(this.infinityPower.pow(this.conversionRate).max(1));
       }
-      this.powerPerSecond.copyFrom(InfinityDimension(1).productionPerRealSecond);
+      this.powerPerSecond.copyFrom(InfinityDimension(1).productionPerGameSecond);
       this.incomeType = i18n("inf", "IDprod").split("$")[EternityChallenge(7).isRunning ? 0 : 1];
       this.isEC8Running = EternityChallenge(8).isRunning;
       if (this.isEC8Running) {

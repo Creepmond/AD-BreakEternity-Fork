@@ -28,8 +28,12 @@ export class DimensionState {
   /** @abstract */
   get productionPerSecond() { throw new NotImplementedError(); }
 
+  get productionPerGameSecond() {
+    return this.productionPerSecond.div(getGameSpeedupForDisplay().mul(getRealSpeedupForDisplay()));
+  }
+
   get productionPerRealSecond() {
-    return this.productionPerSecond.div(getGameSpeedupForDisplay());
+    return this.productionPerSecond.div(getRealSpeedupForDisplay());
   }
 
   productionForDiff(diff) {

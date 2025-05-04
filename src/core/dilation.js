@@ -210,13 +210,13 @@ export function getBaseTP(antimatter, requireEternity) {
 
 // Returns the TP that would be gained this run
 export function getTP(antimatter, requireEternity) {
-  return getBaseTP(antimatter, requireEternity).times(tachyonGainMultiplier());
+  return getBaseTP(antimatter, requireEternity).times(tpMult ? tachyonGainMultiplier() : 1);
 }
 
 // Returns the amount of TP gained, subtracting out current TP; used for displaying gained TP, text on the
 // "exit dilation" button (saying whether you need more antimatter), and in last 10 eternities
-export function getTachyonGain(requireEternity) {
-  return getTP(Currency.antimatter.value, requireEternity).minus(Currency.tachyonParticles.value).clampMin(0);
+export function getTachyonGain(requireEternity, tpMult = true) {
+  return getTP(Currency.antimatter.value, requireEternity, tpMult).minus(Currency.tachyonParticles.value).clampMin(0);
 }
 
 // Returns the minimum antimatter needed in order to gain more TP; used only for display purposes
@@ -233,7 +233,7 @@ export function getTachyonReq() {
 
 export function getDilationTimeEstimate(goal) {
   const currentDTGain = getDilationGainPerSecond();
-  const rawDTGain = currentDTGain.times(getGameSpeedupForDisplay());
+  const rawDTGain = currentDTGain.times(getGameSpeedupForDisplay().mul(getRealSpeedupForDisplay()));
   const currentDT = Currency.dilatedTime.value;
   if (currentDTGain.eq(0)) return null;
   if (PelleRifts.paradox.isActive) {

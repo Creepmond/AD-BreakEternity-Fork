@@ -7,7 +7,9 @@ export default {
     return {
       baseSpeed: new Decimal(),
       pulsedSpeed: new Decimal(),
+      realBaseSpeed: new Decimal(),
       hasSeenAlteredSpeed: false,
+      hasSeenAlteredRealSpeed: false,
       isStopped: false,
       isEC12: false,
       isPulsing: false,
@@ -24,6 +26,10 @@ export default {
       }
       return `${speed}`;
     },
+    realSpeedText() {
+      const speed = this.formatNumber(this.baseSpeed);
+      return `${speed}`;
+    },
     pulseSpeedText() {
       return `${this.formatNumber(this.pulsedSpeed)}`;
     },
@@ -32,6 +38,12 @@ export default {
       return this.baseSpeed.eq(1)
         ? "The game is running at normal speed."
         : `Game speed is altered: ${this.baseSpeedText}`;
+    },
+    realText() {
+      if (!this.hasSeenAlteredRealSpeed) return null;
+      return this.realBaseSpeed.eq(1)
+        ? "The game is running at normal real speed."
+        : `Real speed is altered: ${this.realSpeedText}`;
     }
   },
   methods: {
@@ -60,6 +72,7 @@ export default {
   <span class="c-gamespeed">
     <span>
       {{ baseText }}
+      {{ realText }}
     </span>
     <span v-if="isPulsing">(<i class="fas fa-expand-arrows-alt u-fa-padding" /> {{ pulseSpeedText }})</span>
   </span>

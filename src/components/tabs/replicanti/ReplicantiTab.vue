@@ -174,7 +174,7 @@ export default {
     calculateEstimate() {
       const updateRateMs = player.options.updateRate;
       const logGainFactorPerTick = player.replicanti.chance.add(1).ln().mul(updateRateMs)
-        .mul(getGameSpeedupForDisplay()).div(getReplicantiInterval());
+        .mul(getGameSpeedupForDisplay().mul(getRealSpeedupForDisplay())).div(getReplicantiInterval());
       const postScale = Decimal.log10(ReplicantiGrowth.scaleFactor).div(ReplicantiGrowth.scaleLog10);
       const nextMilestone = this.maxReplicanti;
       const coeff = Decimal.divide(updateRateMs / 1000, logGainFactorPerTick.times(postScale));
@@ -193,7 +193,9 @@ export default {
       class="o-primary-btn--replicanti-unlock"
       onclick="Replicanti.unlock();"
     >
-      {{ i18n("inf", "repUnl", [format(unlockCost)]) }}
+      <span
+        v-html="i18n(`inf`, `repUnl`, [format(unlockCost)])"
+      />
     </PrimaryButton>
     <template v-else>
       <div
@@ -215,7 +217,9 @@ export default {
         {{ i18n("inf", "repEff4", [format(nextEffarigRGThreshold, 2)]) }}
       </div>
       <p class="c-replicanti-description">
-        {{ i18n("inf", "rephave", [`<span class="c-replicanti-description__accent">${format(amount, 2, 0)}</span>`]) }}
+        {{ i18n("inf", "rephave").split("$1aX")[0] }}
+        <span class="c-replicanti-description__accent">{{ format(amount, 2, 0) }}</span>
+        {{ i18n("inf", "rephave").split("$1aX")[1] }}
         <br>
         <span v-html="boostText" />
       </p>

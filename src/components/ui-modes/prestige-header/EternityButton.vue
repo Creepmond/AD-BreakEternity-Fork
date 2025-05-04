@@ -12,6 +12,7 @@ export default {
       peakEPRate: new Decimal(0),
       currentTachyons: new Decimal(0),
       gainedTachyons: new Decimal(0),
+      colorGainedTachyons: new Decimal(0),
       challengeCompletions: 0,
       gainedCompletions: 0,
       fullyCompleted: false,
@@ -60,7 +61,7 @@ export default {
         ],
         [0, 255, 0]
       ];
-      const ratio = this.gainedEP.max(1).log10().div(this.currentEP.max(1).log10());
+      const ratio = this.gainedEP.max(1).log10().div(this.currentEP.max(1).log10());lem
       const interFn = index => {
         if (ratio.lt(0.9)) return stepRGB[0][index];
         if (ratio.lt(1)) {
@@ -88,21 +89,45 @@ export default {
       // Note that Infinity and 0 can show up here. We have a special case for
       // this.currentTachyons being 0 because dividing a Decimal by 0 returns 0.
       let ratio;
-      if (this.currentTachyons.eq(0)) {
+      if (this.colorGainedTachyons.eq(0)) {
         // In this case, make it always red or green.
         // (Is it possible to gain 0 tachyons? Probably somehow it is.)
-        ratio = this.gainedTachyons.eq(0) ? 0 : Infinity;
+        ratio = this.colorGainedTachyons.eq(0) ? 0 : Infinity;
       } else {
-        ratio = this.gainedTachyons.div(this.currentTachyons).toNumber();
+        ratio = this.colorGainedTachyons.div(this.currentTachyons.div(tachyonGainMultiplier()));
       }
 
-      const rgb = [
-        Math.round(Math.clampMax(1 / ratio, 1) * 255),
-        Math.round(Math.clampMax(ratio, 1) * 255),
-        Math.round(Math.clampMax(ratio, 1 / ratio) * 255),
+      // Dynamically generate red-text-green based on the CSS entry for text color, returning a raw 6-digit hex color
+      // code. stepRGB is an array specifying the three RGB codes, which are then interpolated between in order to
+      // generate the final color; only ratios between 0.5-1.1 give a color gradient
+      const textHexCode = getComputedStyle(document.body).getPropertyValue("--color-text").split("#")[1];
+      const stepRGB = [
+        [255, 0, 0],
+        [
+          parseInt(textHexCode.substring(0, 2), 16),
+          parseInt(textHexCode.substring(2, 4), 16),
+          parseInt(textHexCode.substring(4), 16)
+        ],
+        [0, 255, 0]
       ];
-      return { color: `rgb(${rgb.join(",")})` };
-    }
+      const interFn = index => {
+        if (ratio.lt(0.5)) return stepRGB[0][index];
+        if (ratio.lt(1)) {
+          const r = ratio.sub(0.5).mul(10);
+          return Decimal.round(new Decimal(1).sub(r).mul(stepRGB[0][index]).add(r.mul(stepRGB[1][index])));
+        }
+        if (ratio.lt(1.1)) {
+          const r = ratio.sub(1.05).mul(10);
+          return Decimal.round(new Decimal(1).sub(r).mul(stepRGB[1][index]).add(r.mul(stepRGB[2][index])));
+        }
+        return stepRGB[2][index];
+      };
+      const rgb = [interFn(0), interFn(1), interFn(2)];
+      return {
+        color: `rgb(${rgb.join(",")})`,
+        "transition-duration": "0.2s"
+      };
+    },
   },
   methods: {
     update() {
@@ -146,6 +171,7 @@ export default {
           : EP_BUTTON_DISPLAY_TYPE.DILATION;
         this.currentTachyons.copyFrom(Currency.tachyonParticles);
         this.gainedTachyons.copyFrom(getTachyonGain(true));
+        this.colorGainedTachyons.copyFrom(getTachyonGain(true, false));
         return;
       }
 

@@ -47,8 +47,8 @@ export function toggleAllTimeDims() {
 }
 
 export function calcHighestPurchaseableTD(tier, currency) {
-  const logC = currency.max(1).log10();
-  const logBase = TimeDimension(tier)._baseCost.max(1).log10();
+  const logC = currency.max(1).log10().mul(PelleRifts.paradox.milestones[0] ? 2 : 1);
+  const logBase = TimeDimension(tier)._baseCost.max(1).log10().sub(PelleRifts.paradox.milestones[0] ? 2250 : 0).div(PelleRifts.paradox.milestones[0] ? 2 : 1);
   let logMult = Decimal.log10(TimeDimension(tier)._costMultiplier);
 
   if (tier > 4 && currency.lt(DC.E6000)) {
@@ -58,7 +58,7 @@ export function calcHighestPurchaseableTD(tier, currency) {
   if (currency.gte(DC.E6000)) {
     logMult = TimeDimension(tier)._costMultiplier.mul(tier <= 4 ? 2.2 : 1).max(1).log10();
     const preInc = Decimal.log10(DC.E6000).sub(logBase).div(logMult);
-    const postInc = logC.sub(logBase).sub(6000).div(logMult).div(TimeDimensions.scalingPast1e6000).clampMin(0);
+    const postInc = logC.sub(6000).div(logMult).div(TimeDimensions.scalingPast1e6000).clampMin(0);
     return postInc.add(preInc).floor();
   }
 
@@ -296,7 +296,7 @@ class TimeDimensionState extends DimensionState {
     }
     const toGain = TimeDimension(tier + 1).productionPerSecond;
     const current = Decimal.max(this.amount, 1);
-    return toGain.times(10).dividedBy(current).times(getGameSpeedupForDisplay());
+    return toGain.times(10).dividedBy(current).times(getGameSpeedupForDisplay().mul(getRealSpeedupForDisplay()));
   }
 
   get isProducing() {

@@ -32,7 +32,7 @@ export default {
       this.tickspeedSoftcap.copyFrom(FreeTickspeed.softcap);
       this.timeShards.copyFrom(Currency.timeShards);
       this.upgradeThreshold.copyFrom(FreeTickspeed.fromShards(Currency.timeShards.value).nextShards);
-      this.shardsPerSecond.copyFrom(TimeDimension(1).productionPerRealSecond);
+      this.shardsPerSecond.copyFrom(TimeDimension(1).productionPerGameSecond);
       this.incomeType = i18n("eter", "income").split("$")[EternityChallenge(7).isRunning ? 0 : 1];
       this.areAutobuyersUnlocked = Autobuyer.timeDimension(1).isUnlocked;
     },

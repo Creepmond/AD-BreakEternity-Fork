@@ -432,7 +432,7 @@ class AntimatterDimensionState extends DimensionState {
     } else {
       toGain = AntimatterDimension(tier + 1).productionPerSecond;
     }
-    return toGain.times(10).dividedBy(this.amount.max(1)).times(getGameSpeedupForDisplay());
+    return toGain.times(10).dividedBy(this.amount.max(1)).times(getGameSpeedupForDisplay().mul(getRealSpeedupForDisplay()));
   }
 
   /**

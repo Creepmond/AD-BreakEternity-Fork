@@ -10,8 +10,8 @@ import { MultiplierTabIcons } from "./icons";
 export const DT = {
   total: {
     name: "Dilated Time gain",
-    displayOverride: () => `${format(getDilationGainPerSecond().times(getGameSpeedupForDisplay()), 2, 2)}/sec`,
-    multValue: () => getDilationGainPerSecond().times(getGameSpeedupForDisplay()),
+    displayOverride: () => `${format(getDilationGainPerSecond().times(getGameSpeedupForDisplay().mul(getRealSpeedupForDisplay())), 2, 2)}/sec`,
+    multValue: () => getDilationGainPerSecond().times(getGameSpeedupForDisplay().mul(getRealSpeedupForDisplay())),
     isActive: () => PlayerProgress.realityUnlocked() ||
       (PlayerProgress.dilationUnlocked() && getDilationGainPerSecond().gt(0)),
     dilationEffect: () => (Enslaved.isRunning ? 0.85 : 1),

@@ -93,7 +93,7 @@ export default {
     update() {
       this.tachyons.copyFrom(Currency.tachyonParticles);
       this.dilatedTime.copyFrom(Currency.dilatedTime);
-      const rawDTGain = getDilationGainPerSecond().times(getGameSpeedupForDisplay());
+      const rawDTGain = getDilationGainPerSecond().times(getGameSpeedupForDisplay().mul(getRealSpeedupForDisplay()));
       this.galaxyTimeEstimate = getDilationTimeEstimate(this.galaxyThreshold);
       if (PelleRifts.paradox.isActive) {
         // The number can be small and either positive or negative with the rift active, which means that extra care

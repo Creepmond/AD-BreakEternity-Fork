@@ -95,7 +95,7 @@ export default {
       return `${line1}<br>${line2}`;
     },
     ascensionTooltip() {
-      return `Interval is capped at ${formatInt(DarkMatterDimension(this.tier).intervalPurchaseCap)}ms.
+      return `Interval is capped at ${formatInt(DarkMatterDimension(this.tier).intervalPurchaseCap.div(getRealSpeedupForDisplay()))}ms.
         Ascension multiplies interval by ${formatInt(this.intervalAscensionBump)},
         DM by ${formatInt(this.powerDMPerAscension)}, and DE by ${formatInt(POWER_DE_PER_ASCENSION)}.`;
     }
@@ -107,7 +107,7 @@ export default {
       this.ascension.copyFrom(dim.ascensions);
       this.hasAscended = this.ascension.gt(0);
       this.powerDMPerAscension.copyFrom(dim.powerDMPerAscension);
-      this.interval.copyFrom(dim.interval);
+      this.interval.copyFrom(dim.interval.div(getRealSpeedupForDisplay()));
       this.powerDM.copyFrom(dim.powerDM);
       this.powerDE.copyFrom(dim.powerDE);
       this.intervalCost.copyFrom(dim.intervalCost);
@@ -117,11 +117,11 @@ export default {
       this.canBuyInterval = dim.canBuyInterval;
       this.canBuyPowerDM = dim.canBuyPowerDM;
       this.canBuyPowerDE = dim.canBuyPowerDE;
-      this.isIntervalCapped = dim.interval.lte(dim.intervalPurchaseCap);
+      this.isIntervalCapped = dim.interval.lte(dim.intervalPurchaseCap.div(getRealSpeedupForDisplay()));
       this.timer.copyFrom(dim.realDiff);
       this.timerPercent.copyFrom(this.timer.div(this.interval));
-      this.intervalAscensionBump.copyFrom(SingularityMilestone.ascensionIntervalScaling.effectOrDefault(new Decimal(1200)));
-      this.intervalAfterAscension.copyFrom(dim.intervalAfterAscension);
+      this.intervalAscensionBump.copyFrom(SingularityMilestone.ascensionIntervalScaling.effectOrDefault(new Decimal(1200)).div(getRealSpeedupForDisplay()));
+      this.intervalAfterAscension.copyFrom(dim.intervalAfterAscension.div(getRealSpeedupForDisplay()));
       this.darkEnergyPerSecond.copyFrom(dim.productionPerSecond);
       this.portionDE.copyFrom(this.darkEnergyPerSecond.div(Currency.darkEnergy.productionPerSecond));
       this.productionPerSecond = this.dimensionProduction(this.tier);

@@ -47,7 +47,7 @@ export default {
       this.isCollapsed = player.celestials.pelle.collapsed.upgrades;
       this.remnants.copyFrom(Pelle.cel.remnants);
       this.realityShards.copyFrom(Pelle.cel.realityShards);
-      this.shardRate.copyFrom(Pelle.realityShardGainPerSecond);
+      this.shardRate.copyFrom(Pelle.realityShardGainPerSecond.mul(getRealSpeedupForDisplay()));
       this.upgrades = PelleUpgrade.singles.filter(u => !u.isBought);
       this.boughtUpgrades = PelleUpgrade.singles.filter(u => u.isBought);
     },

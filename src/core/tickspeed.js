@@ -244,6 +244,6 @@ export const FreeTickspeed = {
       return { newAmount: DC.D0, nextShards: DC.D1 };
     }
     const quant = this.tickExpo.getMaxBought(DC.D0, shards, DC.D1);
-    return { newAmount: quant.quantity, nextShards: this.tickExpo.calculateCost(quant.quantity.add(1)) };
+    return { newAmount: quant.quantity.sub(1), nextShards: this.tickExpo.calculateCost(quant.quantity) };
   }
 };

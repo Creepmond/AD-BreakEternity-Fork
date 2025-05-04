@@ -87,7 +87,7 @@ export default {
       this.purchases.copyFrom(player.celestials.pelle.rebuyables[this.upgrade.config.id] ?? new Decimal(0));
       this.currentTimeEstimate = TimeSpan
         .fromSeconds(this.secondsUntilCost(this.galaxyGenerator ? GalaxyGenerator.gainPerSecond
-          : Pelle.realityShardGainPerSecond)).toTimeEstimate();
+          : Pelle.realityShardGainPerSecond).div(getRealSpeedupForDisplay())).toTimeEstimate();
       this.projectedTimeEstimate = TimeSpan
         .fromSeconds(this.secondsUntilCost(Pelle.nextRealityShardGain))
         .toTimeEstimate();
