@@ -47,7 +47,7 @@ export default {
     <div class="c-modal-message__text">
       {{ i18n("modal", "resetConfirmText") }}
       <span class="c-modal-hard-reset-danger">{{ i18n("modal", "resetNoSecret") }}</span>
-      {{ i18n("modal", "resetTypeIn", [i18n("modal", "shrek")]) }}
+      {{ i18n("modal", "resetTypeInB", [i18n("modal", "shrek")]) }}
       <div class="c-modal-hard-reset-danger">
         {{ i18n("modal", "resetWipe") }}
         <span v-if="hasExtraNG">

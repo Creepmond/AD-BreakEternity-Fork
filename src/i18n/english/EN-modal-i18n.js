@@ -300,7 +300,7 @@ on the Statistics tab. You will also gain an Eternity Point and unlock various u
   hardResetHeader: "HARD RESET",
   resetConfirmText: "Please confirm your desire to hard reset this save slot.",
   resetNoSecret: "Deleting your save will not unlock anything secret.",
-  resetTypeIn: "Type in \"$1aX\" to confirm.",
+  resetTypeInB: "Type in \"$1aX\" to confirm.",
   resetWipe: "THIS WILL WIPE YOUR SAVE.",
   resetRemoveNG: "This will also remove any Glyph cosmetics you have unlocked from completing the game!",
   resetLoseSpeedrun: "You will lose the ability to do a Speedrun. To restart your run, use the \"Start Speedrun\" button instead.",
