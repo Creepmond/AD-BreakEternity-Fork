@@ -91,7 +91,7 @@ export default {
       />
     </div>
     <div>
-      {{ i18n("eter", "tdcostjump" [format(costIncreases[0], 2, 2), format(costIncreases[1]), format(costIncreases[2])]) }}
+      {{ i18n("eter", "tdcostjump", [format(costIncreases[0], 2, 2), format(costIncreases[1]), format(costIncreases[2])]) }}
       <br>
       <div v-if="showLockedDimCostNote">
         {{ i18n("eter", "seeEPcost") }}

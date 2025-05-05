@@ -61,7 +61,7 @@ export default {
         ],
         [0, 255, 0]
       ];
-      const ratio = this.gainedEP.max(1).log10().div(this.currentEP.max(1).log10());lem
+      const ratio = this.gainedEP.max(1).log10().div(this.currentEP.max(1).log10());
       const interFn = index => {
         if (ratio.lt(0.9)) return stepRGB[0][index];
         if (ratio.lt(1)) {
@@ -171,7 +171,7 @@ export default {
           : EP_BUTTON_DISPLAY_TYPE.DILATION;
         this.currentTachyons.copyFrom(Currency.tachyonParticles);
         this.gainedTachyons.copyFrom(getTachyonGain(true));
-        this.colorGainedTachyons.copyFrom(getTachyonGain(true, false));
+        this.colorGainedTachyons.copyFrom(getTachyonGain(true, false, false));
         return;
       }
 

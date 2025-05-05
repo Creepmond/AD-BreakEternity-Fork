@@ -14,6 +14,8 @@ export const GlyphSelection = {
       Ra.unlocks.extraGlyphChoicesAndRelicShardRarityAlwaysMax.effectOrDefault(1);
   },
 
+  // THIS FUNCTION IS UNUSED
+  // Is this function worth keeping? It would require some serious rewriting.
   glyphUncommonGuarantee(glyphList, rng) {
     // If no choices are rare enough and the player has the uncommon glyph perk, randomly generate
     // rarities until the threshold is passed and then assign that rarity to a random glyph
@@ -35,7 +37,6 @@ export const GlyphSelection = {
     const count = Math.clampMin(countIn, 4);
     let glyphList = [];
     const rng = config.rng || new GlyphGenerator.RealGlyphRNG();
-    const types = [];
 
     // To attempt to reduce RNG swing, we follow slightly different logic early on in order
     // to spread out types and effects more equally for the first few realities. Types and
@@ -47,14 +48,10 @@ export const GlyphSelection = {
       glyphList = GlyphGenerator.uniformGlyphSelections(level, rng, player.realities);
     } else {
       for (let out = 0; out < count; ++out) {
-        types.push(GlyphGenerator.randomType(rng, types));
-      }
-      for (let out = 0; out < count; ++out) {
-        glyphList.push(GlyphGenerator.randomGlyph(level, rng, types[out]));
+        glyphList.push(GlyphGenerator.randomGlyph(level, rng));
       }
     }
 
-    this.glyphUncommonGuarantee(glyphList, rng);
     // If we generated extra choices due to always generating at least 4 choices,
     // we remove the extra choices here.
     glyphList = glyphList.slice(0, countIn);

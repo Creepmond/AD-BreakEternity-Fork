@@ -64,7 +64,7 @@ export default {
       return i18n("eter", "ttunl", [format(this.ttCost)]);
     },
     formattedEPCost() {
-      return this.isCapped ? i18n("eter", "capped") : i18n("eter", "cost", format(this.cost, 2)).split("$")[this.showCostTitle ? 0 : 1];
+      return this.isCapped ? i18n("eter", "capped") : i18n("eter", "cost", [format(this.cost, 2)]).split("$")[this.showCostTitle ? 0 : 1];
     },
     hasLongText() {
       return this.buttonContents.length > 20;

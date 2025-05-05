@@ -222,6 +222,7 @@ export const GlyphGenerator = {
   randomStrength(type, rng) {
     // Technically getting this upgrade really changes glyph gen but at this point almost all
     // the RNG is gone anyway.
+    console.log(GlyphInfo[type])
     if (Ra.unlocks.maxGlyphRarityAndShardSacrificeBoost.canBeApplied && !GlyphInfo[type].strOverride) return rarityToStrength(100);
     let result = GlyphGenerator.strengthMultiplier.mul(GlyphGenerator.gaussianBellCurve(rng));
     const relicShardFactor = Ra.unlocks.extraGlyphChoicesAndRelicShardRarityAlwaysMax.canBeApplied
@@ -287,18 +288,22 @@ export const GlyphGenerator = {
       }
     }
 
-    for (const i of GlyphInfo[type].bannedEffectPairs) {
-      if (i[3] === undefined || (!i[3] && !(i[3] instanceof Function))) {
-        if (effectValues[i[1]] >= effectValues[i[2]]) {
-          effectValues[i[2]] = -1;
-        } else {
-          effectValues[i[1]] = -1;
+    if (GlyphInfo[type].bannedEffectPairs) {
+      for (const i of GlyphInfo[type].bannedEffectPairs) {
+        if (i[3] === undefined || (!i[3] && !(i[3] instanceof Function))) {
+          if (effectValues[i[1]] >= effectValues[i[2]]) {
+            effectValues[i[2]] = -1;
+          } else {
+            effectValues[i[1]] = -1;
+          }
         }
       }
     }
 
-    for (const i of GlyphInfo[type].primaryEffects) {
-      effectValues[i] = 2;
+    if (GlyphInfo[type].primaryEffects) {
+      for (const i of GlyphInfo[type].primaryEffects) {
+        effectValues[i] = 2;
+      }
     }
 
     for (let i = 0; i < guarenteedEffects.length; i++) {
@@ -318,14 +323,10 @@ export const GlyphGenerator = {
     return effects;
   },
 
-  randomType(rng, typesSoFar = []) {
+  randomType(rng) {
     const generatable = generatedTypes.filter(x => (GlyphInfo[x].isGenerated ?? false) &&
       (GlyphInfo[x].generationRequirement ? GlyphInfo[x].generationRequirement() : true));
-    const maxOfSameTypeSoFar = generatable.map(x => typesSoFar.countWhere(y => y === x)).max();
-    const blacklisted = typesSoFar.length === 0
-      ? [] : generatable.filter(x => typesSoFar.countWhere(y => y === x) === maxOfSameTypeSoFar);
-    const typesArray = generatedTypes.filter(
-      x => generatable.includes(x) && !blacklisted.includes(x))
+    const typesArray = generatedTypes.filter(x => generatable.includes(x));
     const types = typesArray.mapToObject(x => x, () => 1);
     let sum = 0;
     for (const type in types) {
@@ -335,7 +336,7 @@ export const GlyphGenerator = {
     const chosen = rng.uniform() * sum;
     // Reuse the sum variable since its no longer used for its old purpose
     sum = 0;
-    for (const value in typesArray) {
+    for (const value in types) {
       sum += types[value];
       if (sum >= chosen) return value;
     }

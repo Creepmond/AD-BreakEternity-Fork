@@ -209,7 +209,7 @@ export function getBaseTP(antimatter, requireEternity) {
 }
 
 // Returns the TP that would be gained this run
-export function getTP(antimatter, requireEternity) {
+export function getTP(antimatter, requireEternity, tpMult) {
   return getBaseTP(antimatter, requireEternity).times(tpMult ? tachyonGainMultiplier() : 1);
 }
 
