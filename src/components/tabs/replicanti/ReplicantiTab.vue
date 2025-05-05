@@ -76,7 +76,7 @@ export default {
       return new ReplicantiUpgradeButtonSetup(
         upgrade,
         value => i18n("inf", "repIntervalUpg", ["", formatInterval(value)]).split("$")[3],
-        cost => i18n("inf", "repIntervalUpg", ["", formatInterval(value), formatInterval(upgrade.nextValue), format(cost)]).split("$")[4]
+        cost => i18n("inf", "repIntervalUpg", ["", formatInterval(upgrade.value), formatInterval(upgrade.nextValue), format(cost)]).split("$")[4]
       );
     },
     maxGalaxySetup() {

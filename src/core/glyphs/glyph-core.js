@@ -774,10 +774,10 @@ export const Glyphs = {
   },
   // Adds the "excess effects" (guarenteed effects assuming conditions are met)
   addGuarenteedEffects(glyph) {
-    if (!GlyphInfo[glyph].excessEffects) return;
-    for (let i = 0; i < GlyphInfo[glyph].excessEffects().length; i++) {
-      if (!GlyphInfo[glyph].excessEffects()[i] & !(glyph.effects.includes(GlyphInfo[glyph].excessEffects()[i]))) {
-        glyph.effects.push(GlyphInfo[glyph].excessEffects()[i]);
+    if (!GlyphInfo[glyph.type].excessEffects) return;
+    for (let i = 0; i < GlyphInfo[glyph.type].excessEffects().length; i++) {
+      if (!GlyphInfo[glyph.type].excessEffects()[i] & !(glyph.effects.includes(GlyphInfo[glyph.type].excessEffects()[i]))) {
+        glyph.effects.push(GlyphInfo[glyph.type].excessEffects()[i]);
       }
     }
   },

@@ -287,7 +287,7 @@ export const Pelle = {
 
     const gain = am.add(2).log10().add(ip.add(2).log10()).add(ep.add(2).log10()).div(1.64).pow(7.5);
 
-    return gain.lt(1) ? gain : Decimal.floor(gain.minus(this.cel.remnants));
+    return gain.lt(1) ? gain : gain.sub(this.cel.remnants).floor();
   },
 
   realityShardGain(remnants) {

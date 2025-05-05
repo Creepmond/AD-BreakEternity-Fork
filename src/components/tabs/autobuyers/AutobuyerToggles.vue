@@ -37,7 +37,7 @@ export default {
       this.showContinuum = Laitela.isUnlocked;
       this.disableContinuum = player.auto.disableContinuum;
       this.allAutobuyersDisabled = Autobuyers.unlocked.every(autobuyer => !autobuyer.isActive);
-      this.allAutobuyersSingle = Autobuyers.unlocked.filter(n => n.fullName.splice(0, 4, "") === "Antimatter Dimension").every(autobuyer => autobuyer.mode === 1);
+      this.allAutobuyersSingle = Autobuyers.unlocked.filter(n => n.fullName?.splice(0, 4, "") === "Antimatter Dimension").every(autobuyer => autobuyer.mode === 1);
     },
     toggleAllAutobuyers() {
       for (const autobuyer of Autobuyers.unlocked) {

@@ -595,7 +595,7 @@ Currency.imaginaryMachines = new class extends DecimalCurrency {
   }
 
   get isUnlocked() {
-    return Currency.realityMachines.value.gte(Currency.realityMachines.hardcap)
+    return Currency.realityMachines.value.gte(Currency.realityMachines.hardcap);
   }
 
   get projCapBase() {

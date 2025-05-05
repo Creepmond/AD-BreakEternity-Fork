@@ -197,7 +197,7 @@ export const infinityUpgrades = {
     cost: 1000,
     checkRequirement: () => Achievement(41).isUnlocked,
     description: () => (player.options.offlineProgress
-      ? i18n("inf", "iU35", [formatPrecents(0.5)])
+      ? i18n("inf", "iU35", [formatPercents(0.5)])
       : i18n("inf", "iU35alt")),
     effect: () => (player.options.offlineProgress
       ? player.records.thisEternity.bestIPMsWithoutMaxAll.times(TimeSpan.fromMinutes(1).totalMilliseconds.div(2))

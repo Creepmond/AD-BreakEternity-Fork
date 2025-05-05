@@ -4,7 +4,7 @@ import AutomatorButton from "./AutomatorButton";
 export default {
   name: "AutomatorControls",
   components: {
-    AutomatorButton,
+    AutomatorButton
   },
   data() {
     return {

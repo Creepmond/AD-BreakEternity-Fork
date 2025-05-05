@@ -11,7 +11,7 @@ export default {
       const infinity = formatPostBreak(Number.MAX_VALUE, 2);
       return i18n("modal", "breakInfBaseText", [infinity,
         i18n("modal", "breakInfExtraA", [infinity]).split("$")[PlayerProgress.eternityUnlocked() ? 0 : 1],
-        () => (breakInfExtraB ? i18n("modal", "breakInfExtraB") : "")]).split("\n");
+        i18n("modal", "breakInfExtraB")]).split("\n");
     },
   },
   methods: {

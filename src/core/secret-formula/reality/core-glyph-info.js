@@ -47,7 +47,8 @@
 // Its not perfect, you will likely still need to touch GlyphSetName.vue to implement new glyphs completely, but i tried my best :P
 // PS. There is a sample glyph below to show you how the structure of your glyph might look
 
-const complexIncludes = (x, filterItem) => x.map(n => n().includes(filterItem)).includes(true);
+// TODO: remove this
+const complexIncludes = (x, filterItem) => x.some(n => n === filterItem);
 
 export const GlyphInfo = {
   glyphTypes: [

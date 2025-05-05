@@ -222,7 +222,6 @@ export const GlyphGenerator = {
   randomStrength(type, rng) {
     // Technically getting this upgrade really changes glyph gen but at this point almost all
     // the RNG is gone anyway.
-    console.log(GlyphInfo[type])
     if (Ra.unlocks.maxGlyphRarityAndShardSacrificeBoost.canBeApplied && !GlyphInfo[type].strOverride) return rarityToStrength(100);
     let result = GlyphGenerator.strengthMultiplier.mul(GlyphGenerator.gaussianBellCurve(rng));
     const relicShardFactor = Ra.unlocks.extraGlyphChoicesAndRelicShardRarityAlwaysMax.canBeApplied

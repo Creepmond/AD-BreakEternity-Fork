@@ -107,7 +107,7 @@ export default {
     </span>
     <span v-else>
       {{ i18n("modal", "xIncreased",
-              [formattedName, isVeryLarge ? i18n("modal, expo") : "", formatBefore, formatAfter]) }}
+              [formattedName, isVeryLarge ? i18n("modal", "expo") : "", formatBefore, formatAfter]) }}
     </span>
   </div>
 </template>

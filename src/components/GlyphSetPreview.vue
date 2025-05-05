@@ -91,7 +91,7 @@ export default {
       // Handle multiple reality glyphs
       const realityGlyphs = this.glyphs.filter(g => g?.type === "reality");
       if (realityGlyphs.length > 0) {
-        this.realityGlyphBoost = realityGlyphs.reduce((a, b) => a.add(GlyphEffects.realityglyphlevel.effect(b.level)));
+        this.realityGlyphBoost = realityGlyphs.reduce((a, b) => a.add(GlyphEffects.realityglyphlevel.effect(b.level)), new Decimal());
       } else {
         this.realityGlyphBoost = new Decimal();
       }

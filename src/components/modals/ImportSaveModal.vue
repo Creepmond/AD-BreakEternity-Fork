@@ -59,7 +59,7 @@ export default {
     },
     lastOpened() {
       const ms = Date.now() - this.player.lastUpdate;
-      const formatms = Timespan.fromMilliseconds(new Decimal(ms).abs()).toString();
+      const formatms = TimeSpan.fromMilliseconds(new Decimal(ms).abs()).toString();
       return this.isFromFuture
         ? i18n("modal", "saveFromFuture", [formatms])
         : i18n("modal", "saveFromPast", [formatms]);
@@ -89,7 +89,7 @@ export default {
 
       const durationInMs = Date.now() - this.player.lastUpdate;
       const ticks = GameStorage.maxOfflineTicks(durationInMs);
-      const tickLengthFormat = Timespan.fromMilliseconds(new Decimal(durationInMs / ticks)).toStringShort();
+      const tickLengthFormat = TimeSpan.fromMilliseconds(new Decimal(durationInMs / ticks)).toStringShort();
       return i18n("modal", "tickCalc", [ticks, tickLengthFormat]);
     },
     willLoseCosmetics() {

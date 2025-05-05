@@ -260,6 +260,6 @@ export function beMigration(player) {
   player.requirementChecks.reality.slowestBH = D(player.requirementChecks.reality.slowestBH);
   player.requirementChecks.reality.maxID1 = D(player.requirementChecks.reality.maxID1);
   player.requirementChecks.permanent.emojiGalaxies = D(player.requirementChecks.permanent.emojiGalaxies);
-  player.tickspeeed.gained = D(player.totalTickGained);
+  player.tickspeed.gained = D(player.totalTickGained);
   player.tickspeed.bought = D(player.totalTickBought);
 }
