@@ -438,7 +438,7 @@ Currency.eternityPoints = new class extends DecimalCurrency {
   }
 
   get rawGain() {
-    let ep = this.pureGain();
+    let ep = this.pureGain;
     ep = ep.times(this.mult);
     if (GlyphAlteration.isAdded("time")) {
       ep = ep.pow(getSecondaryGlyphEffect("timeEP"));
@@ -446,8 +446,8 @@ Currency.eternityPoints = new class extends DecimalCurrency {
     return ep.floor();
   }
 
-  get pureGain() {
-    let ep = this.pureGain();
+  get gain() {
+    let ep = this.pureGain;
     ep = ep.times(this.mult);
     if (Teresa.isRunning) {
       ep = ep.pow(0.55);

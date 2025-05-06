@@ -66,16 +66,18 @@ export default {
     </div>
     <div>
       <p>
-        {{ i18n("eter", "youhavegained", [
-          `<span class="c-time-dim-description__accent">${formatInt(totalUpgrades)}</span>`,
-          `<span class="c-time-dim-description__accent">${format(timeShards, 2, 1)}</span>`
-        ]) }}
+        {{ i18n("eter", "youhavegained").split("$")[0] }}
+        <span class="c-time-dim-description__accent">{{ formatInt(totalUpgrades) }}</span>
+        {{ i18n("eter", "youhavegained").split("$")[1] }}
+        <span class="c-time-dim-description__accent">{{ formatInt(timeShards) }}</span>
+        {{ i18n("eter", "youhavegained").split("$")[2] }}
       </p>
       <p>
-        {{ i18n("eter", "nexttsupg", [
-          `<span class="c-time-dim-description__accent">${format(upgradeThreshold, 2, 1)}</span>`,
-          `<span class="c-time-dim-description__accent">${formatX(multPerTickspeed, 2, 2)}</span>`
-        ]) }}
+        {{ i18n("eter", "nexttsupg").split("$")[0] }}
+        <span class="c-time-dim-description__accent">{{ formatInt(upgradeThreshold, 2, 1) }}</span>
+        {{ i18n("eter", "nexttsupg").split("$")[1] }}
+        <span class="c-time-dim-description__accent">{{ formatX(multPerTickspeed, 2, 2) }}</span>
+        {{ i18n("eter", "nexttsupg").split("$")[2] }}
       </p>
     </div>
     <div>
@@ -91,7 +93,9 @@ export default {
       />
     </div>
     <div>
-      {{ i18n("eter", "tdcostjump", [format(costIncreases[0], 2, 2), format(costIncreases[1]), format(costIncreases[2])]) }}
+      {{ i18n("eter", "tdcostjump", [format(costIncreases[0], 2, 2), format(costIncreases[1]), format(costIncreases[2])]).split("$")[0] }}
+      <br>
+      {{ i18n("eter", "tdcostjump", [format(costIncreases[0], 2, 2), format(costIncreases[1]), format(costIncreases[2])]).split("$")[1] }}
       <br>
       <div v-if="showLockedDimCostNote">
         {{ i18n("eter", "seeEPcost") }}

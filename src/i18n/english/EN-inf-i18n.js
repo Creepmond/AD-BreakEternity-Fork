@@ -86,7 +86,7 @@ export const inf = {
   crunch: "Big Crunch",
   reachAM: "Reach $1aX<br>antimatter",
   completeChall: "Big Crunch to<br>complete the challenge",
-  crunchFor: "Big Crunch for $1aX",
+  crunchFor: "Big Crunch for",
   IPformats: " IP$ Infinity Point",
   IPrate: "<br>Current $1aX IP/min<br>Peak $2aX IP/min<br>at $3aX IP",
   tess: "You have enough Infinity Points to buy a Tesseract",

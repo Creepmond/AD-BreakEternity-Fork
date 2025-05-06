@@ -69,6 +69,11 @@ export default {
         "transition-duration": "0.2s"
       };
     },
+    textInfo() {
+      return i18n("inf", "crunchFor", [`<span :style="amountStyle">${format(this.gainedIP, 2)}</span>
+        <span v-if="showIPRate">${i18n("inf", "IPformats").split("$")[0]}</span>
+        <span v-else>${pluralize(i18n("inf", "IPformats").split("$")[1], this.gainedIP)}</span>`]);
+    }
   },
   methods: {
     update() {
@@ -123,9 +128,10 @@ export default {
     <template v-else>
       <div v-if="!showIPRate" />
       <b>
-        {{ i18n("inf", "crunchFor", [`<span :style="amountStyle">${format(gainedIP, 2)}</span>
-        <span v-if="showIPRate">${i18n("inf", "IPformats").split("$")[0]}</span>
-        <span v-else>${pluralize(i18n("inf", "IPformats").split("$")[1], gainedIP)}</span>`]) }}
+        {{ i18n("inf", "crunchFor") }}
+        <span :style="amountStyle">{{ format(gainedIP, 2) }}</span>
+        <span v-if="showIPRate">{{ i18n("inf", "IPformats").split("$")[0] }}</span>
+        <span v-else>{{ pluralize(i18n("inf", "IPformats").split("$")[1], gainedIP) }}</span>
       </b>
       <template v-if="showIPRate">
         {{ i18n("inf", "IPrate", [format(currentIPRate, 2), format(peakIPRate, 2), format(peakIPRateVal, 2)]) }}
