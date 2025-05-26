@@ -84,7 +84,7 @@ export const inf = {
   repMaxUpg: "Max Replicanti Galaxies$+$1aX Costs: $2aX IP",
   collapse: "The world has collapsed due to excess antimatter",
   crunch: "Big Crunch",
-  reachAM: "Reach $1aX<br>antimatter",
+  reachAM: "Reach $1aX$antimatter",
   completeChall: "Big Crunch to<br>complete the challenge",
   crunchFor: "Big Crunch for",
   IPformats: " IP$ Infinity Point",

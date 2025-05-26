@@ -10,7 +10,7 @@ export class AntimatterDimensionAutobuyerState extends UpgradeableAutobuyerState
   }
 
   get fullName() {
-    return `${this.name} Antimatter Dimension`;
+    return i18n("auto", "adXauto", [this.name]);
   }
 
   get data() {
@@ -149,7 +149,7 @@ export class AntimatterDimensionAutobuyerState extends UpgradeableAutobuyerState
   }
 
   static get entryCount() { return 8; }
-  static get autobuyerGroupName() { return "Antimatter Dimension"; }
+  static get autobuyerGroupName() { return i18n("auto", "adXgroup"); }
 
   // These are toggled on and off from the group autobuyer checkbox
   static get isActive() { return player.auto.antimatterDims.isActive; }

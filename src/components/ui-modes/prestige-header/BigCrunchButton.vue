@@ -116,7 +116,9 @@ export default {
   >
     <!-- Cannot Crunch -->
     <template v-if="!canCrunch">
-      {{ i18n("inf", "reachAM", [format(infinityGoal, 2, 2)]) }}
+      {{ i18n("inf", "reachAM", [format(infinityGoal, 2, 2)]).split("$")[0] }}
+      <br>
+      {{ i18n("inf", "reachAM", [format(infinityGoal, 2, 2)]).split("$")[1] }}
     </template>
 
     <!-- Can Crunch in challenge -->

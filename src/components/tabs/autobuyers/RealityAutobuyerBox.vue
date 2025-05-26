@@ -41,6 +41,7 @@ export default {
       if (this.hasRelicMode) availableModes.push(AUTO_REALITY_MODE.RELIC_SHARD);
       return availableModes;
     },
+    name: () => i18n("auto", "autoReal")
   },
   methods: {
     update() {
@@ -51,15 +52,8 @@ export default {
       this.hasAlternateInputs = Autobuyer.reality.mode > AUTO_REALITY_MODE.BOTH;
     },
     modeName(mode) {
-      switch (mode) {
-        case AUTO_REALITY_MODE.RM: return "Reality Machines";
-        case AUTO_REALITY_MODE.GLYPH: return "Glyph level";
-        case AUTO_REALITY_MODE.EITHER: return "RM OR Level";
-        case AUTO_REALITY_MODE.BOTH: return "RM AND Level";
-        case AUTO_REALITY_MODE.TIME: return "Real-time seconds";
-        case AUTO_REALITY_MODE.RELIC_SHARD: return "Relic Shards";
-      }
-      throw new Error("Unknown Auto Reality mode");
+      // Mode is 0 indexed so we abuse it to make code cleaner
+      return i18n("auto", "autoRmodes").split("$")[mode];
     },
   }
 };
@@ -69,13 +63,13 @@ export default {
   <AutobuyerBox
     :autobuyer="autobuyer"
     :is-modal="isModal"
-    name="Automatic Reality"
+    :name="name"
   >
     <template #intervalSlot>
       <ExpandingControlBox :auto-close="true">
         <template #header>
           <div class="o-primary-btn c-autobuyer-box__mode-select c-autobuyer-box__mode-select-header">
-            ▼ Current Setting: ▼
+            {{ i18n("auto", "autoSettingList") }}
             <br>
             {{ modeName(mode) }}
           </div>
@@ -91,10 +85,10 @@ export default {
     </template>
     <template #toggleSlot>
       <div v-if="hasAlternateInputs">
-        Target Time (seconds):
+        {{ i18n("auto", "targetTime") }}
       </div>
       <div v-else>
-        Target Reality Machines:
+        {{ i18n("auto", "targetRM") }}
       </div>
       <AutobuyerInput
         :autobuyer="autobuyer"
@@ -104,10 +98,10 @@ export default {
     </template>
     <template #checkboxSlot>
       <div v-if="hasAlternateInputs && hasRelicMode">
-        Target Relic Shards:
+        {{ i18n("auto", "targetRS") }}
       </div>
       <div v-else>
-        Target Glyph level:
+        {{ i18n("auto", "targetGL") }}
       </div>
       <AutobuyerInput
         :autobuyer="autobuyer"
@@ -115,7 +109,7 @@ export default {
         :property="(hasAlternateInputs && hasRelicMode) ? 'shard' : 'glyph'"
       />
       <div v-if="isOverCap">
-        Autobuyer will trigger at the Glyph level cap of {{ formatInt(levelCap) }}.
+        {{ i18n("auto", "glOvercap", [formatInt(levelCap)]) }}
       </div>
     </template>
   </AutobuyerBox>

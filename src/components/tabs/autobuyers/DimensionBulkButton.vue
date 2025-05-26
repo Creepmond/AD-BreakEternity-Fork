@@ -21,10 +21,10 @@ export default {
   computed: {
     bulkDisplay() {
       if (this.hasMaxedBulk) {
-        return `${formatX(this.bulk, 2, 0)} bulk buy (capped)`;
+        return i18n("auto", "bbCapped", [formatX(this.bulk, 2, 0)]);
       }
       const newBulk = Math.min(this.bulk * 2, this.autobuyer.bulkCap);
-      return `${formatX(this.bulk, 2, 0)} ➜ ${formatX(newBulk, 2, 0)} bulk buy`;
+      return i18n("auto", "bb", [formatX(this.bulk, 2, 0), formatX(newBulk, 2, 0)]);
     },
     classObject() {
       return {
@@ -61,14 +61,14 @@ export default {
     <span>{{ bulkDisplay }}</span>
     <template v-if="!hasMaxedBulk">
       <br>
-      <span>Cost: {{ format(cost, 2, 0) }} IP</span>
+      <span>{{ i18n("auto", "cost", [format(cost, 2, 0)]) }}</span>
     </template>
   </button>
   <button
     v-else-if="hasMaxedInterval && !bulkUnlimited"
     class="o-autobuyer-btn l-autobuyer-box__button o-autobuyer-btn--unavailable"
   >
-    Complete the challenge to upgrade bulk
+    {{ i18n("auto", "challengeBulk") }}
   </button>
 </template>
 

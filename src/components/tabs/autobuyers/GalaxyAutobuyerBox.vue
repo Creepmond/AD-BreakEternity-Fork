@@ -29,7 +29,8 @@ export default {
     autobuyer: () => Autobuyer.galaxy,
     limitGalaxiesSlot() {
       return this.hasMaxedInterval && !this.isBuyMaxUnlocked ? "intervalSlot" : "toggleSlot";
-    }
+    },
+    name: () => i18n("auto", "autoAG")
   },
   watch: {
     limitGalaxies(newValue) {
@@ -50,7 +51,7 @@ export default {
   <AutobuyerBox
     :autobuyer="autobuyer"
     :is-modal="isModal"
-    name="Automatic Antimatter Galaxies"
+    :name="name"
     :show-interval="!isBuyMaxUnlocked"
   >
     <template
@@ -64,7 +65,7 @@ export default {
       #intervalSlot
     >
       <div class="c-autobuyer-box__small-text">
-        Activates every X seconds:
+        {{ i18n("auto", "everyXs") }}
       </div>
       <AutobuyerInput
         :autobuyer="autobuyer"
@@ -81,7 +82,7 @@ export default {
           type="checkbox"
           class="o-clickable"
         >
-        Limit Antimatter Galaxies to:
+        {{ i18n("auto", "limAG") }}
       </label>
       <AutobuyerInput
         :autobuyer="autobuyer"

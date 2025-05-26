@@ -111,9 +111,9 @@ export default {
     v-else-if="isADBox && continuumActive"
     class="c-autobuyer-box-row"
   >
-    Continuum replaces your Antimatter Dimension and Tickspeed Autobuyers, as your production multipliers
+    {{ i18n("auto", "replaceTextA") }}
     <br>
-    now automatically and continuously scale based on how many purchases you would have had otherwise.
+    {{ i18n("auto", "replaceTextB") }}
   </span>
 </template>
 

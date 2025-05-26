@@ -29,7 +29,7 @@ export default {
       return this.autobuyer.name;
     },
     isSacrifice() {
-      return this.name === "Dimensional Sacrifice";
+      return this.name === i18n("auto", "dimsacAuto");
     }
   },
   methods: {
@@ -55,13 +55,13 @@ export default {
         v-if="isHiddenSacrifice"
         class="c-autobuyer-box__small-text"
       >
-        Automatic (Achievement 118)
+        {{ i18n("auto", "r118sac") }}
       </b>
       <span
         v-else-if="autobuyer.hasInput"
         class="c-autobuyer-box__small-text"
       >
-        Multiplier:
+        {{ i18n("auto", "mult") }}
         <AutobuyerInput
           class="c-small-autobuyer-input"
           :autobuyer="autobuyer"

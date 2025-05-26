@@ -37,7 +37,8 @@ export default {
       this.showContinuum = Laitela.isUnlocked;
       this.disableContinuum = player.auto.disableContinuum;
       this.allAutobuyersDisabled = Autobuyers.unlocked.every(autobuyer => !autobuyer.isActive);
-      this.allAutobuyersSingle = Autobuyers.unlocked.filter(n => n.fullName?.splice(0, 4, "") === "Antimatter Dimension").every(autobuyer => autobuyer.mode === 1);
+      this.allAutobuyersSingle = Autobuyers.unlocked.filter(n => n.fullName?.splice(0, 4, "") === i18n("auto", "adXauto")
+        .splice(0, 4, "")).every(autobuyer => autobuyer.mode === 1);
     },
     toggleAllAutobuyers() {
       for (const autobuyer of Autobuyers.unlocked) {
@@ -46,7 +47,7 @@ export default {
     },
     toggleSingleADauto() {
       for (const autobuyer of Autobuyers.unlocked) {
-        if (autobuyer.fullName.splice(0, 4, "") === "Antimatter Dimension") {
+        if (autobuyer.fullName.splice(0, 4, "") === i18n("auto", "adXauto").splice(0, 4, "")) {
           autobuyer.mode = this.allAutobuyersSingle ? 10 : 1;
         }
       }
@@ -67,20 +68,20 @@ export default {
       class="o-primary-btn--subtab-option"
       @click="toggleAllAutobuyers()"
     >
-      {{ allAutobuyersDisabled ? "Enable" : "Disable" }} all autobuyers
+      {{ allAutobuyersDisabled ? i18n("auto", "enabledisable").split("$")[0] : i18n("auto", "enabledisable").split("$")[1] }}
     </PrimaryButton>
     <PrimaryButton
       class="o-primary-btn--subtab-option"
       @click="toggleSingleADauto()"
     >
-      Antimatter Dimension autobuyers to {{ allAutobuyersSingle ? "Buy 10" : "Buy 1" }}
+      {{ i18n("auto", "buy10buy1").split("$")[allAutobuyersSingle ? 0 : 1] }}
     </PrimaryButton>
     <span v-if="isDoomed">
       <PrimaryButton
         v-if="showContinuum"
         class="o-primary-btn--subtab-option"
       >
-        Continuum is disabled
+        {{ i18n("auto", "continuum") }}
       </PrimaryButton>
     </span>
     <span v-else>

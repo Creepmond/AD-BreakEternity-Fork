@@ -45,15 +45,15 @@ export default {
     :class="classObject"
     @click="upgradeInterval"
   >
-    {{ formatPercents(prob) }} smaller interval
+    {{ i18n("auto", "smallerInterval", [formatPercents(prob)]) }}
     <br>
-    Cost: {{ format(cost, 2) }} IP
+    {{ i18n("auto", "cost", [format(cost, 2)]) }}
   </button>
   <button
     v-else-if="!isMaxed"
     class="o-autobuyer-btn l-autobuyer-box__button o-autobuyer-btn--unavailable"
   >
-    Complete the challenge to upgrade interval
+    {{ i18n("auto", "challenge") }}
   </button>
 </template>
 

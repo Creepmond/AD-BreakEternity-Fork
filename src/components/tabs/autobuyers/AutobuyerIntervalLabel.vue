@@ -31,11 +31,11 @@ export default {
     intervalText() {
       // We want to special-case auto-crunch because break infinity relies on getting its interval below 0.1s, which
       // may otherwise render as "Instant" with slow update rates
-      if (this.interval < player.options.updateRate && this.autobuyer.name !== "Infinity") return "Instant";
-      return `${format(TimeSpan.fromMilliseconds(new Decimal(this.interval)).totalSeconds, 2, 2)} seconds`;
+      if (this.interval < player.options.updateRate && this.autobuyer.name !== i18n("auto", "crunchAuto")) return i18n("auto", "inst");
+      return i18n("auto", "Xsec", [format(TimeSpan.fromMilliseconds(new Decimal(this.interval)).totalSeconds, 2, 2)]);
     },
     bulkText() {
-      return `Current bulk: ${Number.isFinite(this.bulk) ? formatX(this.bulk, 2) : "Unlimited"}`;
+      return i18n("auto", "bulk", [Number.isFinite(this.bulk) ? formatX(this.bulk, 2) : i18n("auto", "unl")]);
     },
   },
   methods: {

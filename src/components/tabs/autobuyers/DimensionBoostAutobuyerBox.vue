@@ -26,7 +26,8 @@ export default {
     };
   },
   computed: {
-    autobuyer: () => Autobuyer.dimboost
+    autobuyer: () => Autobuyer.dimboost,
+    name: () => i18n("auto", "autoDB"),
   },
   watch: {
     limitDimBoosts(newValue) {
@@ -53,7 +54,7 @@ export default {
     :autobuyer="autobuyer"
     :is-modal="isModal"
     :show-interval="!isBuyMaxUnlocked"
-    name="Automatic Dimension Boosts"
+    :name="name"
   >
     <template
       v-if="!hasMaxedInterval"
@@ -69,7 +70,7 @@ export default {
         class="c-autobuyer-box__small-text"
       >
         <br>
-        Activates every X seconds:
+        {{ i18n("auto", "everyXs") }}
       </div>
       <AutobuyerInput
         :autobuyer="autobuyer"
@@ -89,7 +90,7 @@ export default {
           type="checkbox"
           class="o-clickable"
         >
-        Limit Dimension Boosts to:
+        {{ i18n("auto", "dbLim") }}
       </label>
       <AutobuyerInput
         :autobuyer="autobuyer"
@@ -107,12 +108,12 @@ export default {
           class="o-clickable"
         >
         <span v-if="isBuyMaxUnlocked">
-          Only Dimboost to unlock new<br>
-          Dimensions until X Galaxies:
+          {{ i18n("auto", "galLim").split("$")[0] }}<br>
+          {{ i18n("auto", "galLim").split("$")[1] }}
         </span>
         <span v-else>
-          Galaxies required to always<br>
-          Dimboost, ignoring the limit:
+          {{ i18n("auto", "galLim").split("$")[2] }}<br>
+          {{ i18n("auto", "galLim").split("$")[3] }}
         </span>
       </label>
       <AutobuyerInput

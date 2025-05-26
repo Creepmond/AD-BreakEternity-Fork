@@ -6,7 +6,7 @@ export class GalaxyAutobuyerState extends UpgradeableAutobuyerState {
   }
 
   get name() {
-    return `Antimatter Galaxy`;
+    return i18n("auto", "agAuto");
   }
 
   get isUnlocked() {
