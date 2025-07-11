@@ -825,12 +825,12 @@ export const normalAchievements = [
     get description() { return i18n("ach", "ach126desc", [formatInt(180)]); },
     checkRequirement: () => Replicanti.galaxies.total.gte(player.galaxies.times(180)) && player.galaxies.gt(0),
     checkEvent: GAME_EVENT.GAME_TICK_AFTER,
-    get reward() { return i18n("ach", "ach126reward", [format(DC.NUMMAX, 1, 0), formatInt(1)]); },
+    get reward() { return i18n("ach", "ach126reward", [formatPostBreak(DC.NUMMAX, 1, 0), formatInt(1)]); },
   },
   {
     id: 127,
     get name() { return i18n("ach", "ach127title"); },
-    get description() { return i18n("ach", "ach127desc", [format(DC.NUMMAX, 1, 0)]); },
+    get description() { return i18n("ach", "ach127desc", [formatPostBreak(DC.NUMMAX, 1, 0)]); },
     checkRequirement: () => Currency.eternityPoints.gte(DC.NUMMAX),
     checkEvent: GAME_EVENT.GAME_TICK_AFTER
   },
