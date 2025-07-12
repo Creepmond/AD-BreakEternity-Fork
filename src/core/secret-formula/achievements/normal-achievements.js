@@ -850,7 +850,7 @@ export const normalAchievements = [
     get description() { return i18n("ach", "ach131desc", [format(DC.D2E9)]); },
     checkRequirement: () => Currency.infinitiesBanked.gt(DC.D2E9),
     checkEvent: [GAME_EVENT.ETERNITY_RESET_AFTER, GAME_EVENT.SAVE_CONVERTED_FROM_PREVIOUS_VERSION],
-    get reward() { return i18n("ach", "ach126reward", [formatX(2), formatPercents(0.05)]); },
+    get reward() { return i18n("ach", "ach131reward", [formatX(2), formatPercents(0.05)]); },
     effects: {
       infinitiesGain: 2,
       bankedInfinitiesGain: () => Currency.infinities.value.times(0.05).floor()
@@ -880,15 +880,15 @@ export const normalAchievements = [
   {
     id: 134,
     get name() { return i18n("ach", "ach134title"); },
-    get description() { return i18n("ach", "ach133desc", [formatPostBreak(DC.E18000)]); },
+    get description() { return i18n("ach", "ach134desc", [formatPostBreak(DC.E18000)]); },
     checkRequirement: () => Replicanti.amount.gte(DC.E18000),
     checkEvent: GAME_EVENT.GAME_TICK_AFTER,
-    get reward() { return i18n("ach", "ach132reward", [formatInt(2), format(replicantiCap(), 1)]); },
+    get reward() { return i18n("ach", "ach134reward", [formatInt(2), format(replicantiCap(), 1)]); },
   },
   {
     id: 135,
     get name() { return i18n("ach", "ach135title"); },
-    get description() { return i18n("ach", "ach133desc", [formatPostBreak("1e8296262")]); },
+    get description() { return i18n("ach", "ach135desc", [formatPostBreak("1e8296262")]); },
     checkRequirement: () => Tickspeed.current.lte("1e-8296262"),
     checkEvent: GAME_EVENT.GAME_TICK_AFTER
   },
