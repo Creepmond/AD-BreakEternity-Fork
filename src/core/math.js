@@ -51,8 +51,8 @@ window.decimalCubicSolution = function decimalCubicSolution(a, b, c, d, n = fals
 };
 
 /**
- * @param {Decimal|Number} b Variable before x in ax^3 + bx + c = 0
- * @param {Decimal|Number} c Variable after x in ax^3 + bx + c = 0
+ * @param {Decimal|Number} b Variable before x in x^3 + bx + c = 0
+ * @param {Decimal|Number} c Variable after x in x^3 + bx + c = 0
  * @returns {Decimal}
 */
 window.decimalDepressedCubicSolution = function decimalDepressedCubicSolution(b, c) {
