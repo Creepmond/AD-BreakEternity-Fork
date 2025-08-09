@@ -3,8 +3,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build:main": "node build/pre-build.js && vite build --mode main && node build/post-build.js",
-    "build:release": "node build/pre-build.js && vite build && node build/post-build.js",
+    "build": "node build/pre-build.js && vite build && node build/post-build.js",
     "build:steam-development": "node build/pre-build.js && vite build --mode steam-development",
     "build:steam-release": "node build/pre-build.js && vite build --mode steam-release",
     "preview": "vite build && vite preview",
