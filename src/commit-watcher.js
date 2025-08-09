@@ -1,8 +1,5 @@
-// TODO: remove before release
 export function watchLatestCommit() {
-  if (isLocalEnvironment()) {
-    return;
-  }
+  if (isLocalEnvironment()) return;
 
   const url = "commit.json";
   let current;
@@ -15,9 +12,7 @@ export function watchLatestCommit() {
           return;
         }
         current = current ?? json.sha;
-        if (current === json.sha) {
-          return;
-        }
+        if (current === json.sha) return;
 
         Modal.message.show(
           i18n("modal", "refresh", [json.message, json.author]),
