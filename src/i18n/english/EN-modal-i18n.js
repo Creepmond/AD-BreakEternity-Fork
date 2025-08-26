@@ -296,7 +296,7 @@ on the Statistics tab. You will also gain an Eternity Point and unlock various u
   dilGain: "gain $1aX",
   okay: "Okay",
   tp: "Tachyon Particle",
-  shrek: "Shrek is love, Shrek is life",
+  shrek: "Shrek",
   hardResetHeader: "HARD RESET",
   resetConfirmText: "Please confirm your desire to hard reset this save slot.",
   resetNoSecret: "Deleting your save will not unlock anything secret.",
@@ -305,7 +305,7 @@ on the Statistics tab. You will also gain an Eternity Point and unlock various u
   resetRemoveNG: "This will also remove any Glyph cosmetics you have unlocked from completing the game!",
   resetLoseSpeedrun: "You will lose the ability to do a Speedrun. To restart your run, use the \"Start Speedrun\" button instead.",
   resetPhraseConfirmed: "Phrase confirmed - continuing will irreversibly delete your save!",
-  resetTypeIn: "Type in the correct phrase to hard reset.",
+  resetTypeIn: "It's shortened because I already know we'll both screw something up.",
   firstRealityText: `Reality will reset everything except Challenge records and anything under the General header on the
 Statistics tab. The first $1aX rows of Achievements are also reset,
 but you will automatically get one Achievement back every

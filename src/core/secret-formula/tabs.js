@@ -69,6 +69,14 @@ export const tabs = [
         component: "OptionsGameplayTab",
         id: 2,
         hidable: false,
+      },
+      {
+        key: "cheats",
+        name: "Cheats",
+        symbol: "<i class='fas fa-globe'></i>",
+        component: "OptionsCheatsTab",
+        id: 3,
+        hidable: false,
       }
     ]
   },

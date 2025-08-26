@@ -1034,7 +1034,7 @@ export function init() {
   console.log("🌌 Antimatter Dimensions: Reality Update 🌌");
   if (DEV) {
     // eslint-disable-next-line no-console
-    console.log("👨‍💻 Development Mode 👩‍💻");
+    console.log("Gosh you will need this so much: dev.hardReset()");
   }
   ElectronRuntime.initialize();
   GameStorage.load();
