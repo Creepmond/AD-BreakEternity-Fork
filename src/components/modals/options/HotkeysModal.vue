@@ -107,7 +107,7 @@ export default {
     for (let i = 0; i < this.cheatkeyCount; i++) {
       const visible = cheatShortcuts[i].visible;
       if (typeof visible === "function") {
-        this.updateIndicies.cheatkey.push(i)
+        this.updateIndicies.cheatkey.push(i);
       } else {
         this.visible.cheatkey[i] = visible;
       }
@@ -116,7 +116,7 @@ export default {
   methods: {
     update() {
       for (const index of this.updateIndicies.hotkey) {
-        ////this.visible.hotkey[index] = shortcuts[index].visible();
+        // this.visible.hotkey[index] = shortcuts[index].visible();
         this.$set(this.visible.hotkey, index, shortcuts[index].visible());
       }
       for (const index of this.updateIndicies.cheatkey) {
@@ -184,7 +184,6 @@ export default {
             CHEATS
           </span>
         </div>
-        
         <div class="l-modal-hotkeys-section">
           <div
             v-for="index in cheatkeyCount"
@@ -298,11 +297,10 @@ export default {
 }
 
 .breakline span {
-  background: white;
   color: black;
-
-  padding: 6px 15px 4px 15px;
-  border-bottom: 2px solid rgb(207, 207, 207)
+  background: white;
+  border-bottom: 2px solid rgb(207, 207, 207);
+  padding: 6px 15px 4px;
 }
 
 .c-modal-hotkeys-row__name {
