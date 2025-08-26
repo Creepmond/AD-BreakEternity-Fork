@@ -350,8 +350,25 @@ export const shortcuts = [
   },
 ];
 
+export const cheatShortcuts = [
+  {
+    name: "Skip Day (CHEATS)",
+    keys: ["shift", "d"],
+    type: "bind",
+    function: () => {
+      keyboardPressShiftD();
+      return false;
+    },
+    visible: true,
+  },
+];
+
 for (const hotkey of shortcuts) {
   GameKeyboard[hotkey.type](hotkey.keys.join("+"), hotkey.function);
+}
+
+for (const cheatkey of cheatShortcuts) {
+  GameKeyboard[cheatkey.type](cheatkey.keys.join("+"), cheatkey.function);
 }
 
 // We need to know whether the player is holding R or not for the replicanti galaxy
@@ -488,6 +505,11 @@ function keyboardPressEscape() {
   if (Quote.isOpen || Quote.isHistoryOpen) Quote.clearAll();
   else if (Modal.isOpen) Modal.hideAll();
   else Tab.options.show(true);
+}
+
+function keyboardPressShiftD() {
+  simulateTime(24 * 3600, false, true);
+  Modal.hideAll();
 }
 
 function keyboardPressQuestionMark() {

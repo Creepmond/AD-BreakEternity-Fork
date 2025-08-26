@@ -22,6 +22,7 @@ import LaitelaTab from "./celestial-laitela/LaitelaTab";
 import MultiplierBreakdownTab from "./statistics/MultiplierBreakdownTab";
 import NormalAchievementsTab from "./normal-achievements/NormalAchievementsTab";
 import NormalChallengesTab from "./normal-challenges/NormalChallengesTab";
+import OptionsCheatsTab from './options-cheats/OptionsCheatsTab'
 import OptionsGameplayTab from "./options-gameplay/OptionsGameplayTab";
 import OptionsSavingTab from "./options-saving/OptionsSavingTab";
 import OptionsVisualTab from "./options-visual/OptionsVisualTab";
@@ -49,6 +50,7 @@ const TabComponents = {
   OptionsSavingTab,
   OptionsVisualTab,
   OptionsGameplayTab,
+  OptionsCheatsTab,
   StatisticsTab,
   ChallengeRecordsTab,
   PastPrestigeRunsTab,

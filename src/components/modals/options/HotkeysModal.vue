@@ -4,12 +4,18 @@ import ModalWrapper from "@/components/modals/ModalWrapper";
 export default {
   name: "HotkeysModal",
   components: {
-    ModalWrapper
+    ModalWrapper,
   },
   data() {
     return {
-      updateIndicies: [],
-      visible: [],
+      updateIndicies: {
+        hotkey: [],
+        cheatkey: [],
+      },
+      visible: {
+        hotkey: [],
+        cheatkey: [],
+      },
       timeStudyUnlocked: false,
       glyphSacUnlocked: false,
       isElectron: false
@@ -34,11 +40,20 @@ export default {
     hotkeyCount() {
       return shortcuts.length;
     },
+    cheatkeyCount() {
+      return cheatShortcuts.length;
+    },
     shortcutNames() {
       return shortcuts.map(x => x.name);
     },
+    cheatShortcutNames() {
+      return cheatShortcuts.map(x => x.name);
+    },
     shortcutKeys() {
       return shortcuts.map(x => x.keys.map(key => this.format(key)));
+    },
+    cheatShortcutKeys() {
+      return cheatShortcuts.map(x => x.keys.map(key => this.format(key)));
     },
     topLabel() {
       return i18n("modal", "hotkeyHeader");
@@ -84,16 +99,28 @@ export default {
     for (let i = 0; i < this.hotkeyCount; i++) {
       const visible = shortcuts[i].visible;
       if (typeof visible === "function") {
-        this.updateIndicies.push(i);
+        this.updateIndicies.hotkey.push(i);
       } else {
-        this.visible[i] = visible;
+        this.visible.hotkey[i] = visible;
+      }
+    }
+    for (let i = 0; i < this.cheatkeyCount; i++) {
+      const visible = cheatShortcuts[i].visible;
+      if (typeof visible === "function") {
+        this.updateIndicies.cheatkey.push(i)
+      } else {
+        this.visible.cheatkey[i] = visible;
       }
     }
   },
   methods: {
     update() {
-      for (const index of this.updateIndicies) {
-        this.$set(this.visible, index, shortcuts[index].visible());
+      for (const index of this.updateIndicies.hotkey) {
+        ////this.visible.hotkey[index] = shortcuts[index].visible();
+        this.$set(this.visible.hotkey, index, shortcuts[index].visible());
+      }
+      for (const index of this.updateIndicies.cheatkey) {
+        this.$set(this.visible.cheatkey, index, cheatShortcuts[index].visible());
       }
       const progress = PlayerProgress.current;
       this.timeStudyUnlocked = progress.isEternityUnlocked;
@@ -113,7 +140,7 @@ export default {
         default:
           return x.toUpperCase();
       }
-    }
+    },
   },
 };
 </script>
@@ -125,30 +152,57 @@ export default {
     </template>
     <span class="c-modal-hotkeys l-modal-hotkeys">
       <div class="l-modal-hotkeys__column">
-        <div class="l-modal-hotkeys-row">
-          <span class="c-modal-hotkeys-row__name l-modal-hotkeys-row__name">{{ buyNdims[0] }}</span>
-          <kbd>SHIFT</kbd><kbd>1</kbd>-<kbd>SHIFT</kbd><kbd>8</kbd>
-        </div>
-        <div class="l-modal-hotkeys-row">
-          <span class="c-modal-hotkeys-row__name l-modal-hotkeys-row__name">{{ buyNdims[1] }}</span>
-          <kbd>1</kbd>-<kbd>8</kbd>
-        </div>
-        <div
-          v-for="index in hotkeyCount"
-          :key="index"
-        >
-          <span
-            v-if="visible[index - 1]"
-            class="l-modal-hotkeys-row"
+        <div class="l-modal-hotkeys-section">
+          <div class="l-modal-hotkeys-row">
+            <span class="c-modal-hotkeys-row__name l-modal-hotkeys-row__name">{{ buyNdims[0] }}</span>
+            <kbd>SHIFT</kbd><kbd>1</kbd>-<kbd>SHIFT</kbd><kbd>8</kbd>
+          </div>
+          <div class="l-modal-hotkeys-row">
+            <span class="c-modal-hotkeys-row__name l-modal-hotkeys-row__name">{{ buyNdims[1] }}</span>
+            <kbd>1</kbd>-<kbd>8</kbd>
+          </div>
+          <div
+            v-for="index in hotkeyCount"
+            :key="index"
           >
-            <span class="c-modal-hotkeys-row__name l-modal-hotkeys-row__name">{{ shortcutNames[index - 1] }}</span>
-            <kbd
-              v-for="(key, i) in shortcutKeys[index - 1]"
-              :key="i"
+            <span
+              v-if="visible.hotkey[index - 1]"
+              class="l-modal-hotkeys-row"
             >
-              {{ key }}
-            </kbd>
+              <span class="c-modal-hotkeys-row__name l-modal-hotkeys-row__name">{{ shortcutNames[index - 1] }}</span>
+              <kbd
+                v-for="(key, i) in shortcutKeys[index - 1]"
+                :key="i"
+              >
+                {{ key }}
+              </kbd>
+            </span>
+          </div>
+        </div>
+        <div class="breakline">
+          <span>
+            CHEATS
           </span>
+        </div>
+        
+        <div class="l-modal-hotkeys-section">
+          <div
+            v-for="index in cheatkeyCount"
+            :key="index"
+          >
+            <span
+              v-if="visible.cheatkey[index - 1]"
+              class="l-modal-hotkeys-row"
+            >
+              <span class="c-modal-hotkeys-row__name l-modal-hotkeys-row__name">{{ cheatShortcutNames[index - 1] }}</span>
+              <kbd
+                v-for="(key, i) in cheatShortcutKeys[index - 1]"
+                :key="i"
+              >
+                {{ key }}
+              </kbd>
+            </span>
+          </div>
         </div>
       </div>
       <div class="l-modal-hotkeys__column l-modal-hotkeys__column--right">
@@ -237,6 +291,18 @@ export default {
   flex-direction: row;
   line-height: 1.6rem;
   padding-bottom: 0.3rem;
+}
+
+.breakline {
+  margin: 9px 0;
+}
+
+.breakline span {
+  background: white;
+  color: black;
+
+  padding: 6px 15px 4px 15px;
+  border-bottom: 2px solid rgb(207, 207, 207)
 }
 
 .c-modal-hotkeys-row__name {

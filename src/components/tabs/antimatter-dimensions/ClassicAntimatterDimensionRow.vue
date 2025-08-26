@@ -34,7 +34,6 @@ export default {
       isCostsAD: false,
       formattedAmount: null,
       hasTutorial: false,
-      costJumps: new Decimal(),
     };
   },
   computed: {
@@ -59,8 +58,7 @@ export default {
 
       const prefix = `Until ${formatInt(10)},${this.showCostTitle(this.until10Cost) ? " Cost" : ""}`;
       const suffix = this.isCostsAD ? `${this.costUnit}` : "AM";
-      const additional = this.costJumps.gt(0) ? ` (+${formatInt(this.costJumps)})` : "";
-      return `${prefix} ${format(this.until10Cost)} ${suffix}${additional}`;
+      return `${prefix} ${format(this.until10Cost)} ${suffix}`;
     },
     continuumString() {
       return formatFloat(this.continuumValue, 2);
@@ -117,7 +115,6 @@ export default {
       this.isCostsAD = NormalChallenge(6).isRunning && tier > 2 && !this.isContinuumActive;
       this.hasTutorial = (tier === 1 && Tutorial.isActive(TUTORIAL_STATE.DIM1)) ||
         (tier === 2 && Tutorial.isActive(TUTORIAL_STATE.DIM2));
-      this.costJumps.copyFrom(dimension.costJumps);
     },
     buySingle() {
       if (this.isContinuumActive) return;
