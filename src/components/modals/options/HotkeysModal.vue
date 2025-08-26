@@ -116,7 +116,7 @@ export default {
   methods: {
     update() {
       for (const index of this.updateIndicies.hotkey) {
-        // this.visible.hotkey[index] = shortcuts[index].visible();
+        // This.visible.hotkey[index] = shortcuts[index].visible();
         this.$set(this.visible.hotkey, index, shortcuts[index].visible());
       }
       for (const index of this.updateIndicies.cheatkey) {
